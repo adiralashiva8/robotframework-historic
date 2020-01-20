@@ -1,0 +1,44 @@
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+    
+        <meta charset="UTF-8">
+        <title>City</title>
+        
+        <a href="/rfhistoric/test">Index</a>
+
+        {% if result %}
+        
+        <table id="city" style="width:100%">
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>CountryCode</th>
+                    <th>Population</th>
+                </tr>
+        {% for name, coutry, population in result %}
+        
+        <tr>
+            <td> {{ name }}</td>
+            <td> {{ coutry }}</td>
+            <td> {{ population }}</td>
+        </tr>
+
+        {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
