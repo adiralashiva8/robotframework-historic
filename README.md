@@ -18,7 +18,6 @@ Robotframework report to hold historic results (Flask + MySQL + Robotframework +
  - MySQL
  - Flask
  - flask-mysqldb
- - Appache Tomcat
 
 
 # Installation

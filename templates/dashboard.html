@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RF Historic - Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .tabcontent {
+            padding: 60px 12px;
+        }
+
+        .tablinks .active {
+            background-color: #666;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/dashboard">RF Historic</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="tablinks active"><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="tablinks"><a href="/shistoric"><i class="fa fa-history"></i> Suite Historic</a></li>
+                    <li class="tablinks"><a href="/tmetrics"><i class="fa fa-database"></i> Test Metrics</a></li>
+                    <li class="tablinks"><a href="/search"><i class="fa fa-search"></i> Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tabcontent">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+        
+        {% for item in data %}
+        <tr>
+            <td> {{item[0]}} - {{item[1]}} - {{item[2]}} - {{item[3]}} - {{item[4]}}</td>
+            </br>
+        </tr>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

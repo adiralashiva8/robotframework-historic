@@ -1,12 +1,66 @@
-<HTML>
-    <BODY bgcolor="cyan">
-    <form method="POST" action="">
-        <center>
-        <H1>Enter your details </H1> <br>
-        First Name <input type = "text" name= "fname" /> <br>
-        Last Name <input type = "text" name = "lname" /> <br>
-        <input type = "submit">
-        </center>
-    </form>
-    </BODY>
-    </HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RF Historic</title>
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: white;
+            font-weight: 300;
+        }
+        
+        .wrapper {
+            background: #50a3a2;
+            background: -webkit-gradient(linear, left top, right bottom, from(#50a3a2), to(#53e3a6));
+            background: linear-gradient(to bottom right, #507ba3 0%, #53e3a6 100%);
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 250px 0;
+            height: 400px;
+            text-align: center;
+        }
+        
+        .container h1 {
+            font-size: 40px;
+            font-weight: 200;
+        }
+        
+        form button {
+            outline: 0;
+            background-color: white;
+            border: 0;
+            padding: 10px 15px;
+            color: #53e3a6;
+            border-radius: 3px;
+            width: 250px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        form button:hover {
+            background-color: #d8e4e2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1>Welcome</h1>
+            <form class="form">
+                <button onclick="location.href='/dashboard'" type="button">Get Started</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
