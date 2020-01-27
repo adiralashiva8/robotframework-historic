@@ -1,0 +1,2 @@
+recursive-include robotframework_historic/templates *
+include MANIFEST.in

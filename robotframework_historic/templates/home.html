@@ -1,0 +1,119 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic - Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body{
+            background: -webkit-gradient(linear, left top, right bottom, from(#50a3a2), to(#53e3a6));
+            background: linear-gradient(to bottom right, #507ba3 0%, #53e3a6 100%);
+        }
+
+        a{
+            text-decoration:none; 
+            color: #0062cc;
+        }
+
+        .box{
+            padding:50px 0px;
+        }
+
+        .box-part{
+            background:white;
+            border-radius:25px;
+            padding:50px 10px;
+            margin:20px 0px;
+        }
+
+        .text{
+            margin:20px 0px;
+            color:black
+        }
+
+        .fav{
+            color:#4183D7;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="container">
+             <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="box-part text-center">
+                        <i class="fa fa-database fa-2X fav"></i>
+                        <div class="text">
+                            <h2>Create DB</h2>
+                        </div>
+                        <table style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:center; width:50%;">
+                                        <a href="/newdb" class="btn btn-primary"><i class="fa fa-plus-circle"></i> New</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+                {% for item in data %}
+                    {% if item[0] != 'information_schema' and
+                        item[0] != 'mysql' and
+                        item[0] != 'performance_schema' and
+                        item[0] != 'sys' %}
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="box-part text-center">
+                                <i class="fa fa-database fa-2X fav"></i>
+                                <div class="text">
+                                    <h2 style="text-transform: capitalize;">{{item[0]}}</h2>
+                                </div>
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center; width:50%;">
+                                                <a href="/{{item[0]}}/dashboard" class="btn btn-primary"><i class="fa fa-play"></i> View</a>
+                                            </td>
+                                            <td style="text-align:center; width:50%;">
+                                                <a href="#" data-toggle="modal" data-target="#deletDB{{item[0]}}" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                            </td>
+                                            <div id="deletDB{{item[0]}}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title" style="text-align-last: center">Delete {{item[0]}} ?</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><b>Would you like to delete this {{item[0]}}?</b></p>
+                                                            <p>You cann't undo this action.</p>
+                                                          </div>
+                                                        <div class="modal-footer">
+                                                            <a href="/{{item[0]}}/delete" type="button" class="btn btn-danger">Yes</a>                                                        
+                                                            <a href="#" type="button" class="btn btn-info" data-dismiss="modal">Cancel</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                             </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
