@@ -6,24 +6,31 @@ def parse_options():
     general = parser.add_argument_group("General")
 
     general.add_argument(
-        '-H', '--host',
-        dest='host',
-        default='0.0.0.0',
-        help="MySQL database URL"
+        '-s', '--sqlhost',
+        dest='sqlhost',
+        default='localhost',
+        help="MySQL database host address"
     )
 
     general.add_argument(
-        '-U', '--username',
+        '-u', '--username',
         dest='username',
         default='superuser',
         help="User name of MySQL database"
     )
 
     general.add_argument(
-        '-P', '--password',
+        '-p', '--password',
         dest='password',
         default='passw0rd',
         help="Password of MySQL database"
+    )
+
+    general.add_argument(
+        '-a', '--apphost',
+        dest='apphost',
+        default='0.0.0.0',
+        help="Flask app host address"
     )
 
     args = parser.parse_args()

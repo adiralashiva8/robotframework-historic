@@ -125,10 +125,9 @@ def use_db(cursor, db_name):
 def main():
 
     args = parse_options()
-    print(args)
 
-    app.config['MYSQL_HOST'] = args.host
+    app.config['MYSQL_HOST'] = args.sqlhost
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
 
-    app.run()
+    app.run(host=args.apphost)
