@@ -15,7 +15,9 @@
 
 ## Robotframework Historic Overview
 
-### Image here>
+ > <img src="https://i.ibb.co/vj60y1Q/historic-dashboard.png" alt="historic-dashboard">
+ 
+ For more images click [here](https://github.com/adiralashiva8/robotframework-historic/wiki/RF-Historic-View)
 
 ---
 
