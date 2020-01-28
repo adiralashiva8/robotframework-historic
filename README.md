@@ -43,7 +43,7 @@
 
 ## How it Works:
 
-- Get execution details by [parsing]() output.xml or using [listener]()
+- Get execution details by __parsing__ output.xml or using __listener__
 - Store execution results in local / remote hosted [MySQL]() database
 - Generate html report using [Flask]()
 
@@ -60,21 +60,21 @@
 
 ## Installation
 
- - __Step 1:__ Install `robotframework-historic`
+ - __Step 1:__ Install robotframework-historic
     ```
     pip install robotframework-historic
     ```
 
- - __Step 2:__ Download and Install MySQL Server - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/1.-MySQL-Setup-Guide)
+ - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
- - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/2.-Create-MySQL-User)
+ - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/30ZPT3v)
 
- - __Step 4:__ Install `robotframework-historic-parser`
+ - __Step 4:__ Install robotframework-historic-parser
     ```
     pip install robotframework-historic-parser
     ```
 
- - __Step 5:__ Install `robotframework-historic-listener`
+ - __Step 5:__ Install robotframework-historic-listener
     ```
     pip install robotframework-historic-listener
     ```
@@ -85,15 +85,15 @@
 
 ## How to use in project
 
- - __Step 1:__ Create project in robotframework-historic - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/3.-Create-Project-In-RF-Historic)
+ - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
- - __Step 2:__ Push execution results to project - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/4.-Push-robotframework-executions-to-MySQL)
+ - __Step 2:__ Push execution results to project - [guide](https://bit.ly/2U62HUf)
 
- - __Step 3:__ Open robotframework-historic to view historical results - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/6.-Analyse-RF-Historic)
+ - __Step 3:__ Open robotframework-historic to view historical results
 
 ---
 
-Thanks for using `robotframework-historic`!
+Thanks for using robotframework-historic!
 
  - What’s your opinion on this report?
  - What’s the feature I should add?
