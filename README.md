@@ -1,6 +1,6 @@
 # robotframework-historic
 
-[Robotframework-historic]() is a free, custom html report which provides historical robotframework execution results by storing execution results info in MYSQL database and generate's html reports (charts / statistics) from database using Flask.
+[Robotframework-historic]() is a free, custom html report which provides historical robotframework execution results by storing execution results info in MySQL database and generate's html reports (charts / statistics) from database using Flask.
 
 > MYSQL + Flask + Robotframework
 
@@ -9,6 +9,7 @@
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 ![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)
+[![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-historic.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-historic)
 
 ---
 
@@ -43,7 +44,7 @@
 ## How it Works:
 
 - Get execution details by [parsing]() output.xml or using [listener]()
-- Store execution results in local / remote hosted [MYSQL]() database
+- Store execution results in local / remote hosted [MySQL]() database
 - Generate html report using [Flask]()
 
   > <img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview">
@@ -64,9 +65,9 @@
     pip install robotframework-historic
     ```
 
- - __Step 2:__ Download and Install MySQL Server - [setup mysql guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/1.-MySQL-Setup-Guide)
+ - __Step 2:__ Download and Install MySQL Server - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/1.-MySQL-Setup-Guide)
 
- - __Step 3:__ Create *rfhistoric* _default user_ with permissions - [create sql user guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/2.-Create-MySQL-User)
+ - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/2.-Create-MySQL-User)
 
  - __Step 4:__ Install `robotframework-historic-parser`
     ```
