@@ -22,15 +22,11 @@
 
 - Support Historic Results
 - Visualization of execution status like
-  - Last 10 execution trends
-  - Last 10 execution performance
-  - Average pass % of recent 10 executions
-  - Average pass % of all executions
-  - Average execution time of recent 10 executions
-  - Average execution time of all executions
+  - Last 10 execution, performance trends
+  - Average pass % of recent 10, overvall executions
+  - Average execution time of recent 10, overall executions
 - Search Historical test records by name / status / execution id
 - Local hosted (meets privacy concerns)
-- Supports multiple projects
 - Export results (Excel, CSV, Print, Copy)
 
 ---
@@ -50,7 +46,7 @@
 - Store execution results in local / remote hosted [MYSQL]() database
 - Generate html report using [Flask]()
 
-<img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview" border="0.5" style="border-radius: 15%;">
+  > <img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview">
 
 ---
 
@@ -68,9 +64,9 @@
     pip install robotframework-historic
     ```
 
- - __Step 2:__ Download and Install MySQL Server - [setup mysql guide]()
+ - __Step 2:__ Download and Install MySQL Server - [setup mysql guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/1.-MySQL-Setup-Guide)
 
- - __Step 3:__ Create *rfhistoric* _default user_ with permissions - [create sql user guide]()
+ - __Step 3:__ Create *rfhistoric* _default user_ with permissions - [create sql user guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/2.-Create-MySQL-User)
 
  - __Step 4:__ Install `robotframework-historic-parser`
     ```
@@ -82,53 +78,17 @@
     pip install robotframework-historic-listener
     ```
  
- > _Note:_ Above all actions are one time activities
+   > _Note:_ Above all actions are one time activities
 
 ---
 
 ## How to use in project
 
+ - __Step 1:__ Create project in robotframework-historic - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/3.-Create-Project-In-RF-Historic)
 
----
+ - __Step 2:__ Push execution results to project - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/4.-Push-robotframework-executions-to-MySQL)
 
-## Default MySQL User:
- - User Name: superuser
- - Password: passw0rd
-
-## Default SQL Info:
-
- - Port: 3306
- - Host: localhost / mysql hosted machine ip
-
-## Check sql connection
-  `mysql> -u<superuser> -h <ip> -P 3306 -p<passwOrd>`
-
-## Create rfhistoric user (one time activity)
-
- > Creating user and assigning permission for local and remote access
-
- ```
-   # create local user
-  CREATE USER 'superuser'@'localhost' IDENTIFIED BY 'passw0rd';
-
-  # grant local access permission
-  GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'localhost' WITH GRANT OPTION;
-
-  # create remote user
-  CREATE USER 'superuser'@'%' IDENTIFIED BY 'passw0rd';
-
-  # grant remote access permission
-  GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'%' WITH GRANT OPTION;
-
-  # to reload grant table
-  FLUSH PRIVILEGES;
- ```
-
----
-
-:star: repo if you like it
-
-> Inspired from [ZenQ - ARES Dahsboard](http://www.testastra.com/ares/)
+ - __Step 3:__ Open robotframework-historic to view historical results - [guide](https://github.com/adiralashiva8/robotframework-spellchecker/wiki/6.-Analyse-RF-Historic)
 
 ---
 
@@ -143,3 +103,11 @@ If you have any questions / suggestions / comments on the report, please feel fr
  - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkhistoric" target="_blank">`robotframeworkhistoric`</a>
  - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
  - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>
+
+---
+
+:star: repo if you like it
+
+> Inspired from [ZenQ - ARES Dahsboard](http://www.testastra.com/ares/)
+
+---
