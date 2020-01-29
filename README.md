@@ -95,6 +95,11 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ---
 
+## Supported Browser
+ - Chrome
+
+---
+
 Thanks for using robotframework-historic!
 
  - What’s your opinion on this report?
