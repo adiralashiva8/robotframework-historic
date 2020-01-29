@@ -1,6 +1,6 @@
 # robotframework-historic
 
-[Robotframework-historic]() is a free, custom html report which provides historical robotframework execution results by storing execution results info in MySQL database and generate's html reports (charts / statistics) from database using Flask.
+Robotframework-historic is a free, custom html report which provides historical robotframework execution results by storing execution results info in MySQL database and generate's html reports (charts / statistics) from database using Flask.
 
 > MYSQL + Flask + Robotframework
 
