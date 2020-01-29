@@ -15,7 +15,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ## Robotframework Historic Overview
 
- > <img src="https://i.ibb.co/qB6zx8R/Screen-Shot-2020-01-29-at-12-57-11-PM.jpg" alt="Screen-Shot-2020-01-29-at-12-57-11-PM">
+ > <img src="https://i.ibb.co/hs0kCNK/Screen-Shot-2020-01-29-at-12-57-11-PM.jpg" alt="Screen-Shot-2020-01-29-at-12-57-11-PM">
  
  For more images click [here](https://github.com/adiralashiva8/robotframework-historic/wiki/RF-Historic-View)
 
