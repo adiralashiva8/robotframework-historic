@@ -24,8 +24,6 @@
             color: white;
         }
          body{
-            /* background: -webkit-gradient(linear, left top, right bottom, from(#50a3a2), to(#53e3a6));
-            background: linear-gradient(to bottom right, #507ba3 0%, #53e3a6 100%); */
             background-color:#fff;
         } 
 
@@ -164,7 +162,7 @@
                 {% for item in last_ten_exe_pie_data %}
                     <a class="tile tile-head"> {{item[3]}}
                 {% endfor %}
-                    <p style="font-size:12px">Recent 'X' Execution's</p>
+                    <p style="font-size:12px">Recent X Executions</p>
                 </a>
             </div>
             <div class="col-md-3">
@@ -195,7 +193,7 @@
                 {% for item in over_all_exe_pie_data %}
                     <a class="tile tile-head"> {{item[3]}}
                 {% endfor %}
-                    <p style="font-size:12px">No. of Execution's</p>
+                    <p style="font-size:12px">No. of Executions</p>
                 </a>
             </div>
             <div class="col-md-3">
@@ -232,7 +230,7 @@
             <div class="col-md-3">
                 {% for item in last_ten_exe_avg_data %}
                     <a class="tile tile-apass">{{item[0]}}
-                    <p style="font-size:12px">Avg pass % of recent {{item[2]}} executions</p>
+                    <p style="font-size:12px">Avg passed tests of recent {{item[2]}} executions</p>
                 {% endfor %}
                 </a>
             </div>
@@ -246,7 +244,7 @@
             <div class="col-md-3">
                 {% for item in over_all_exe_avg_data %}
                 <a class="tile tile-apass">{{item[0]}}
-                    <p style="font-size:12px">Avg pass % of all executions</p>
+                    <p style="font-size:12px">Avg passed test of all executions</p>
                 {% endfor %}
                 </a>
             </div>
@@ -328,13 +326,14 @@
             var options = {
                     legend: 'none',
                     isStacked:true,
-                    chartArea: {width: "95%",height: "80%"},
+                    chartArea: {width: "90%",height: "80%"},
                     bar: {
                         groupWidth: '90%'
                     },
                     annotations: {
                         alwaysOutside: true,
                     },
+                    vAxis: {title: "No. of test cases"},
                 series: {
                     0:{color:'#2ecc71'},
                     1:{color:'#fc6666'}
@@ -357,6 +356,7 @@
                     isStacked:true,
                     legend:'none',
                     chartArea: {width: "90%",height: "80%"},
+                    vAxis: {title: "Duration in minutes"},
 
                     annotations: {
                         alwaysOutside: true,

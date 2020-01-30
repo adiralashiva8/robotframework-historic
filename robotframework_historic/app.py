@@ -36,13 +36,13 @@ def add_db():
         try:
             cursor.execute("Create DATABASE IF NOT EXISTS %s;" % db_name)
             use_db(cursor, db_name)
-            cursor.execute("CREATE TABLE IF NOT EXISTS results(ID int not null auto_increment primary key, DATE text, NAME text, TOTAL int, PASSED int, FAILED int, TIME int)") 
-            cursor.execute("CREATE TABLE IF NOT EXISTS test_results(ID int, TESTCASE text, STATUS text, TIME int, MESSAGE text)") 
+            cursor.execute("CREATE TABLE IF NOT EXISTS results(ID int not null auto_increment primary key, DATE text, NAME text, TOTAL int, PASSED int, FAILED int, TIME float(8,2))") 
+            cursor.execute("CREATE TABLE IF NOT EXISTS test_results(ID int, TESTCASE text, STATUS text, TIME float(8,2), MESSAGE text)") 
             mysql.commit()
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(str(e))
 
-        finally:
+        finally: 
             return redirect(url_for('home'))
     else:
         return render_template('newdb.html')

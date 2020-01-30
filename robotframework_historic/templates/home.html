@@ -11,9 +11,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        body{
-            background: -webkit-gradient(linear, left top, right bottom, from(#50a3a2), to(#53e3a6));
-            background: linear-gradient(to bottom right, #507ba3 0%, #53e3a6 100%);
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 300;
+            background: -moz-linear-gradient(top bottom right,  #507ba3 0%, #53e3a6 100%);
+            background: -webkit-gradient(linear, left top, left bottom, from(#50a3a2), to(#53e3a6));
+            color: white;
         }
 
         a{
@@ -85,7 +89,7 @@
                                             <td style="text-align:center; width:50%;">
                                                 <a href="#" data-toggle="modal" data-target="#deletDB{{item[0]}}" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                             </td>
-                                            <div id="deletDB{{item[0]}}" class="modal fade" role="dialog">
+                                            <div id="deletDB{{item[0]}}" class="modal fade" role="dialog" style="color:black;">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
