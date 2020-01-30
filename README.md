@@ -46,8 +46,8 @@ Robotframework-historic is a free, custom html report which provides historical 
 ## How it Works:
 
 - Get execution details by __parsing__ output.xml or using __listener__
-- Store execution results in local / remote hosted [MySQL]() database
-- Generate html report using [Flask]()
+- Store execution results in local / remote hosted __MySQL__ database
+- Generate html report using __Flask__
 
   > <img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview">
 
@@ -64,7 +64,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 1:__ Install robotframework-historic
     ```
-    pip install robotframework-historic
+    pip install --upgrade robotframework-historic
     ```
 
  - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
@@ -73,12 +73,12 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 4:__ Install robotframework-historic-parser
     ```
-    pip install robotframework-historic-parser
+    pip install --upgrade robotframework-historic-parser
     ```
 
  - __Step 5:__ Install robotframework-historic-listener
     ```
-    pip install robotframework-historic-listener
+    pip install --upgrade robotframework-historic-listener
     ```
  
    > _Note:_ Above all actions are one time activities
@@ -92,11 +92,6 @@ Robotframework-historic is a free, custom html report which provides historical 
  - __Step 2:__ Push execution results to project - [guide](https://bit.ly/2U62HUf)
 
  - __Step 3:__ Open robotframework-historic to view historical results
-
----
-
-## Supported Browser
- - Chrome
 
 ---
 
