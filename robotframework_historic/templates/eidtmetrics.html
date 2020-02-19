@@ -51,23 +51,15 @@
                 </button>
                 <a class="navbar-brand" href="/home">RF Historic</a>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="tablinks"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> Execution Historic</a></li>
-                    <li class="tablinks active" onclick="executeDataTable()"><a href="./tmetrics"><i class="fa fa-flask"></i> Test Metrics</a></li>
-                    <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
     <div class="tabcontent">
         <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
-            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Recent Test Metrics</h3>
+            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Test Metrics</h3>
         </div>
         <hr>
-        <table class="table table-striped table-bordered" id="tmetrics">
+        <table class="table table-striped table-bordered" id="eidtmetrics">
             <thead>
                 <tr>
                     <th>Execution ID</th>
@@ -96,8 +88,8 @@
     </div>
     <script>
         function executeDataTable() {
-            var fileTitle = "TestMetrics";
-            $('#tmetrics').DataTable(
+            var fileTitle = "TestMetrics";      
+            $('#eidtmetrics').DataTable(
                 {
                     retrieve: true,
                     dom: 'l<".margin" B>frtip',

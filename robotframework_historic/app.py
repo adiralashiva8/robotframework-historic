@@ -18,7 +18,7 @@ def redirect_url():
 @app.route('/home', methods=['GET'])
 def home():
     cursor = mysql.connection.cursor()
-    cursor.execute("select table_schema from information_schema.tables group by table_schema order by create_time;")
+    cursor.execute("select table_schema, create_time from information_schema.tables group by table_schema order by create_time;")
     data = cursor.fetchall()
     return render_template('home.html', data=data)
 
@@ -83,7 +83,7 @@ def dashboard(db):
         over_all_exe_pie_data=over_all_exe_pie_data,
         last_ten_exe_avg_data=last_ten_exe_avg_data,
         over_all_exe_avg_data=over_all_exe_avg_data, db_name=db)
-    
+
     else:
         return redirect(url_for('redirect_url'))
 
@@ -106,6 +106,15 @@ def tmetrics(db):
     cursor.execute("SELECT * from test_results WHERE ID=%s;" % data)
     data = cursor.fetchall()
     return render_template('tmetrics.html', data=data, db_name=db)
+
+@app.route('/<db>/tmetrics/<eid>', methods=['GET'])
+def eid_tmetrics(db, eid):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    # Get testcase results of execution id (typically last executed)
+    cursor.execute("SELECT * from test_results WHERE ID=%s;" % eid)
+    data = cursor.fetchall()
+    return render_template('eidtmetrics.html', data=data, db_name=db)
 
 @app.route('/<db>/search', methods=['GET', 'POST'])
 def search(db):

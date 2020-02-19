@@ -83,7 +83,7 @@
             <tbody>
                 {% for item in data %}
                     <tr>
-                        <td> {{item[0]}}</td>
+                        <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
                         <td> {{item[1]}}</td>
                         <td style="text-align:left;"> {{item[2]}}</td>
                         <td style="color: brown"> {{item[3]}}</td style="color: green">
@@ -97,7 +97,7 @@
     </div>
     <script>
         function executeDataTable() {
-            var fileTitle = "ExecutionHistoric";      
+            var fileTitle = "ExecutionHistoric";
             $('#ehist').DataTable(
                 {
                     retrieve: true,
