@@ -26,13 +26,13 @@
         }
 
         .box{
-            padding:50px 0px;
+            padding:30px 0px;
         }
 
         .box-part{
             background:white;
             border-radius:25px;
-            padding:50px 10px;
+            padding:40px 10px;
             margin:20px 0px;
         }
 
@@ -76,11 +76,8 @@
                         item[0] != 'sys' %}
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="box-part text-center">
-                                <i class="fa fa-database fa-2X fav"></i>
-                                <div class="text">
-                                    <h2 style="text-transform: capitalize;">{{item[0]}}</h2>
-                                </div>
-                                <p class="text" style="text-transform: capitalize;">Created Date: {{item[1]}}</p>
+                                <h2 class="text" style="text-transform: capitalize;">{{item[0]}}</h2>
+                                <p class="text" style="text-transform: capitalize;"><i class="fa fa-clock-o fav" title="Created Date"></i> {{item[1]}}</p>
                                 <table style="width:100%;">
                                     <tbody>
                                         <tr>
@@ -103,8 +100,8 @@
                                                             <p>You cann't undo this action.</p>
                                                           </div>
                                                         <div class="modal-footer">
-                                                            <a href="/{{item[0]}}/delete" type="button" class="btn btn-danger">Yes</a>                                                        
-                                                            <a href="#" type="button" class="btn btn-info" data-dismiss="modal">Cancel</a>
+                                                            <a href="#" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</a>
+                                                            <a href="/{{item[0]}}/delete" type="button" class="btn btn-danger">Yes</a>
                                                         </div>
                                                     </div>
                                                 </div>

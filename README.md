@@ -15,9 +15,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ## Robotframework Historic Overview
 
- > <img src="https://i.ibb.co/hs0kCNK/Screen-Shot-2020-01-29-at-12-57-11-PM.jpg" alt="Screen-Shot-2020-01-29-at-12-57-11-PM">
- 
- For more images click [here](https://github.com/adiralashiva8/robotframework-historic/wiki/RF-Historic-View)
+ > <img src="https://i.ibb.co/Rc37hP7/Webp-net-gifmaker-1.gif" alt="Overview">
 
 ---
 
@@ -26,7 +24,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 - Support Historic Results
 - Visualization of execution status like
   - Last 10 execution, performance trends
-  - Average pass % of recent 10, overvall executions
+  - Average pass tests of recent 10, overvall executions
   - Average execution time of recent 10, overall executions
 - Search Historical test records by name / status / execution id
 - Local hosted (meets privacy concerns)
@@ -80,7 +78,7 @@ Robotframework-historic is a free, custom html report which provides historical 
     ```
     pip install --upgrade robotframework-historic-listener
     ```
- 
+
    > _Note:_ Above all actions are one time activities
 
 ---
@@ -95,14 +93,40 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ---
 
-Thanks for using robotframework-historic!
+## Existing users:
+
+ - `v0.1.2` new columns are added in `test_results` table
+
+ - Users need to execute following DB script to compatiable with new changes
+   ```
+   # login to db
+   mysql -uroot -p123456
+
+   # select db
+   use [projectname];
+
+   # command to add UID column
+   ALTER TABLE test_results ADD UID int not null auto_increment primary key AFTER ID;
+
+   # command to add TYPE column
+   ALTER TABLE test_results ADD TYPE text AFTER MESSAGE;
+
+   ```
+
+ - Use latest `parser` or `listener` to push data
+
+ > Note: I suggest to create new project, if data is less
+
+---
+
+Thanks for using robotframework-historic
 
  - What’s your opinion on this report?
  - What’s the feature I should add?
 
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
- - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20historic" target="_blank">`adiralashiva8@gmail.com`</a> 
+ - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20historic" target="_blank">`adiralashiva8@gmail.com`</a>
  - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkhistoric" target="_blank">`robotframeworkhistoric`</a>
  - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
  - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>

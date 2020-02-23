@@ -91,6 +91,7 @@
                     <li class="tablinks active"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> Execution Historic</a></li>
                     <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Test Metrics</a></li>
+                    <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
                     <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
                 </ul>
             </div>
@@ -324,16 +325,16 @@
 
             var data = google.visualization.arrayToDataTable(status);
             var options = {
-                    legend: 'none',
-                    isStacked:true,
-                    chartArea: {width: "90%",height: "80%"},
-                    bar: {
-                        groupWidth: '90%'
-                    },
-                    annotations: {
-                        alwaysOutside: true,
-                    },
-                    vAxis: {title: "No. of test cases"},
+                isStacked:true,
+                legend: 'top-right',
+                chartArea: {width: "85%",height: "80%"},
+                bar: {
+                    groupWidth: '90%'
+                },
+                annotations: {
+                    alwaysOutside: true,
+                },
+                vAxis: {title: "No. of test cases"},
                 series: {
                     0:{color:'#2ecc71'},
                     1:{color:'#fc6666'}
@@ -355,7 +356,9 @@
                 var options = {
                     isStacked:true,
                     legend:'none',
-                    chartArea: {width: "90%",height: "80%"},
+                    pointSize: 5,
+					pointShape: { type: 'diamond'},
+                    chartArea: {width: "85%",height: "80%"},
                     vAxis: {title: "Duration in minutes"},
 
                     annotations: {
@@ -363,7 +366,7 @@
                     },
                 };
                 var data = google.visualization.arrayToDataTable(status);
-                
+
                     // Instantiate and draw the chart.
                     var chart = new google.visualization.LineChart(document.getElementById(ChartID));
                     chart.draw(data, options);
