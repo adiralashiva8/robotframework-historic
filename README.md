@@ -61,11 +61,21 @@ Robotframework-historic is a free, custom html report which provides historical 
 ## Installation
 
  - __Step 1:__ Install robotframework-historic
+
+    > Case 1: Using pip
     ```
-    pip install --upgrade robotframework-historic
+    pip install robotframework-historic
     ```
 
-    > For latest changes use `pip install git+https://github.com/adiralashiva8/robotframework-historic`
+    > Case 2: Using setup.py (root)
+    ```
+    python setup.py install
+    ```
+
+    > Case 3: Using git (latest changes)
+    ```
+    pip install git+https://github.com/adiralashiva8/robotframework-historic
+    ```
 
  - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
@@ -73,7 +83,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 4:__ Install robotframework-historic-parser
     ```
-    pip install --upgrade robotframework-historic-parser
+    pip install robotframework-historic-parser
     ```
 
  - __Step 5:__ Install robotframework-historic-listener
