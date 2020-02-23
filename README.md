@@ -65,6 +65,8 @@ Robotframework-historic is a free, custom html report which provides historical 
     pip install --upgrade robotframework-historic
     ```
 
+    > For latest changes use `pip install git+https://github.com/adiralashiva8/robotframework-historic`
+
  - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
  - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/30ZPT3v)
