@@ -111,17 +111,17 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - Users need to execute following DB script to compatiable with new changes
    ```
-   # login to db
-   mysql -uroot -p123456
+   # login to db from command prompt
+   $ mysql -uroot -p123456
 
    # select db
-   use [projectname];
+   mysql> use <your-project-name>;
 
    # command to add UID column
-   ALTER TABLE test_results ADD UID int not null auto_increment primary key AFTER ID;
+   mysql> ALTER TABLE test_results ADD UID int not null auto_increment primary key AFTER ID;
 
    # command to add TYPE column
-   ALTER TABLE test_results ADD TYPE text AFTER MESSAGE;
+   mysql> ALTER TABLE test_results ADD TYPE text AFTER MESSAGE;
 
    ```
 
