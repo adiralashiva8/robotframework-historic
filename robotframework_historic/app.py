@@ -1,11 +1,17 @@
+import config
+import psycopg2
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
-import config
 from .args import parse_options
 
 app = Flask(__name__, template_folder='templates')
 
-mysql = MySQL(app)
+args = parse_options()
+# Postgres DB connection
+connection = psycopg2.connect(user = args.username,
+                            password = args.password,
+                            host = args.psqlhost,
+                            port = "5432")
 
 @app.route('/')
 def index():
@@ -17,14 +23,15 @@ def redirect_url():
 
 @app.route('/home', methods=['GET'])
 def home():
-    cursor = mysql.connection.cursor()
-    cursor.execute("select table_schema, create_time from information_schema.tables group by table_schema order by create_time;")
+    cursor = connection.cursor()
+    # cursor.execute("select table_schema, create_time from information_schema.tables group by table_schema order by create_time;")
+    cursor.execute("SELECT datname FROM pg_database;")
     data = cursor.fetchall()
     return render_template('home.html', data=data)
 
 @app.route('/<db>/delete', methods=['GET'])
 def delete_db(db):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     cursor.execute("DROP DATABASE %s;" % db)
     return redirect(url_for('home'))
 
@@ -32,24 +39,24 @@ def delete_db(db):
 def add_db():
     if request.method == "POST":
         db_name = request.form['dbname']
-        cursor = mysql.connection.cursor()
+        cursor = connection.cursor()
         try:
             cursor.execute("Create DATABASE IF NOT EXISTS %s;" % db_name)
             use_db(cursor, db_name)
             cursor.execute("CREATE TABLE IF NOT EXISTS results(ID int not null auto_increment primary key, DATE text, NAME text, TOTAL int, PASSED int, FAILED int, TIME float(8,2))") 
             cursor.execute("CREATE TABLE IF NOT EXISTS test_results(ID int, UID int not null auto_increment primary key, TESTCASE text, STATUS text, TIME float(8,2), MESSAGE text, TYPE text)") 
-            mysql.connection.commit()
+            connection.commit()
         except Exception as e:
             print(str(e))
 
-        finally: 
+        finally:
             return redirect(url_for('home'))
     else:
         return render_template('newdb.html')
 
 @app.route('/<db>/dashboard', methods=['GET'])
 def dashboard(db):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     use_db(cursor, db)
 
     cursor.execute("SELECT COUNT(ID) from results;")
@@ -89,7 +96,7 @@ def dashboard(db):
 
 @app.route('/<db>/ehistoric', methods=['GET'])
 def ehistoric(db):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     use_db(cursor, db)
     cursor.execute("SELECT * from results order by ID desc LIMIT 500;")
     data = cursor.fetchall()
@@ -97,13 +104,13 @@ def ehistoric(db):
 
 @app.route('/<db>/tmetrics', methods=['GET', 'POST'])
 def tmetrics(db):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
         textField = request.form['textField']
         rowField = request.form['rowField']
         cursor.execute("Update test_results SET TYPE='%s' WHERE UID=%s;" % (str(textField), str(rowField)))
-        mysql.connection.commit()
+        connection.commit()
 
     # Get last row execution ID
     cursor.execute("SELECT ID from results order by ID desc LIMIT 1;")
@@ -115,13 +122,13 @@ def tmetrics(db):
 
 @app.route('/<db>/tmetrics/<eid>', methods=['GET', 'POST'])
 def eid_tmetrics(db, eid):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
         textField = request.form['textField']
         rowField = request.form['rowField']
         cursor.execute("Update test_results SET TYPE='%s' WHERE UID=%s;" % (textField, rowField))
-        mysql.connection.commit()
+        connection.commit()
 
     # Get testcase results of execution id (typically last executed)
     cursor.execute("SELECT * from test_results WHERE ID=%s;" % eid)
@@ -132,7 +139,7 @@ def eid_tmetrics(db, eid):
 def search(db):
     if request.method == "POST":
         search = request.form['search']
-        cursor = mysql.connection.cursor()
+        cursor = connection.cursor()
         use_db(cursor, db)
         cursor.execute("SELECT * from test_results WHERE TESTCASE LIKE '%{name}%' OR STATUS LIKE '%{name}%' OR ID LIKE '%{name}%' ORDER BY ID DESC LIMIT 10000;".format(name=search))
         data = cursor.fetchall()
@@ -142,7 +149,7 @@ def search(db):
 
 @app.route('/<db>/flaky', methods=['GET'])
 def flaky(db):
-    cursor = mysql.connection.cursor()
+    cursor = connection.cursor()
     use_db(cursor, db)
     cursor.execute("SELECT ID from ( SELECT ID from results ORDER BY ID DESC LIMIT 5 ) as tmp ORDER BY ID ASC LIMIT 1;")
     last_five = cursor.fetchall()
@@ -176,11 +183,5 @@ def sort_tests(data_list):
     return [tuple(values) for values in out.values()]
 
 def main():
-
     args = parse_options()
-
-    app.config['MYSQL_HOST'] = args.sqlhost
-    app.config['MYSQL_USER'] = args.username
-    app.config['MYSQL_PASSWORD'] = args.password
-
     app.run(host=args.apphost)

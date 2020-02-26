@@ -2,9 +2,9 @@ from setuptools import find_packages, setup
 
 setup(
       name='robotframework-historic',
-      version="0.1.2",
+      version="0.1.3",
       description='Custom report to display robotframework historical execution records',
-      long_description='Robotframework Historic is custom report to display historical execution records using MySQL + Flask',
+      long_description='Robotframework Historic is custom report to display historical execution records using Postgres + Flask',
       classifiers=[
           'Framework :: Robot Framework',
           'Programming Language :: Python',
@@ -15,7 +15,7 @@ setup(
       author_email='adiralashiva8@gmail.com',
       url='https://github.com/adiralashiva8/robotframework-historic',
       license='MIT',
-      
+
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
@@ -24,7 +24,7 @@ setup(
           'robotframework',
           'config',
           'flask',
-          'flask-mysqldb'
+          'psycopg2',
       ],
       entry_points={
           'console_scripts': [

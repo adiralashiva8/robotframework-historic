@@ -70,10 +70,9 @@
                      </div>
                 </div>
                 {% for item in data %}
-                    {% if item[0] != 'information_schema' and
-                        item[0] != 'mysql' and
-                        item[0] != 'performance_schema' and
-                        item[0] != 'sys' %}
+                    {% if item[0] != 'postgres' and
+                        item[0] != 'template1' and
+                        item[0] != 'template0' %}
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="box-part text-center">
                                 <h2 class="text" style="text-transform: capitalize;">{{item[0]}}</h2>

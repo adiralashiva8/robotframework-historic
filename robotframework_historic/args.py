@@ -6,24 +6,24 @@ def parse_options():
     general = parser.add_argument_group("General")
 
     general.add_argument(
-        '-s', '--sqlhost',
-        dest='sqlhost',
+        '-s', '--psqlhost',
+        dest='psqlhost',
         default='localhost',
-        help="MySQL database host address"
+        help="PSQL database host address"
     )
 
     general.add_argument(
         '-u', '--username',
         dest='username',
-        default='superuser',
-        help="User name of MySQL database"
+        default='postgres',
+        help="User name of postgres database"
     )
 
     general.add_argument(
         '-p', '--password',
         dest='password',
-        default='passw0rd',
-        help="Password of MySQL database"
+        default='123456',
+        help="Password of postgres database"
     )
 
     general.add_argument(
