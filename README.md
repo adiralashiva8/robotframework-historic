@@ -15,19 +15,20 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ## Robotframework Historic Overview
 
- > <img src="https://i.ibb.co/Rc37hP7/Webp-net-gifmaker-1.gif" alt="Overview">
+ > <img src="https://i.ibb.co/vs2dLg4/rfhistoric-Gif.gif" alt="Overview">
 
 ---
 
 ## Features
 
 - Support Historic Results
-- Visualization of execution status like
-  - Last 10 execution, performance trends
-  - Average pass tests of recent 10, overvall executions
-  - Average execution time of recent 10, overall executions
+- Visualization of executions
 - Search Historical test records by name / status / execution id
 - Local hosted (meets privacy concerns)
+- Flakiness
+- Compare executions
+- Generate Robotframework-metrics report
+- Custom comments on failures
 - Export results (Excel, CSV, Print, Copy)
 
 ---

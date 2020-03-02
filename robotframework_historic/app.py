@@ -77,7 +77,7 @@ def dashboard(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
         last_exe_pie_data = cursor.fetchall()
 
         cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
