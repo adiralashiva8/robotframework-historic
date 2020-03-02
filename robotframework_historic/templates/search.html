@@ -88,10 +88,11 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="tablinks"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> Execution Historic</a></li>
-                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Test Metrics</a></li>
+                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> History</a></li>
+                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Metrics</a></li>
                     <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
                     <li class="tablinks active" onclick="executeDataTable()"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
                 </ul>
             </div>
         </div>
@@ -104,10 +105,10 @@
         <hr>
         <form class="example" method="post" action="" style="margin:auto;max-width:600px">
             <input id="textField" type="text" placeholder="Search by Testcase Name / Execution ID / Status" name="search">
-            <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search"></i></button id="textField">
+            <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search"></i></button>
         </form>
         <hr>
-        <table class="table table-striped table-bordered" id="search">
+        <table class="table table-striped" id="search">
             <thead>
                 <tr>
                     <th>Execution ID</th>
@@ -121,7 +122,7 @@
             <tbody>
                 {% for item in data %}
                     <tr>
-                        <td> {{item[0]}}</td>
+                        <td> {{item[1]}}</td>
                         <td style="text-align:left;"> {{item[2]}}</td>
                         {% if (item[3] == "PASS") %}
                             <td style="color: green"> {{item[3]}}</td>

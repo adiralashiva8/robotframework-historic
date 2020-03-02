@@ -71,7 +71,7 @@
             span, .breadcrumb-item {
                 font-size: 15px;
             }
-            
+
     </style>
 </head>
 
@@ -89,10 +89,11 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="tablinks active"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> Execution Historic</a></li>
-                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Test Metrics</a></li>
+                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> History</a></li>
+                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Metrics</a></li>
                     <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
                     <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
                 </ul>
             </div>
         </div>
@@ -102,21 +103,21 @@
             {% for item in last_exe_pie_data %}
 			    createPieChart({{item[0]}},{{item[1]}},'lastPieID','Last Execution Result:');
             {% endfor %}
-            
+
             {% for item in last_ten_exe_pie_data %}
 			    createPieChart({{item[0]}},{{item[1]}},'lastTenPieID','Last Execution Result:');
             {% endfor %}
-            
+
             {% for item in over_all_exe_pie_data %}
 			    createPieChart({{item[0]}},{{item[1]}},'overAllPieID','Overall Execution Result:');
             {% endfor %}
-            
+
             createLastTenExecutionTrendzBarGraph('lastTenExecutionTrendzID');
-            
+
             createLastTenPerformanceTrendzLineGraph('lastTenPerfExecutionTrendzID');
 		};
    </script>
-	
+
     <div class="tabcontent">
         <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
             <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Dashboard</h3>
@@ -157,7 +158,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 {% for item in last_ten_exe_pie_data %}
@@ -220,7 +221,7 @@
             </div>
         </div>
         <hr>
-        
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#"><b>Executions Mean Statistics:</a></b></li>
@@ -314,7 +315,7 @@
                 </p>
          </div>
     </div>
-    
+
     <script>
         function createLastTenExecutionTrendzBarGraph(ChartID){
             var status = [];
@@ -372,7 +373,7 @@
                     chart.draw(data, options);
                 }
     </script>
-      
+
 	<script>
 	  function createPieChart(passed_count,failed_count,ChartID,ChartName){
 			var status = [];

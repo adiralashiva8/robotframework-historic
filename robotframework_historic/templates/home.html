@@ -6,10 +6,10 @@
     <title>RF Historic - Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <style>
 
         body {
@@ -17,105 +17,75 @@
             font-weight: 300;
             background: -moz-linear-gradient(top bottom right,  #507ba3 0%, #53e3a6 100%);
             background: -webkit-gradient(linear, left top, left bottom, from(#50a3a2), to(#53e3a6));
-            color: white;
-        }
-
-        a{
-            text-decoration:none; 
-            color: #0062cc;
+            color: rgb(22, 0, 0);
         }
 
         .box{
             padding:30px 0px;
         }
 
-        .box-part{
-            background:white;
-            border-radius:25px;
-            padding:40px 10px;
-            margin:20px 0px;
+        .text {
+            display: block;
+            width: 220px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
-        .text{
-            margin:20px 0px;
-            color:black
-        }
-
-        .fav{
-            color:#4183D7;
+        .card-img-top {
+            width: 100%;
+            height: 10vw;
+            object-fit: fill;
         }
 
     </style>
 </head>
 
 <body>
-    <div class="box">
-        <div class="container">
-             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-part text-center">
-                        <i class="fa fa-database fa-2X fav"></i>
-                        <div class="text">
-                            <h2>Create DB</h2>
+    <nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+        <p class="navbar-brand">RF Historic</p>
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto ">
+            <li class="nav-item">
+                <a class="btn btn-light text-primary" type=button href="/newdb"><i class="fa fa-plus-circle"></i> <b>New Project</b></a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container box">
+        <div class="row">
+            {% for item in data %}
+                <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                    <div class="card columns">
+                        <img src="{{item[3]}}" class="card-img-top" alt="logo" title="{{item[2]}}">
+                        <div class="card-body">
+                            <h5 class="card-title text" style="text-transform:capitalize;" title="{{item[1]}}">{{item[1]}}</h5>
+                            <small class="text-muted"><i class="fa fa-clock-o fav" title="Last Updated: {{item[5]}}"></i> {{item[5]}}</small>
+                            <hr>
+                            <table class="text-muted" style="width:100%;text-align:center;">
+                                <tbody>
+                                    <tr style="font-size:28px;">
+                                        <td style="color:rgb(80, 1, 80)">{{item[6]}}</td>
+                                        <td style="color:green">{{item[7]}}</td>
+                                    </tr>
+                                    <tr style="font-size:9px;">
+                                        <td style="color:silver">Total Executions</td>
+                                        <td style="color:silver">Recent Pass %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="text-align:center; width:50%;">
-                                        <a href="/newdb" class="btn btn-primary"><i class="fa fa-plus-circle"></i> New</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                     </div>
+                        <div class="card-footer">
+                            <a type="button" href="{{item[1]}}/deldbconf" class="btn btn-light float-left btn-sm"><i class="fa fa-trash-o"></i> Delete</a>
+                            <a type="button" href="{{item[1]}}/dashboard" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
+                        </div>
+                    </div>
                 </div>
-                {% for item in data %}
-                    {% if item[0] != 'information_schema' and
-                        item[0] != 'mysql' and
-                        item[0] != 'performance_schema' and
-                        item[0] != 'sys' %}
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <div class="box-part text-center">
-                                <h2 class="text" style="text-transform: capitalize;">{{item[0]}}</h2>
-                                <p class="text" style="text-transform: capitalize;"><i class="fa fa-clock-o fav" title="Created Date"></i> {{item[1]}}</p>
-                                <table style="width:100%;">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align:center; width:50%;">
-                                                <a href="/{{item[0]}}/dashboard" class="btn btn-primary"><i class="fa fa-play"></i> View</a>
-                                            </td>
-                                            <td style="text-align:center; width:50%;">
-                                                <a href="#" data-toggle="modal" data-target="#deletDB{{item[0]}}" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
-                                            </td>
-                                            <div id="deletDB{{item[0]}}" class="modal fade" role="dialog" style="color:black;">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title" style="text-align-last: center">Delete {{item[0]}} ?</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p><b>Would you like to delete this {{item[0]}}?</b></p>
-                                                            <p>You cann't undo this action.</p>
-                                                          </div>
-                                                        <div class="modal-footer">
-                                                            <a href="#" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</a>
-                                                            <a href="/{{item[0]}}/delete" type="button" class="btn btn-danger">Yes</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
-
 </html>

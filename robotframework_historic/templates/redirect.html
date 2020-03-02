@@ -1,61 +1,65 @@
-<html lang="en">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon" />
+<title>RF Historic</title>
+<style>
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 300;
+        background: -moz-linear-gradient(top bottom right, #507ba3 0%, #53e3a6 100%);
+        background: -webkit-gradient(linear, left top, left bottom, from(#50a3a2), to(#53e3a6));
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        color: white;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
-    <title>RF Historic</title>
-    <style>
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-weight: 300;
-            background: -moz-linear-gradient(top bottom right,  #507ba3 0%, #53e3a6 100%);
-            background: -webkit-gradient(linear, left top, left bottom, from(#50a3a2), to(#53e3a6));
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            color: white;
-        }
+    .push {
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+    }
+</style>
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 250px 0;
-            /* height: 400px; */
-            text-align: center;
-        }
-        
-        .container h1 {
-            font-size: 40px;
-            font-weight: 200;
-        }
-        
-        form button {
-            outline: 0;
-            background-color: white;
-            border: 0;
-            padding: 10px 15px;
-            color: black;
-            border-radius: 3px;
-            width: 250px;
-            font-size: 18px;
-            cursor: pointer;
-        }
+<div class="container">
+    <!-- Feature Cards -->
+    <section class="d-flex" id="feature-cards">
+        <div class="container d-flex justify-content-center">
+            <div class="row align-items-center justify-content-center">
 
-        form button:hover {
-            background-color: #d8e4e2;
-        }
-    </style>
-</head>
+                <div class="col-12 align-self-center">
+                    <div class="row">
+                        <div class="col-12 col-lg-7 mx-auto text-center">
+                            <h2 class="display-4"></h2>
+                            <p class="text-muted lead mb-5"></p>
+                        </div>
+						<div class="col-12 col-lg-7 mx-auto text-center">
+                            <h2 class="display-4"></h2>
+                            <p class="text-muted lead mb-5"></p>
+                        </div>
+						<div class="col-12 col-lg-7 mx-auto text-center">
+                            <h2 class="display-4"></h2>
+                            <p class="text-muted lead mb-5"></p>
+                        </div>
+						<div class="col-12 col-lg-7 mx-auto text-center">
+                            <h2 class="display-4"></h2>
+                            <p class="text-muted lead mb-5"></p>
+                        </div>
+                        <div class="col-md-12 mx-auto text-center">
+                            <h2 class="display-4">Oops</h2>
+                            <p class="text-light">Not enough information available, come back after execution!</p>
+                            <hr>
+                        </div>
+                    </div>
 
-<body>
-    <div class="container">
-        <h1>Oops!</h1>
-        <p class='muted'>Not enough information available, come back after execution!</p>
-        <form class="form">
-            <button onclick="location.href='/home'" type="button">Back to Home</button>
-        </form>
-    </div>
-</body>
-
-</html>
+                    <div class="row">
+                        <div class="col-md-12 mx-auto text-center">
+                            <a class="btn btn-light push" href="/home" type="button" style="width:50%;align:center">Back to Home »</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</section>
+</div>
