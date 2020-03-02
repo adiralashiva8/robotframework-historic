@@ -79,14 +79,16 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
- - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/30ZPT3v)
+ - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/2PIOTfI)
+ 
+ - __Step 4:__ Create *robothistoric.tb_project* table - [guide](https://bit.ly/2Tv2tV5)
 
- - __Step 4:__ Install robotframework-historic-parser
+ - __Step 5:__ Install robotframework-historic-parser
     ```
     pip install robotframework-historic-parser
     ```
 
- - __Step 5:__ Install robotframework-historic-listener
+ - __Step 6:__ Install robotframework-historic-listener
     ```
     pip install --upgrade robotframework-historic-listener
     ```
@@ -105,32 +107,6 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ---
 
-## Existing users:
-
- - `v0.1.2` new columns are added in `test_results` table
-
- - Users need to execute following DB script to compatiable with new changes
-   ```
-   # login to db from command prompt
-   $ mysql -uroot -p123456
-
-   # select db
-   mysql> use <your-project-name>;
-
-   # command to add UID column
-   mysql> ALTER TABLE test_results ADD UID int not null auto_increment primary key AFTER ID;
-
-   # command to add TYPE column
-   mysql> ALTER TABLE test_results ADD TYPE text AFTER MESSAGE;
-
-   ```
-
- - Use latest `parser` or `listener` to push data
-
- > Note: I suggest to create new project, if data is less
-
----
-
 Thanks for using robotframework-historic
 
  - What’s your opinion on this report?
@@ -146,7 +122,5 @@ If you have any questions / suggestions / comments on the report, please feel fr
 ---
 
 :star: repo if you like it
-
-> Inspired from [ZenQ - ARES Dahsboard](http://www.testastra.com/ares/)
 
 ---
