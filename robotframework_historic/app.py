@@ -83,24 +83,28 @@ def dashboard(db):
         cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
         last_ten_exe_pie_data = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),2), ROUND(AVG(Execution_Time),2), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Time, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
-        last_ten_exe_avg_data = cursor.fetchall()
-
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),2), ROUND(AVG(Execution_Time),2) from TB_EXECUTION;")
-        over_all_exe_avg_data = cursor.fetchall()
-
         cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
         over_all_exe_pie_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         last_ten_data = cursor.fetchall()
 
+        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from tb_execution order by execution_id desc;")
+        execution_pass_data = cursor.fetchall()
+
+        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from tb_execution order by execution_id desc;")
+        execution_fail_data = cursor.fetchall()
+
+        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from tb_execution order by execution_id desc;")
+        execution_time_data = cursor.fetchall()
+
         return render_template('dashboard.html', last_ten_data=last_ten_data,
         last_exe_pie_data=last_exe_pie_data,
         last_ten_exe_pie_data=last_ten_exe_pie_data,
         over_all_exe_pie_data=over_all_exe_pie_data,
-        last_ten_exe_avg_data=last_ten_exe_avg_data,
-        over_all_exe_avg_data=over_all_exe_avg_data, db_name=db)
+        execution_pass_data=execution_pass_data,
+        execution_fail_data=execution_fail_data,
+        execution_time_data=execution_time_data,db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
@@ -132,9 +136,12 @@ def delete_eid(db, eid):
     cursor.execute("SELECT COUNT(*) from TB_EXECUTION;")
     exe_data = cursor.fetchall()
 
-    if data[0][0] > 0:
-        recent_pass_perf = float("{0:.2f}".format((data[0][0]/data[0][1]*100)))
-    else:
+    try:
+        if data[0][0] > 0:
+            recent_pass_perf = float("{0:.2f}".format((data[0][0]/data[0][1]*100)))
+        else:
+            recent_pass_perf = 0
+    except:
         recent_pass_perf = 0
 
     # update robothistoric project

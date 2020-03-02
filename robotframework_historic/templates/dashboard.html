@@ -72,6 +72,18 @@
                 font-size: 15px;
             }
 
+            .border-right {
+				border-right: 1px solid #ddd;
+			}
+			.borders {
+				border-left: 1px solid #ddd;
+				border-right: 1px solid #ddd;
+				margin: -1px;
+			}
+			.border-left {
+				border-left: 1px solid #ddd;
+			}
+
     </style>
 </head>
 
@@ -126,139 +138,138 @@
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"><b>Executions Statistics:</a></b></li>
+                <li class="breadcrumb-item"><a href="#"><b>Execution Statistics:</a></b></li>
             </ol>
         </nav>
 
         <div class="row">
-            <div class="col-md-3">
-                <a class="tile tile-head"> Recent
-                    <p style="font-size:12px">Execution Status</p>
-                </a>
+            <div class="col-md-4 border-right">
+                <span style="font-weight:bold; padding-left:55px;color:gray">Passed Tests:</span>
+				<table style="width:100%;height:200px;text-align: center;">
+					<tbody>
+						<tr style="height:60%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:100%">
+											<td style="font-size:60px; color:#2ecc71">{{execution_pass_data[0][0]}}</td>
+										</tr>
+										<tr>
+											<td><span style="color: #999999;font-size:12px">Recent</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr style="height:35%">
+							<td></td>
+						</tr>
+						<tr style="height:5%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:70%;font-size:25px" align="center" valign="middle">
+											<td style="width: 33%; color:red">{{execution_pass_data[0][1]}}</td>
+											<td style="width: 33%; color:brown">{{execution_pass_data[0][2]}}</td>
+											<td style="width: 33%; color:green">{{execution_pass_data[0][3]}}</td>
+										</tr>
+										<tr style="height:30%" align="center" valign="top">
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Overall: Min</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Average</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Max</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
             </div>
-            <div class="col-md-3">
-                {% for item in last_exe_pie_data %}
-                    <a class="tile tile-info"> {{item[2]}}
-                {% endfor %}
-                    <p style="font-size:12px">Total</p>
-                </a>
+            <div class="col-md-4 borders">
+                <span style="font-weight:bold; padding-left:55px;color:gray">Failed Tests:</span>
+				<table style="width:100%;height:200px;text-align: center;">
+					<tbody>
+						<tr style="height:60%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:100%">
+											<td style="font-size:60px;color:#fc6666">{{execution_fail_data[0][0]}}</td>
+										</tr>
+										<tr>
+											<td><span style="color: #999999;font-size:12px">Recent</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr style="height:35%">
+							<td></td>
+						</tr>
+						<tr style="height:5%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:70%;font-size:25px" align="center" valign="middle">
+											<td style="width: 33%; color:green">{{execution_fail_data[0][1]}}</td>
+											<td style="width: 33%; color: brown">{{execution_fail_data[0][2]}}</td>
+											<td style="width: 33%; color:red">{{execution_fail_data[0][3]}}</td>
+										</tr>
+										<tr style="height:30%" align="center" valign="top">
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Overall: Min</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Average</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Max</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
             </div>
-            <div class="col-md-3">
-                {% for item in last_exe_pie_data %}
-                    <a class="tile tile-pass"> {{item[0]}}
-                {% endfor %}
-                    <p style="font-size:12px">Pass</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in last_exe_pie_data %}
-                    <a class="tile tile-fail"> {{item[1]}}
-                {% endfor %}
-                    <p style="font-size:12px">Fail</p>
-                </a>
+            <div class="col-md-4 border-left">
+                <span style="font-weight:bold; padding-left:55px;color:gray">Execution Time (min):</span>
+				<table style="width:100%;height:200px;text-align: center;">
+					<tbody>
+						<tr style="height:60%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:100%">
+											<td style="font-size:60px;color:cadetblue">{{execution_time_data[0][0]}}</td>
+										</tr>
+										<tr>
+											<td><span style="color: #999999;font-size:12px">Recent</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr style="height:35%">
+							<td></td>
+						</tr>
+						<tr style="height:5%">
+							<td>
+								<table style="width:100%">
+									<tbody>
+										<tr style="height:70%;font-size:25px" align="center" valign="middle">
+											<td style="width: 33%;color:green">{{execution_time_data[0][1]}}</td>
+											<td style="width: 33%;color:brown">{{execution_time_data[0][2]}}</td>
+											<td style="width: 33%;color:red">{{execution_time_data[0][3]}}</td>
+										</tr>
+										<tr style="height:30%" align="center" valign="top">
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Overall: Min</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Average</span></td>
+											<td style="width: 33%"><span style="color: #999999;font-size:10px">Max</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                {% for item in last_ten_exe_pie_data %}
-                    <a class="tile tile-head"> {{item[3]}}
-                {% endfor %}
-                    <p style="font-size:12px">Recent X Executions</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in last_ten_exe_pie_data %}
-                    <a class="tile tile-info"> {{item[2]}}
-                {% endfor %}
-                    <p style="font-size:12px">Total</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in last_ten_exe_pie_data %}
-                    <a class="tile tile-pass"> {{item[0]}}
-                {% endfor %}
-                    <p style="font-size:12px">Pass</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in last_ten_exe_pie_data %}
-                    <a class="tile tile-fail"> {{item[1]}}
-                {% endfor %}
-                    <p style="font-size:12px">Fail</p>
-                </a>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                {% for item in over_all_exe_pie_data %}
-                    <a class="tile tile-head"> {{item[3]}}
-                {% endfor %}
-                    <p style="font-size:12px">No. of Executions</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in over_all_exe_pie_data %}
-                    <a class="tile tile-info"> {{item[2]}}
-                {% endfor %}
-                    <p style="font-size:12px">Total</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in over_all_exe_pie_data %}
-                    <a class="tile tile-pass"> {{item[0]}}
-                {% endfor %}
-                    <p style="font-size:12px">Pass</p>
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in over_all_exe_pie_data %}
-                    <a class="tile tile-fail"> {{item[1]}}
-                {% endfor %}
-                    <p style="font-size:12px">Fail</p>
-                </a>
-            </div>
-        </div>
-        <hr>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"><b>Executions Mean Statistics:</a></b></li>
-            </ol>
-        </nav>
-
-        <div class="row">
-            <div class="col-md-3">
-                {% for item in last_ten_exe_avg_data %}
-                    <a class="tile tile-apass">{{item[0]}}
-                    <p style="font-size:12px">Avg passed tests of recent {{item[2]}} executions</p>
-                {% endfor %}
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in last_ten_exe_avg_data %}
-                    <a class="tile tile-perf">{{item[1]}}
-                    <p style="font-size:12px">Avg exe. time (min) of recent {{item[2]}} executions</p>
-                {% endfor %}
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in over_all_exe_avg_data %}
-                <a class="tile tile-apass">{{item[0]}}
-                    <p style="font-size:12px">Avg passed test of all executions</p>
-                {% endfor %}
-                </a>
-            </div>
-            <div class="col-md-3">
-                {% for item in over_all_exe_avg_data %}
-                    <a class="tile tile-perf">{{item[1]}}
-                    <p style="font-size:12px">Avg exe. time (min) of all executions</p>
-                {% endfor %}
-                </a>
-            </div>
-        </div>
-
         <hr>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

@@ -126,10 +126,10 @@
         </div>
         <hr>
         <form class="form-inline" method="post" action="">
-            <label for="id1">Execution ID 1:</label>
-            <input type="text" id="eid_one" placeholder="Enter EID 1" name="eid_one" onkeypress='validate(event)'>
-            <label for="id2">Execution ID 2:</label>
-            <input type="text" id="eid_two" placeholder="Enter EID 2" name="eid_two" onkeypress='validate(event)'>
+            <label for="id1">Execution ID:</label>
+            <input type="text" id="eid_one" placeholder="Enter EID" name="eid_one" onkeypress='validate(event)'>
+            <label for="id2">Execution ID:</label>
+            <input type="text" id="eid_two" placeholder="Enter EID" name="eid_two" onkeypress='validate(event)'>
             <button id="submit" type="submit" disabled="disabled">Submit</button>
         </form>
         <hr>
@@ -137,15 +137,15 @@
             <thead>
 				<tr>
 					<th rowspan="2" style="text-align:center">Test Case</th>
-					<th colspan="3" style="text-align:center" title="Click to view {{fb}} execution info"><a href="./tmetrics/{{fb}}" target="_blank">EID 1</a></th>
-					<th colspan="3" style="text-align:center" title="Click to view {{sb}} execution info"><a href="./tmetrics/{{fb}}" target="_blank">EID 2</a></th>
+					<th colspan="3" style="text-align:center" title="Click to view {{fb}} execution info"><a href="./tmetrics/{{fb}}" target="_blank">EID {{fb}}</a></th>
+					<th colspan="3" style="text-align:center" title="Click to view {{sb}} execution info"><a href="./tmetrics/{{sb}}" target="_blank">EID {{sb}}</a></th>
 				</tr>
                 <tr>
                     <th>Status</th>
-                    <th>Time</th>
+                    <th>Time (m)</th>
                     <th>Error</th>
                     <th>Status</th>
-                    <th>Time</th>
+                    <th>Time (m)</th>
                     <th>Error</th>
                 </tr>
             </thead>
@@ -186,7 +186,6 @@
             $('#search').DataTable(
                 {
                     retrieve: true,
-                    "order": [[0, "desc"]],
                     dom: 'l<".margin" B>frtip',
                     buttons: [
                         {

@@ -26,7 +26,7 @@
         .dt-buttons {
             margin-left: 5px;
         }
-        
+
         .tablinks .active {
             background-color: #666;
             color: white;
@@ -120,7 +120,7 @@
 							text:      '<i class="fa fa-files-o"></i>',
 							titleAttr: 'Copy',
 							exportOptions: {
-								columns: ':visible'
+								columns: ':visible:not(:last-child)'
 							}
 						},
                         {
@@ -131,7 +131,7 @@
                                 return fileTitle + '-' + new Date().toLocaleString();
                             },
 							exportOptions: {
-								columns: ':visible'
+								columns: ':visible:not(:last-child)'
 							}
                         },
                         {
@@ -142,7 +142,7 @@
                                 return fileTitle + '-' + new Date().toLocaleString();
                             },
 							exportOptions: {
-								columns: ':visible'
+								columns: ':visible:not(:last-child)'
 							}
                         },
                         {
@@ -150,7 +150,7 @@
 							text:      '<i class="fa fa-print"></i>',
 							titleAttr: 'Print',
 							exportOptions: {
-								columns: ':visible',
+								columns: ':visible:not(:last-child)',
                                 alignment: 'left',
 							}
                         },
@@ -160,7 +160,7 @@
 							text:      '<i class="fa fa-low-vision"></i>',
 							titleAttr: 'Hide Column',
 							exportOptions: {
-								columns: ':visible'
+								columns: ':visible:not(:last-child)'
 							},
 							postfixButtons: [ 'colvisRestore' ]
                         },
