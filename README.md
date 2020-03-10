@@ -28,7 +28,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 - Flakiness
 - Compare executions
 - Generate Robotframework-metrics report
-- Custom comments on failures
+- Custom comments on failures (supports html tags)
 - Export results (Excel, CSV, Print, Copy)
 
 ---
@@ -61,7 +61,9 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ## Installation
 
- - __Step 1:__ Install robotframework-historic
+ - __Step 1:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
+
+ - __Step 2:__ Install robotframework-historic
 
     > Case 1: Using pip
     ```
@@ -78,10 +80,8 @@ Robotframework-historic is a free, custom html report which provides historical 
     pip install git+https://github.com/adiralashiva8/robotframework-historic
     ```
 
- - __Step 2:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
-
  - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/2PIOTfI)
- 
+
  - __Step 4:__ Create *robothistoric.tb_project* table - [guide](https://bit.ly/2Tv2tV5)
 
  - __Step 5:__ Install robotframework-historic-parser
@@ -91,10 +91,18 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 6:__ Install robotframework-historic-listener
     ```
-    pip install --upgrade robotframework-historic-listener
+    pip install robotframework-historic-listener
     ```
 
    > _Note:_ Above all actions are one time activities
+
+   ### Help / Know More
+
+   To know more on available command refer help
+   ```
+   rfhistoric --help
+   rfhistoricparse --help
+   ```
 
 ---
 
