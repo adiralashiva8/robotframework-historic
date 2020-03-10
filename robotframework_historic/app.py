@@ -201,6 +201,21 @@ def eid_tmetrics(db, eid):
     data = cursor.fetchall()
     return render_template('eidtmetrics.html', data=data, db_name=db)
 
+@app.route('/<db>/failures/<eid>', methods=['GET', 'POST'])
+def eid_failures(db, eid):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    if request.method == "POST":
+        textField = request.form['textField']
+        rowField = request.form['rowField']
+        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        mysql.connection.commit()
+
+    # Get testcase results of execution id (typically last executed)
+    cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s and Test_Status='FAIL';" % eid)
+    data = cursor.fetchall()
+    return render_template('failures.html', data=data, db_name=db)
+
 @app.route('/<db>/search', methods=['GET', 'POST'])
 def search(db):
     if request.method == "POST":
@@ -275,5 +290,6 @@ def main():
     app.config['MYSQL_HOST'] = args.sqlhost
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
+    app.config['auth_plugin'] = 'mysql_native_password'
 
     app.run(host=args.apphost)

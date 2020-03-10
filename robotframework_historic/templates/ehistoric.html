@@ -74,7 +74,7 @@
         <table class="table table-striped" id="ehist">
             <thead>
                 <tr>
-                    <th>Execution ID</th>
+                    <th>EID</th>
                     <th>Date</th>
                     <th>Description</th>
                     <th>Test Total</th>
@@ -84,7 +84,7 @@
                     <th>Suite Total</th>
                     <th>Suite Pass</th>
                     <th>Suite Fail</th>
-                    <th>Metrics | Delete</th>
+                    <th>Metrics | Failures | Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,7 +92,7 @@
                     <tr>
                         <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
                         <td> {{item[1]}}</td>
-                        <td style="text-align:left;"> {{item[2]}}</td>
+                        <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[2]}}</td>
                         <td style="color: brown"> {{item[3]}}</td>
                         <td style="color: green"> {{item[4]}}</td>
                         <td style="color: red"> {{item[5]}}</td>
@@ -100,7 +100,7 @@
                         <td style="color: brown"> {{item[7]}}</td>
                         <td style="color: green"> {{item[8]}}</td>
                         <td style="color: red"> {{item[9]}}</td>
-                        <td> <a href="./metrics/{{item[0]}}" target="_blank">View</a> | <a href="./deleconf/{{item[0]}}">Delete</a></td>
+                        <td> <a href="./metrics/{{item[0]}}" target="_blank">View</a> | <a href="./failures/{{item[0]}}" target="_blank">Failures</a> |<a href="./deleconf/{{item[0]}}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

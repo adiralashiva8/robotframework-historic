@@ -63,7 +63,7 @@
         <table class="table table-striped" id="eidtmetrics">
             <thead>
                 <tr>
-                    <th>Execution ID</th>
+                    <th>EID</th>
                     <th>Test Case</th>
                     <th>Status</th>
                     <th>Time (m)</th>
@@ -76,7 +76,7 @@
                 {% for item in data %}
                     <tr>
                         <td> {{item[1]}}</td>
-                        <td style="text-align:left;"> {{item[2]}}</td>
+                        <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[2]}}</td>
                         {% if (item[3] == "PASS") %}
                             <td style="color: green"> {{item[3]}}</td>
                         {% else %}
@@ -104,13 +104,14 @@
                                                 <form class="example" method="post" action="">
                                                     <div class="form-group">
                                                         <div style="text-align:left !important;"><b>Comment:</b></div>
-                                                        <textarea id="textField" rows="5" type="text" name="textField" style="min-width: 100%">{{item[6]}}</textarea>
+                                                        <textarea id="textField" rows="5" type="text" name="textField" onclick="this.select();" style="min-width: 100%">{{item[6]}}</textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <input readonly id="rowField" type="hidden" value="{{item[0]}}" name="rowField" style="min-width: 50%"></input>
                                                         <button id="submit" type="submit" class="btn btn-primary">Update</button>
                                                     </div>
                                                 </form>
+                                                <small>Use escaping characters while using special characters or single quote</small>
                                             </div>
                                             <div class="modal-footer d-flex justify-content-center">
                                                 <a href="#" type="button" class="btn btn-danger" data-dismiss="modal">Cancel</a>
@@ -133,6 +134,14 @@
                     retrieve: true,
                     "order": [[ 2, "asc" ]],
                     dom: 'l<".margin" B>frtip',
+
+                    "aoColumnDefs": [ {
+                        "aTargets": [ 5 ],
+                        "mRender": function ( data, type, full ) {
+                        return $("<div/>").html(data).text();
+                        }
+                    } ],
+
                     buttons: [
                          {
 							extend:    'copyHtml5',
