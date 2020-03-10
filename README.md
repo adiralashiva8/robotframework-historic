@@ -67,7 +67,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic
+    pip install robotframework-historic==0.1.5
     ```
 
     > Case 2: Using setup.py (root)
@@ -86,12 +86,12 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 5:__ Install robotframework-historic-parser
     ```
-    pip install robotframework-historic-parser
+    pip install robotframework-historic-parser==0.1.4
     ```
 
  - __Step 6:__ Install robotframework-historic-listener
     ```
-    pip install robotframework-historic-listener
+    pip install robotframework-historic-listener==0.1.4
     ```
 
    > _Note:_ Above all actions are one time activities
