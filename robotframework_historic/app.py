@@ -7,21 +7,17 @@ app = Flask(__name__, template_folder='templates')
 
 mysql = MySQL(app)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/redirect')
-def redirect_url():
-    return render_template('redirect.html')
-
 @app.route('/index', methods=['GET'])
-def home():
+def index():
     cursor = mysql.connection.cursor()
     use_db(cursor, "robothistoric")
     cursor.execute("select * from TB_PROJECT;")
     data = cursor.fetchall()
-    return render_template('home.html', data=data)
+    return render_template('index.html', data=data)
+
+@app.route('/redirect')
+def redirect_url():
+    return render_template('redirect.html')
 
 @app.route('/<db>/deldbconf', methods=['GET'])
 def delete_db_conf(db):
@@ -34,7 +30,7 @@ def delete_db(db):
     # use_db(cursor, "robothistoric")
     cursor.execute("DELETE FROM robothistoric.TB_PROJECT WHERE Project_Name='%s';" % db)
     mysql.connection.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
 
 @app.route('/newdb', methods=['GET', 'POST'])
 def add_db():
@@ -59,7 +55,7 @@ def add_db():
             print(str(e))
 
         finally:
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
     else:
         return render_template('newdb.html')
 
