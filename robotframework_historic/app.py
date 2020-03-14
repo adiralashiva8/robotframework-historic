@@ -19,7 +19,7 @@ def redirect_url():
 def home():
     cursor = mysql.connection.cursor()
     use_db(cursor, "robothistoric")
-    cursor.execute("select * from tb_project;")
+    cursor.execute("select * from TB_PROJECT;")
     data = cursor.fetchall()
     return render_template('home.html', data=data)
 
