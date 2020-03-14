@@ -288,7 +288,8 @@ def main():
     args = parse_options()
 
     app.config['MYSQL_HOST'] = args.sqlhost
-    app.config['MYSQL_PORT'] = str(args.sqlport)
+ #   app.config['MYSQL_PORT'] = str(args.sqlport)
+    app.config['MYSQL_PORT'] = '3306'
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
