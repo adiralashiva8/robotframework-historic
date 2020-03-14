@@ -15,7 +15,7 @@ def parse_options():
     general.add_argument(
         '-t', '--sqlport',
         dest='sqlport',
-        default='32715',
+        default='3306',
         help="MySQL database port"
     )
 
