@@ -15,7 +15,7 @@ def index():
 def redirect_url():
     return render_template('redirect.html')
 
-@app.route('/home', methods=['GET'])
+@app.route('/index', methods=['GET'])
 def home():
     cursor = mysql.connection.cursor()
     use_db(cursor, "robothistoric")
