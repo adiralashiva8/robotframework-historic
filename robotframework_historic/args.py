@@ -13,6 +13,13 @@ def parse_options():
     )
 
     general.add_argument(
+        '-t', '--sqlport',
+        dest='sqlport',
+        default='3306',
+        help="MySQL database port"
+    )
+
+    general.add_argument(
         '-u', '--username',
         dest='username',
         default='superuser',
