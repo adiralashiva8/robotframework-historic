@@ -93,13 +93,13 @@ def dashboard(db):
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         last_ten_data = cursor.fetchall()
 
-        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from tb_execution order by execution_id desc;")
+        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
         execution_pass_data = cursor.fetchall()
 
-        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from tb_execution order by execution_id desc;")
+        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
         execution_fail_data = cursor.fetchall()
 
-        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from tb_execution order by execution_id desc;")
+        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
         execution_time_data = cursor.fetchall()
 
         return render_template('dashboard.html', last_ten_data=last_ten_data,
