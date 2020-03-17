@@ -44,6 +44,6 @@ services:
     networks:
       - rf
 networks:
-  rf:
+  - rf
 volumes:
   db_data:
