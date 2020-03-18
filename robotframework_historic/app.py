@@ -8,14 +8,6 @@ app = Flask(__name__, template_folder='templates')
 mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
-def home():
-    cursor = mysql.connection.cursor()
-    use_db(cursor, "robothistoric")
-    cursor.execute("select * from TB_PROJECT;")
-    data = cursor.fetchall()
-    return render_template('index.html', data=data)
-
-@app.route('/index', methods=['GET'])
 def index():
     cursor = mysql.connection.cursor()
     use_db(cursor, "robothistoric")
