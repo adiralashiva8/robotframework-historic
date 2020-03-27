@@ -15,6 +15,8 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ## Robotframework Historic Overview
 
+ > Sample Report [Link](https://rfhistoric.netlify.com/)
+
  > <img src="https://i.ibb.co/KX1bmXs/Dashboard1.png" alt="Overview">
 
 ---
