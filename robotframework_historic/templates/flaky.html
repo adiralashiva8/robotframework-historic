@@ -74,57 +74,26 @@
             <thead>
                 <tr>
                     <th>Test Case</th>
-                    <th title="Click to view {{build1}} execution info"><a href="./tmetrics/{{build1}}" target="_blank">Recent</a></th>
-                    <th title="Click to view {{build2}} execution info"><a href="./tmetrics/{{build2}}" target="_blank">Recent - 1</a></th>
-                    <th title="Click to view {{build3}} execution info"><a href="./tmetrics/{{build3}}" target="_blank">Recent - 2</a></th>
-                    <th title="Click to view {{build4}} execution info"><a href="./tmetrics/{{build4}}" target="_blank">Recent -3</a></th>
-                    <th title="Click to view {{build5}} execution info"><a href="./tmetrics/{{build5}}" target="_blank">Recent - 4</a></th>
+                    {% for build in rev_builds %}
+                        <th title="Click to view {{build[0]}} execution info"><a href="./tmetrics/{{build[0]}}" target="_blank">EID {{build[0]}}</a></th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% for item in data %}
                     <tr>
-                        <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;"> {{item[1]}}</td>
-
-                        {% if (item[2] == "PASS") %}
-                            <td style="color: green">PASS</i></td>
-                        {% elif (item[2] == "FAIL") %}
-                            <td style="color: red">FAIL</i></td>
-                        {% else %}
-                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                        {% endif %}
-
-                        {% if (item[3] == "PASS") %}
-                            <td style="color: green">PASS</i></td>
-                        {% elif (item[3] == "FAIL") %}
-                            <td style="color: red">FAIL</i></td>
-                        {% else %}
-                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                        {% endif %}
-
-                        {% if (item[4] == "PASS") %}
-                            <td style="color: green">PASS</i></td>
-                        {% elif (item[4] == "FAIL") %}
-                            <td style="color: red">FAIL</i></td>
-                        {% else %}
-                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                        {% endif %}
-
-                        {% if (item[5] == "PASS") %}
-                            <td style="color: green">PASS</i></td>
-                        {% elif (item[5] == "FAIL") %}
-                            <td style="color: red">FAIL</i></td>
-                        {% else %}
-                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                        {% endif %}
-
-                        {% if (item[6] == "PASS") %}
-                            <td style="color: green">PASS</i></td>
-                        {% elif (item[6] == "FAIL") %}
-                            <td style="color: red">FAIL</i></td>
-                        {% else %}
-                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                        {% endif %}
+                        <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;">{{item[1]}}</td>
+                        {% set count = namespace(value=1) %}
+                        {% for build in builds %}
+                            {% set count.value = count.value + 1 %}
+                            {% if (item[count.value] == "PASS") %}
+                                <td style="color: green">PASS</i></td>
+                            {% elif (item[count.value] == "FAIL") %}
+                                <td style="color: red">FAIL</i></td>
+                            {% else %}
+                                <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
+                            {% endif %}
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>

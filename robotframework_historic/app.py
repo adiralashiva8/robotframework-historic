@@ -234,14 +234,9 @@ def flaky(db):
     use_db(cursor, db)
     cursor.execute("SELECT Execution_Id from ( SELECT Execution_Id from TB_EXECUTION ORDER BY Execution_Id DESC LIMIT 5 ) as tmp ORDER BY Execution_Id ASC LIMIT 1;")
     last_five = cursor.fetchall()
-    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
-    lastID = cursor.fetchall()
+    cursor.execute("SELECT Execution_Id from TB_EXECUTION ORDER BY Execution_Id DESC LIMIT 5;")
+    last_five_ids = cursor.fetchall()
     sql_query = "SELECT Execution_Id, Test_Name, Test_Status from TB_TEST WHERE Execution_Id >= %s ORDER BY Execution_Id DESC;" % (str(last_five[0][0]))
-    one = int(lastID[0][0])
-    two = int(lastID[0][0]) - 1
-    three = int(lastID[0][0]) - 2
-    four = int(lastID[0][0]) - 3
-    five = int(lastID[0][0]) - 4
     cursor.execute(sql_query)
     data = cursor.fetchall()
     # print("==== Before Sorted Data ===")
@@ -249,7 +244,7 @@ def flaky(db):
     sorted_data = sort_tests(data)
     # print("==== After Sorted Data ===")
     # print(sorted_data)
-    return render_template('flaky.html', data=sorted_data, db_name=db, build1 = one, build2 = two, build3 = three, build4 = four, build5 = five)
+    return render_template('flaky.html', data=sorted_data, db_name=db, builds=last_five_ids, rev_builds=reversed(last_five_ids))
 
 @app.route('/<db>/compare', methods=['GET', 'POST'])
 def compare(db):
