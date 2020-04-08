@@ -244,7 +244,7 @@ def flaky(db):
     sorted_data = sort_tests(data)
     # print("==== After Sorted Data ===")
     # print(sorted_data)
-    return render_template('flaky.html', data=sorted_data, db_name=db, builds=last_five_ids, rev_builds=reversed(last_five_ids))
+    return render_template('flaky.html', data=sorted_data, db_name=db, builds=last_five_ids)
 
 @app.route('/<db>/compare', methods=['GET', 'POST'])
 def compare(db):

@@ -74,7 +74,7 @@
             <thead>
                 <tr>
                     <th>Test Case</th>
-                    {% for build in rev_builds %}
+                    {% for build in builds %}
                         <th title="Click to view {{build[0]}} execution info"><a href="./tmetrics/{{build[0]}}" target="_blank">EID {{build[0]}}</a></th>
                     {% endfor %}
                 </tr>
