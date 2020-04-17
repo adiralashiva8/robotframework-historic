@@ -23,12 +23,13 @@ pipeline {
 		stage('Push image') {
 			agent { label "tommy_test" }
                     	steps {
-				script{container('qe-docker')
+				script{container('qe-docker') {
 				docker.withRegistry('http://proget.accruentsystems.com/qe_docker/', 'svcselenium') {
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
 			}}	
             }
         }
+	}
 	}
 	}
