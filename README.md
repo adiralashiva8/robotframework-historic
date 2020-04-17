@@ -101,7 +101,7 @@ Robotframework-historic is a free, custom html report which provides historical 
    To know more on available command refer help
    ```
    rfhistoric --help
-   rfhistoricparse --help
+   rfhistoricparser --help
    ```
 
 ---
