@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'robot_docker'}
+    agent {label 'tommy_test'}
 }
 
 node {
