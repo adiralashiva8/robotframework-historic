@@ -1,3 +1,7 @@
+pipeline {
+    agent {label 'robot_docker'}
+}
+
 node {
     def app
 
