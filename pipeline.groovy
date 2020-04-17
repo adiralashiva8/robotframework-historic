@@ -1,4 +1,5 @@
 pipeline {
+	def app
     agent {label 'tommy_test'}
     stages {
                 stage("Pull Repository")
