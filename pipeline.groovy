@@ -21,7 +21,10 @@ node {
     }
 */
     stage('Push image') {
-        docker.withRegistry('proget.accruentsystems.com/qe_docker', 'svcselenium') {
+        /*
+			You would need to first register with DockerHub before you can push images to your account
+		*/
+        docker.withRegistry('http://proget.accruentsystems.com/qe_docker/', 'svcselenium') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
             }
