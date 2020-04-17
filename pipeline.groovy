@@ -12,7 +12,6 @@ pipeline {
 		stage('Build image') {
                     	steps {
 				script{container('qe-dockerr') {
-				sh 'sleep 2000'	
 				def app	
 				app = docker.build("proget.accruentsystems.com/qe_docker/rfhistoric")
 				}}
