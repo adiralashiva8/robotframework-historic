@@ -1,7 +1,3 @@
-pipeline {
-    agent {label 'tommy_test'}
-}
-
 node {
     def app
 
