@@ -1,5 +1,4 @@
 pipeline {
-    def app
     agent {label 'tommy_docker'}
     
       stage('Clone repository') {
