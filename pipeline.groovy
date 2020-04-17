@@ -3,7 +3,7 @@ pipeline {
     stages {
                 stage("Pull Repository") {
                     steps {
-                        script{container('qe-docker') {
+                        script{container('qe-dockerr') {
                         git branch: 'master', url: 'https://github.com/Accruent/robotframework-historic.git'
                         }}
                     }
@@ -11,7 +11,7 @@ pipeline {
 	    
 		stage('Build image') {
                     	steps {
-				script{container('qe-docker') {
+				script{container('qe-dockerr') {
 				sh 'sleep 2000'	
 				def app	
 				app = docker.build("proget.accruentsystems.com/qe_docker/rfhistoric")
@@ -21,7 +21,7 @@ pipeline {
 
 		stage('Push image') {
                     	steps {
-				script{container('qe-docker') {
+				script{container('qe-dockerr') {
 				docker.withRegistry('http://proget.accruentsystems.com/qe_docker/', 'svcselenium') {
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
