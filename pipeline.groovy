@@ -6,7 +6,7 @@ pipeline {
                     agent { label "tommy_test" }
                     steps {
                         script{container('qe-docker') {
-                        git branch: 'master', url: 'github.com/Accruent/robotframework-historic.git'
+                        git branch: 'master', url: 'git@github.com/Accruent/robotframework-historic.git'
                         }}
                     }
                 }
