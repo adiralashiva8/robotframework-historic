@@ -50,6 +50,12 @@
         <div class="collapse navbar-collapse " id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto ">
             <li class="nav-item">
+                {% if session['name'] %}
+                <a class="btn btn-light text-primary" type=button href="/logout"> <b>Logout</b></a>
+                <a class="btn btn-light text-primary" type=button href="/register"><i class="fa fa-plus-circle"></i> <b>New User</b></a>
+                {% else %}
+                <a class="btn btn-light text-primary" type=button href="/login"> <b>Login</b></a>
+                {% endif %}
                 <a class="btn btn-light text-primary" type=button href="/newdb"><i class="fa fa-plus-circle"></i> <b>New Project</b></a>
             </li>
             </ul>
@@ -79,7 +85,9 @@
                             </table>
                         </div>
                         <div class="card-footer">
+                            {% if session['name'] %}
                             <a type="button" href="{{item[1]}}/deldbconf" class="btn btn-light float-left btn-sm"><i class="fa fa-trash-o"></i> Delete</a>
+                            {% endif %}
                             <a type="button" href="{{item[1]}}/dashboard" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
                         </div>
                     </div>
