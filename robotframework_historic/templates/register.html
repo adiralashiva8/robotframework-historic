@@ -54,6 +54,7 @@
 </head>
 <body>
     <body>
+    {% if session['name'] %}
     <div id="db">
         <div class="container">
             <div id="db-row" class="row justify-content-center align-items-center">
@@ -93,5 +94,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </body>
 </html>

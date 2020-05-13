@@ -41,7 +41,7 @@ def login():
 
         curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         use_db(curl, "robothistoric")
-        curl.execute("SELECT * FROM users WHERE email=%s",(email,))
+        curl.execute("SELECT * FROM TB_USERS WHERE email=%s",(email,))
         user = curl.fetchone()
         curl.close()
 
@@ -74,7 +74,7 @@ def register():
 
         cur = mysql.connection.cursor()
         use_db(cur, "robothistoric")
-        cur.execute("INSERT INTO users (name, email, password) VALUES (%s,%s,%s)",(name,email,hash_password,))
+        cur.execute("INSERT INTO TB_USERS (name, email, password) VALUES (%s,%s,%s)",(name,email,hash_password,))
         mysql.connection.commit()
         session['name'] = request.form['name']
         session['email'] = request.form['email']
@@ -337,6 +337,6 @@ def main():
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
     app.config['auth_plugin'] = 'mysql_native_password'
-    
+
     app.secret_key = "^A%DJAJU^JJ321"
     app.run(host=args.apphost)
