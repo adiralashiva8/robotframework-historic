@@ -24,6 +24,7 @@ setup(
           'robotframework',
           'config',
           'flask',
+          'bcrypt',
           'flask-mysqldb'
       ],
       entry_points={
