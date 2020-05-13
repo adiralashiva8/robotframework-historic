@@ -11,7 +11,7 @@ mysql = MySQL(app)
 def index():
     cursor = mysql.connection.cursor()
     use_db(cursor, "robothistoric")
-    cursor.execute("select * from TB_PROJECT;")
+    cursor.execute("select * from TB_PROJECT ORDER BY Project_Name ASC;")
     data = cursor.fetchall()
     return render_template('index.html', data=data)
 
