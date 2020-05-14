@@ -288,4 +288,7 @@ def main():
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
+    app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+    app.secret_key = "^A%DJAJU^JJ321"
+
     app.run(host=args.apphost)
