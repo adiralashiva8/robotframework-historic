@@ -14,20 +14,14 @@ def index():
     use_db(cursor, "robothistoric")
     cursor.execute("select * from TB_PROJECT ORDER BY Project_Name ASC;")
     data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('index.html', data=data)
 
 @app.route('/redirect')
 def redirect_url():
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('redirect.html')
 
 @app.route('/<db>/deldbconf', methods=['GET'])
 def delete_db_conf(db):
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('deldbconf.html', db_name = db)
 
 @app.route('/<db>/delete', methods=['GET'])
@@ -37,8 +31,6 @@ def delete_db(db):
     # use_db(cursor, "robothistoric")
     cursor.execute("DELETE FROM robothistoric.TB_PROJECT WHERE Project_Name='%s';" % db)
     mysql.connection.commit()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return redirect(url_for('index'))
 
 @app.route('/login',methods=["GET","POST"])
@@ -95,8 +87,7 @@ def add_db():
         db_desc = request.form['dbdesc']
         db_image = request.form['dbimage']
         cursor = mysql.connection.cursor()
-        session['name'] = user['name']
-        session['email'] = user['email']
+
         try:
             # create new database for project
             cursor.execute("Create DATABASE %s;" % db_name)
@@ -127,8 +118,6 @@ def dashboard(db):
     suite_results_data = cursor.fetchall()
     cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
     test_results_data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
@@ -170,14 +159,10 @@ def ehistoric(db):
     use_db(cursor, db)
     cursor.execute("SELECT * from TB_EXECUTION order by Execution_Id desc LIMIT 500;")
     data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('ehistoric.html', data=data, db_name=db)
 
 @app.route('/<db>/deleconf/<eid>', methods=['GET'])
 def delete_eid_conf(db, eid):
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('deleconf.html', db_name = db, eid = eid)
 
 @app.route('/<db>/edelete/<eid>', methods=['GET'])
@@ -194,8 +179,6 @@ def delete_eid(db, eid):
     # get no. of executions
     cursor.execute("SELECT COUNT(*) from TB_EXECUTION;")
     exe_data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
 
     try:
         if data[0][0] > 0:
@@ -227,8 +210,6 @@ def tmetrics(db):
     # Get testcase results of execution id (typically last executed)
     cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s;" % data)
     data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('tmetrics.html', data=data, db_name=db)
 
 @app.route('/<db>/metrics/<eid>', methods=['GET'])
@@ -247,8 +228,6 @@ def metrics(db, eid):
     # get execution info
     cursor.execute("SELECT * from TB_EXECUTION WHERE Execution_Id=%s;" % eid)
     exe_data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('metrics.html', suite_data=suite_data, test_data = test_data, project_image= project_image[0][0], exe_data = exe_data)
 
 @app.route('/<db>/tmetrics/<eid>', methods=['GET', 'POST'])
@@ -264,8 +243,6 @@ def eid_tmetrics(db, eid):
     # Get testcase results of execution id (typically last executed)
     cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s;" % eid)
     data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('eidtmetrics.html', data=data, db_name=db)
 
 @app.route('/<db>/failures/<eid>', methods=['GET', 'POST'])
@@ -281,8 +258,6 @@ def eid_failures(db, eid):
     # Get testcase results of execution id (typically last executed)
     cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s and Test_Status='FAIL';" % eid)
     data = cursor.fetchall()
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('failures.html', data=data, db_name=db)
 
 @app.route('/<db>/search', methods=['GET', 'POST'])
@@ -293,9 +268,6 @@ def search(db):
         use_db(cursor, db)
         cursor.execute("SELECT * from TB_TEST WHERE Test_Name LIKE '%{name}%' OR Test_Status LIKE '%{name}%' OR Execution_Id LIKE '%{name}%' ORDER BY Execution_Id DESC LIMIT 10000;".format(name=search))
         data = cursor.fetchall()
-        session['name'] = user['name']
-        session['email'] = user['email']
-
         return render_template('search.html', data=data, db_name=db)
     else:
         return render_template('search.html', db_name=db)
@@ -321,8 +293,6 @@ def flaky(db):
     sorted_data = sort_tests(data)
     # print("==== After Sorted Data ===")
     # print(sorted_data)
-    session['name'] = user['name']
-    session['email'] = user['email']
     return render_template('flaky.html', data=sorted_data, db_name=db, build1 = one, build2 = two, build3 = three, build4 = four, build5 = five)
 
 @app.route('/<db>/compare', methods=['GET', 'POST'])
@@ -341,16 +311,12 @@ def compare(db):
         # combine both tuples
         data = first_data + second_data
         sorted_data = sort_tests(data)
-        session['name'] = user['name']
-        session['email'] = user['email']
         return render_template('compare.html', data=sorted_data, db_name=db, fb = eid_one, sb = eid_two)
     else:
         return render_template('compare.html', db_name=db)
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
-    session['name'] = user['name']
-    session['email'] = user['email']
 
 def sort_tests(data_list):
     out = {}
