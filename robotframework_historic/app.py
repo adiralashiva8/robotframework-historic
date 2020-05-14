@@ -14,14 +14,20 @@ def index():
     use_db(cursor, "robothistoric")
     cursor.execute("select * from TB_PROJECT ORDER BY Project_Name ASC;")
     data = cursor.fetchall()
+    session['name'] = user['name']
+    session['email'] = user['email']
     return render_template('index.html', data=data)
 
 @app.route('/redirect')
 def redirect_url():
+    session['name'] = user['name']
+    session['email'] = user['email']
     return render_template('redirect.html')
 
 @app.route('/<db>/deldbconf', methods=['GET'])
 def delete_db_conf(db):
+    session['name'] = user['name']
+    session['email'] = user['email']
     return render_template('deldbconf.html', db_name = db)
 
 @app.route('/<db>/delete', methods=['GET'])
@@ -31,6 +37,8 @@ def delete_db(db):
     # use_db(cursor, "robothistoric")
     cursor.execute("DELETE FROM robothistoric.TB_PROJECT WHERE Project_Name='%s';" % db)
     mysql.connection.commit()
+    session['name'] = user['name']
+    session['email'] = user['email']
     return redirect(url_for('index'))
 
 @app.route('/login',methods=["GET","POST"])
@@ -338,5 +346,5 @@ def main():
     app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
     app.config['auth_plugin'] = 'mysql_native_password'
 
-    # app.secret_key = "^A%DJAJU^JJ321"
+    app.secret_key = "^A%DJAJU^JJ321"
     app.run(host=args.apphost)
