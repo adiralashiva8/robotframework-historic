@@ -5,7 +5,6 @@ import config
 from .args import parse_options
 
 app = Flask(__name__, template_folder='templates')
-app.secret_key = "^A%DJAJU^JJ321"
 mysql = MySQL(app)
 
 @app.route('/', methods=['GET'])
@@ -32,53 +31,6 @@ def delete_db(db):
     cursor.execute("DELETE FROM robothistoric.TB_PROJECT WHERE Project_Name='%s';" % db)
     mysql.connection.commit()
     return redirect(url_for('index'))
-
-@app.route('/login',methods=["GET","POST"])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password'].encode('utf-8')
-
-        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        use_db(curl, "robothistoric")
-        curl.execute("SELECT * FROM TB_USERS WHERE email=%s",(email,))
-        user = curl.fetchone()
-        curl.close()
-
-        if len(user) > 0:
-            if bcrypt.hashpw(password, user["password"].encode('utf-8')) == user["password"].encode('utf-8'):
-                session['name'] = user['name']
-                session['email'] = user['email']
-                return render_template("index.html")
-            else:
-                return "Error password and email not match"
-        else:
-            return "Error user not found"
-    else:
-        return render_template("login.html")
-
-@app.route('/logout', methods=["GET", "POST"])
-def logout():
-    session.clear()
-    return render_template("index.html")
-
-@app.route('/register', methods=["GET", "POST"])
-def register():
-    if request.method == 'GET':
-        return render_template("register.html")
-    else:
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password'].encode('utf-8')
-        hash_password = bcrypt.hashpw(password, bcrypt.gensalt())
-
-        cur = mysql.connection.cursor()
-        use_db(cur, "robothistoric")
-        cur.execute("INSERT INTO TB_USERS (name, email, password) VALUES (%s,%s,%s)",(name,email,hash_password,))
-        mysql.connection.commit()
-        session['name'] = request.form['name']
-        session['email'] = request.form['email']
-        return redirect(url_for('index'))
 
 @app.route('/newdb', methods=['GET', 'POST'])
 def add_db():
@@ -335,7 +287,5 @@ def main():
     app.config['MYSQL_PORT'] = int(args.sqlport)
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
-    app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
     app.config['auth_plugin'] = 'mysql_native_password'
-
     app.run(host=args.apphost)
