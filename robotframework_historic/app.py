@@ -48,7 +48,7 @@ def login():
             if bcrypt.hashpw(password, user["password"].encode('utf-8')) == user["password"].encode('utf-8'):
                 session['name'] = user['name']
                 session['email'] = user['email']
-                return render_template("index.html")
+                return redirect(url_for('index'))
             else:
                 return "Error password and email not match"
         else:
