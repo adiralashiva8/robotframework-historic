@@ -39,7 +39,7 @@ def login():
         password = request.form['password'].encode('utf-8')
 
         curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        use_db(curl, "robothistoric")
+        use_db(curl, "accounts")
         curl.execute("SELECT * FROM TB_USERS WHERE email=%s",(email,))
         user = curl.fetchone()
         curl.close()
@@ -59,7 +59,7 @@ def login():
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
     session.clear()
-    return render_template("index.html")
+    return redirect(url_for('index'))
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
@@ -72,7 +72,7 @@ def register():
         hash_password = bcrypt.hashpw(password, bcrypt.gensalt())
 
         cur = mysql.connection.cursor()
-        use_db(cur, "robothistoric")
+        use_db(cur, "accounts")
         cur.execute("INSERT INTO TB_USERS (name, email, password) VALUES (%s,%s,%s)",(name,email,hash_password,))
         mysql.connection.commit()
         session['name'] = request.form['name']
