@@ -340,8 +340,8 @@ def main():
     # app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
     app.config['auth_plugin'] = 'mysql_native_password'
 
-    letters = string.ascii_letters
-    salt = ''.join(random.choice(letters) for i in range(10))
+    letters = string.ascii_letters + string.digits
+    salt = ''.join(random.choice(letters) for i in range(12))
     app.secret_key = salt
 
     app.run(host=args.apphost)
