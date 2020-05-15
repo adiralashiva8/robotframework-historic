@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import config
@@ -50,9 +50,9 @@ def login():
                 session['email'] = user['email']
                 return redirect(url_for('index'))
             else:
-                return "Error password and email not match"
+                flash('Error password and email not match')
         else:
-            return "Error user not found"
+            flash('Error user not found')
     else:
         return render_template("login.html")
 
