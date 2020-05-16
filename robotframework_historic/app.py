@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
+import random
+import string
 import config
 from .args import parse_options
 
@@ -50,9 +52,9 @@ def login():
                 session['email'] = user['email']
                 return redirect(url_for('index'))
             else:
-                return "Error password and email not match"
+                return redirect("/login" )
         else:
-            return "Error user not found"
+            return redirect("/login" )
     else:
         return render_template("login.html")
 
@@ -334,7 +336,12 @@ def main():
     app.config['MYSQL_PORT'] = int(args.sqlport)
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
+    #This cause issues
     # app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
     app.config['auth_plugin'] = 'mysql_native_password'
-    app.secret_key = "^A%DJAJU^JJ321"
+
+    letters = string.ascii_letters + string.digits
+    salt = ''.join(random.choice(letters) for i in range(12))
+    app.secret_key = salt
+
     app.run(host=args.apphost)
