@@ -84,7 +84,7 @@ Robotframework-historic is a free, custom html report which provides historical 
 
  - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/2PIOTfI)
 
- - __Step 4:__ Create *robothistoric.tb_project* table - [guide](https://bit.ly/2Tv2tV5)
+ - __Step 4:__ Create *robothistoric.TB_PROJECT* table - [guide](https://bit.ly/2Tv2tV5)
 
  - __Step 5:__ Install robotframework-historic-parser
     ```
