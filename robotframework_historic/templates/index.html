@@ -65,14 +65,14 @@
         <div class="row">
             {% for item in data %}
                 <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                    <div class="card columns">
+                    <div class="card columns" style="background-color:silver">
                         <div class="card-body">
                             <h3 style="text-align:center;;font-size:16;"><b>{{item[1]}}</b></h3>
                             <a><img src="{{item[3]}}" style="height:90px;width:220px;"></a>
                             <center>
                              <small class="text-muted"><a target="_blank" rel="noopener noreferrer" href="{{item[2]}}">Pipeline Link</a></small>
                         </br>
-                            <small class="text-muted"><i class="fa fa-clock-o fav" title="Last Updated: {{item[5].strftime('%b %d %Y at %I:%M %p')}}"></i> {{item[5].strftime('%b %d %Y at %I:%M %p')}}</small>
+                            <small><i class="fa fa-clock-o fav" title="Last Updated: {{item[5].strftime('%b %d %Y at %I:%M %p')}}"></i> {{item[5].strftime('%b %d %Y at %I:%M %p')}}</small>
                             </center>
                                 <hr>
                             <table class="text-muted" style="width:100%;text-align:center;">
@@ -82,8 +82,8 @@
                                         <td style="color:green">{{item[7]}}</td>
                                     </tr>
                                     <tr style="font-size:9px;">
-                                        <td style="color:silver">Total Executions</td>
-                                        <td style="color:silver">Recent Pass %</td>
+                                        <td style="color:black">Total Executions</td>
+                                        <td style="color:black">Recent Pass %</td>
                                     </tr>
                                 </tbody>
                             </table>
