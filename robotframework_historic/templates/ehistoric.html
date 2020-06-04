@@ -93,7 +93,7 @@
                 {% for item in data %}
                     <tr>
                         <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
-                        <td> {{item[1].strftime('%b %d %Y at %I:%M %p')}}</td>
+                        <td> {{item[1]}}</td>
                         <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[2]}}</td>
                         <td style="color: brown"> {{item[3]}}</td>
                         <td style="color: green"> {{item[4]}}</td>
