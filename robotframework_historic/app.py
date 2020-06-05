@@ -3,12 +3,14 @@ from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import random
 import string
+import pytz
 import datetime
 import config
 from .args import parse_options
 
 app = Flask(__name__, template_folder='templates')
 mysql = MySQL(app)
+CENTRAL = pytz.timezone('US/Central')
 
 @app.route('/', methods=['GET'])
 def index():
@@ -16,6 +18,7 @@ def index():
     use_db(cursor, "robothistoric")
     cursor.execute("select * from TB_PROJECT ORDER BY Project_Name ASC;")
     data = cursor.fetchall()
+    data = convert_utc_to_cst(data)
     return render_template('index.html', data=data)
 
 @app.route('/redirect')
@@ -161,6 +164,7 @@ def ehistoric(db):
     use_db(cursor, db)
     cursor.execute("SELECT * from TB_EXECUTION order by Execution_Id desc LIMIT 500;")
     data = cursor.fetchall()
+    data = convert_utc_to_cst(data)
     return render_template('ehistoric.html', data=data, db_name=db)
 
 @app.route('/<db>/deleconf/<eid>', methods=['GET'])
@@ -328,6 +332,22 @@ def sort_tests(data_list):
         except KeyError:
             out[elem[1]] = list(elem)
     return [tuple(values) for values in out.values()]
+
+def convert_utc_to_cst(items):
+    """This method takes a list of tuples and converts any datetime to CST."""
+    new_list = []
+    for item in items:
+        item_list = list(item)
+        this_list = []
+        for itemb in item_list:
+            if isinstance(itemb, datetime.datetime):
+                itemb = itemb.replace(tzinfo=datetime.timezone.utc)
+                conv_date = itemb.astimezone(CENTRAL)
+                this_list.append(conv_date)
+            else:
+                this_list.append(itemb)
+        new_list.append(tuple(this_list))
+    return new_list
 
 def main():
 

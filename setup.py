@@ -25,7 +25,8 @@ setup(
           'config',
           'flask',
           'bcrypt',
-          'flask-mysqldb'
+          'flask-mysqldb',
+          'pytz'
       ],
       entry_points={
           'console_scripts': [
