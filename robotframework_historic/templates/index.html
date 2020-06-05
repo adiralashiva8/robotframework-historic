@@ -79,7 +79,11 @@
                                 <tbody>
                                     <tr style="font-size:28px;">
                                         <td style="color:rgb(80, 1, 80)">{{item[6]}}</td>
-                                        <td style="color:green">{{item[7]}}</td>
+                                        {% if {{item[7]}} >= 65 %}
+                                        <td style="color:green">{{item[7]}}
+                                        {% else %}
+                                        <td style="color:red">{{item[7]}}
+                                        {% endif %}
                                     </tr>
                                     <tr style="font-size:9px;">
                                         <td style="color:black">Total Executions</td>
