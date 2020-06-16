@@ -1,7 +1,5 @@
 # robotframework-historic
 
-Robotframework-historic is a free, custom html report which provides historical robotframework execution results by storing execution results info in MySQL database and generate's html reports (charts / statistics) from database using Flask.
-
 > MYSQL + Flask + Robotframework
 
 ![PyPI version](https://badge.fury.io/py/robotframework-historic.svg)
@@ -16,31 +14,6 @@ Robotframework-historic is a free, custom html report which provides historical 
 ## Robotframework Historic Overview
 
  > Sample Report [Link](https://rfhistoric.netlify.com/)
-
- > <img src="https://i.ibb.co/KX1bmXs/Dashboard1.png" alt="Overview">
-
----
-
-## Features
-
-- Support Historic Results
-- Visualization of executions
-- Search Historical test records by name / status / execution id
-- Local hosted (meets privacy concerns)
-- Flakiness
-- Compare executions
-- Generate Robotframework-metrics report
-- Custom comments on failures (supports html tags)
-- Export results (Excel, CSV, Print, Copy)
-
----
-
-## Why Robotframework-Historic
-
-- It is free
-- Made by QA
-- Can customize as per requirements
-- No code changes required
 
 ---
 
@@ -118,17 +91,9 @@ Robotframework-historic is a free, custom html report which provides historical 
 
 ---
 
-Thanks for using robotframework-historic
-
- - What’s your opinion on this report?
- - What’s the feature I should add?
-
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20historic" target="_blank">`adiralashiva8@gmail.com`</a>
- - Slack: <a href="https://robotframework.slack.com/messages/robotframeworkhistoric" target="_blank">`robotframeworkhistoric`</a>
- - LinkedIn: <a href="https://www.linkedin.com/in/shivaprasadadirala/" target="_blank">`shivaprasadadirala`</a>
- - Twitter: <a href="https://twitter.com/ShivaAdirala" target="_blank">`@ShivaAdirala`</a>
 
 ---
 
