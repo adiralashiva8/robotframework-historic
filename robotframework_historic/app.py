@@ -272,7 +272,7 @@ def query(db):
         query = request.form['query']
         cursor = mysql.connection.cursor()
         use_db(cursor, db)
-        cursor.execute("%{name}%".format(name=query))
+        cursor.execute("{name}".format(name=query))
         data = cursor.fetchall()
         return render_template('query.html', data=data, db_name=db)
     else:
