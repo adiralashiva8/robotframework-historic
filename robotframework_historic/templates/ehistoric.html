@@ -93,7 +93,11 @@
                     <th>Suite Total</th>
                     <th>Suite Pass</th>
                     <th>Suite Fail</th>
-                    <th>Metrics | Failures | Delete</th>
+                    <th>
+                        <i class="fa fa-dashboard" style="color:cadetblue;font-size:20px;" title="View Metrics Report"></i> | 
+                        <i class="fa fa-times" style="color:#a52a2a;font-size:20px;" title="View Failures"></i> | 
+                        <i class="fa fa-trash" style="color:red;font-size:20px;" title="Delete Execution Record"></i> 
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -110,9 +114,16 @@
                         <td style="color: green"> {{item[8]}}</td>
                         <td style="color: red"> {{item[9]}}</td>
                         <td>
-                            <a href="./metrics/{{item[0]}}" target="_blank"><i class="fa fa-dashboard" style="color:blue"></i></a> | 
-                            <a href="./failures/{{item[0]}}" target="_blank"><i class="fa fa-times" style="color:brown"></i></a> | 
-                            <a href="./deleconf/{{item[0]}}"><i class="fa fa-trash" style="color:red"></i></a></td>
+                            <a href="./metrics/{{item[0]}}" target="_blank">
+                                <i class="fa fa-dashboard" style="color:cadetblue;font-size:20px;" title="View {{item[1]}} Metrics Report"></i>
+                            </a>  |  
+                            <a href="./failures/{{item[0]}}" target="_blank">
+                                <i class="fa fa-times" style="color:brown;font-size:20px;" title="View {{item[1]}} Failures"></i>
+                            </a>  |  
+                            <a href="./deleconf/{{item[0]}}">
+                                <i class="fa fa-trash" style="color:red;font-size:20px;" title="Delete {{item[1]}} Execution Record"></i>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
