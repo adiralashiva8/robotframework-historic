@@ -94,8 +94,8 @@
                     <th>Suite Pass</th>
                     <th>Suite Fail</th>
                     <th>
-                        <i class="fa fa-dashboard" style="color:cadetblue;font-size:20px;" title="View Metrics Report"></i> | 
-                        <i class="fa fa-times" style="color:#a52a2a;font-size:20px;" title="View Failures"></i> | 
+                        <i class="fa fa-bar-chart" style="color:cadetblue;font-size:20px;" title="View Metrics Report"></i> | 
+                        <i class="fa fa-bug" style="color:#a52a2a;font-size:20px;" title="View Failures"></i> | 
                         <i class="fa fa-trash" style="color:red;font-size:20px;" title="Delete Execution Record"></i> 
                     </th>
                 </tr>
@@ -115,13 +115,13 @@
                         <td style="color: red"> {{item[9]}}</td>
                         <td>
                             <a href="./metrics/{{item[0]}}" target="_blank">
-                                <i class="fa fa-dashboard" style="color:cadetblue;font-size:20px;" title="View {{item[1]}} Metrics Report"></i>
+                                <i class="fa fa-bar-chart" style="color:cadetblue;font-size:20px;" title="View {{item[0]}} Metrics Report"></i>
                             </a>  |  
                             <a href="./failures/{{item[0]}}" target="_blank">
-                                <i class="fa fa-times" style="color:brown;font-size:20px;" title="View {{item[1]}} Failures"></i>
+                                <i class="fa fa-bug" style="color:brown;font-size:20px;" title="View {{item[0]}} Failures"></i>
                             </a>  |  
                             <a href="./deleconf/{{item[0]}}">
-                                <i class="fa fa-trash" style="color:red;font-size:20px;" title="Delete {{item[1]}} Execution Record"></i>
+                                <i class="fa fa-trash" style="color:red;font-size:20px;" title="Delete {{item[0]}} Execution Record"></i>
                             </a>
                         </td>
                     </tr>
