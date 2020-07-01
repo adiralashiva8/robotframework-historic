@@ -19,7 +19,7 @@
 
 ## How it Works:
 
-- Get execution details by __parsing__ output.xml or using __listener__
+- Get execution details by __parsing__ output.xml
 - Store execution results in local / remote hosted __MySQL__ database
 - Generate html report using __Flask__
 
@@ -79,7 +79,7 @@
 
  - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
- - __Step 2:__ Push execution results to project - [guide](https://bit.ly/2U62HUf)
+ - __Step 2:__ Push execution results to project - [guide](https://bit.ly/3icddmC)
 
  - __Step 3:__ Open robotframework-historic to view historical results
 
@@ -88,6 +88,8 @@
 If you have any questions / suggestions / comments on the report, please feel free to reach me at
 
  - Email: <a href="mailto:adiralashiva8@gmail.com?Subject=Robotframework%20historic" target="_blank">`adiralashiva8@gmail.com`</a>
+ 
+ - Survey [Link](https://forms.gle/ecdzxQismbPmmYiE6)
 
 ---
 
