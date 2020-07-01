@@ -22,6 +22,10 @@
         .tabcontent {
             padding: 60px 12px;
         }
+        body {
+            font-family: -apple-system, sans-serif;
+
+        }
         .dt-buttons {
             margin-left: 5px;
         }
@@ -29,6 +33,10 @@
         .tablinks .active {
             background-color: #666;
             color: white;
+        }
+        .tablecard {
+            background-color: white;
+            font-size: 15px;
         }
         th, td{
             text-align:center;
@@ -60,7 +68,7 @@
             <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Recent Test Failures</h3>
         </div>
         <hr>
-        <table class="table table-striped" id="eidtmetrics">
+        <table class="table row-border tablecard" id="eidtmetrics">
             <thead>
                 <tr>
                     <th>EID</th>

@@ -9,7 +9,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect(url_for('home'))
 
 @app.route('/redirect')
 def redirect_url():
@@ -265,6 +265,22 @@ def compare(db):
         return render_template('compare.html', data=sorted_data, db_name=db, fb = eid_one, sb = eid_two)
     else:
         return render_template('compare.html', db_name=db)
+
+@app.route('/<db>/query', methods=['GET', 'POST'])
+def query(db):
+    if request.method == "POST":
+        query = request.form['query']
+        cursor = mysql.connection.cursor()
+        use_db(cursor, db)
+        try:
+            cursor.execute("{name}".format(name=query))
+            data = cursor.fetchall()
+            return render_template('query.html', data=data, db_name=db, error_message="")
+        except Exception as e:
+            print(str(e))
+            return render_template('query.html', db_name=db, error_message=str(e))
+    else:
+        return render_template('query.html', db_name=db, error_message="")
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)

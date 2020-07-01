@@ -22,6 +22,10 @@
         .tabcontent {
             padding: 60px 12px;
         }
+        body {
+            font-family: -apple-system, sans-serif;
+
+        }
         .dt-buttons {
             margin-left: 5px;
         }
@@ -29,6 +33,10 @@
         .tablinks .active {
             background-color: #666;
             color: white;
+        }
+        .tablecard {
+            background-color: white;
+            font-size: 15px;
         }
         th, td{
             text-align:center;
@@ -60,6 +68,7 @@
                     <li class="tablinks active" onclick="executeDataTable()"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
                     <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
                     <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
+                    <li class="tablinks"><a href="./query"><i class="fa fa-search-plus"></i> Query - &beta;</a></li>
                 </ul>
             </div>
         </div>
@@ -70,7 +79,7 @@
             <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Flaky Tests</h3>
         </div>
         <hr>
-        <table class="table table-striped" id="flakiness">
+        <table class="table row-border tablecard" id="flakiness">
             <thead>
                 <tr>
                     <th>Test Case</th>

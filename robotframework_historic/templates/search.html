@@ -23,7 +23,10 @@
         .tabcontent {
             padding: 60px 12px;
         }
+        body {
+            font-family: -apple-system, sans-serif;
 
+        }
         .dt-buttons {
             margin-left: 5px;
         }
@@ -61,6 +64,10 @@
             clear: both;
             display: table;
         }
+        .tablecard {
+            background-color: white;
+            font-size: 15px;
+        }
         th, td{
             text-align:center;
         }
@@ -93,6 +100,7 @@
                     <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
                     <li class="tablinks active" onclick="executeDataTable()"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
                     <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
+                    <li class="tablinks"><a href="./query"><i class="fa fa-search-plus"></i> Query - &beta;</a></li>
                 </ul>
             </div>
         </div>
@@ -108,7 +116,7 @@
             <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search"></i></button>
         </form>
         <hr>
-        <table class="table table-striped" id="search">
+        <table class="table row-border tablecard" id="search">
             <thead>
                 <tr>
                     <th>EID</th>
