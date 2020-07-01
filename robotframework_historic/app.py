@@ -275,12 +275,12 @@ def query(db):
         try:
             cursor.execute("{name}".format(name=query))
             data = cursor.fetchall()
-            return render_template('query.html', data=data, db_name=db)
+            return render_template('query.html', data=data, db_name=db, error_message="")
         except Exception as e:
             print(str(e))
-            return render_template('query.html', db_name=db)
+            return render_template('query.html', db_name=db, error_message=str(e))
     else:
-        return render_template('query.html', db_name=db)
+        return render_template('query.html', db_name=db, error_message="")
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)

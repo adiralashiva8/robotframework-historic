@@ -91,7 +91,7 @@
 
     <div class="tabcontent">
         <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
-            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Query - &beta;</h3>
+            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Query</h3>
         </div>
         <hr>
         <form class="example" method="post" action="" style="margin:auto;max-width:900px">
@@ -101,6 +101,7 @@
         <div style="padding:5px">Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables
 			<a href="https://bit.ly/3eRJ9uo" target="_blank">Tables Info</a>
         </div>
+        <div style="color:red">{{error_message}}</div>
         <hr>
         <table class="table row-border tablecard" id="query">
             <tbody>
