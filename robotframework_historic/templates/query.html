@@ -61,6 +61,10 @@
             clear: both;
             display: table;
         }
+        .tablecard {
+            background-color: white;
+            font-size: 15px;
+        }
         th, td{
             text-align:center;
         }
@@ -91,7 +95,7 @@
                     <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> History</a></li>
                     <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Metrics</a></li>
                     <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
-                    <li class="tablinks"></li><a href="./search"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
                     <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
                     <li class="tablinks active"><a href="./query"><i class="fa fa-search-plus"></i> Query</a></li>
                 </ul>
@@ -108,9 +112,11 @@
             <input id="textField" type="text" placeholder="Your Query Here" name="query">
             <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search-plus"></i> Execute</button>
         </form>
+        <div style="padding:5px">Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables
+			<a href="https://bit.ly/3dKnUJT" target="_blank">More Tables Info</a>
+        </div>
         <hr>
-        <div> Supports query operation on TB_EXECUTION, TB_SUITE & TB_TEST tables <a href="https://bit.ly/3dKnUJT" target="_blank">More Tables Info</a></div>
-        <table class="table table-striped" id="query">
+        <table class="table row-border tablecard" id="query">
             <!-- <thead>
                 <tr>
                     <th>EID</th>
@@ -123,8 +129,8 @@
             </thead> -->
             <tbody>
                 {% for item in data %}
-                    <tr>
-                        <td> {{item[1]}}</td>
+                    <tr>{{item}}
+                        <!-- <td> {{item[1]}}</td>
                         <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;"> {{item[2]}}</td>
                         {% if (item[3] == "PASS") %}
                             <td style="color: green"> {{item[3]}}</td>
@@ -137,7 +143,7 @@
                             {% if (item[3] != "PASS" and item[6] != None) %}
                                 {{item[6]}}
                             {% endif %}
-                        </td>
+                        </td> -->
                     </tr>
                 {% endfor %}
             </tbody>
