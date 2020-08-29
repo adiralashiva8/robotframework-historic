@@ -326,7 +326,7 @@
         </div>
         <br>
         <div class="row">
-                <p class="text-muted" style="text-align:center;font-size:9px; width: 100%;">
+                <p class="text-muted" style="text-align:center; font-size:9px; color:gray; width: 100%;">
                     <a href="https://github.com/adiralashiva8/robotframework-historic" target="_blank">robotframework-historic</a>
                 </p>
          </div>
@@ -335,9 +335,9 @@
     <script>
         function createLastTenExecutionTrendzBarGraph(ChartID){
             var status = [];
-            status.push(['Execution ID', 'Pass', 'Fail']);
+            status.push(['Execution ID', 'Pass', {role:'annotation'}, 'Fail', {role:'annotation'}]);
             {% for item in last_ten_data %}
-                status.push(['EID: '.concat({{item[0]}}),{{item[1]}},{{item[2]}}]);
+                status.push(['EID: '.concat({{item[0]}}),{{item[1]}},{{item[1]}},{{item[2]}},{{item[2]}}]);
             {% endfor %}
 
             var data = google.visualization.arrayToDataTable(status);
@@ -346,10 +346,10 @@
                 legend: 'top-right',
                 chartArea: {width: "85%",height: "80%"},
                 bar: {
-                    groupWidth: '90%'
+                    groupWidth: '85%'
                 },
                 annotations: {
-                    alwaysOutside: true,
+                    alwaysOutside: false,
                 },
                 vAxis: {title: "No. of test cases"},
                 series: {
@@ -365,9 +365,9 @@
        <script>
             function createLastTenPerformanceTrendzLineGraph(ChartID){
                 var status = [];
-                status.push(['Execution ID', 'Time (min)']);
+                status.push(['Execution ID', 'Time (min)', {role:'annotation'}]);
                 {% for item in last_ten_data %}
-                    status.push(['EID: '.concat({{item[0]}}), {{item[3]}}]);
+                    status.push(['EID: '.concat({{item[0]}}), {{item[3]}}, {{item[3]}}]);
                 {% endfor %}
 
                 var options = {
@@ -379,7 +379,7 @@
                     vAxis: {title: "Duration in minutes"},
 
                     annotations: {
-                        alwaysOutside: true,
+                        alwaysOutside: false,
                     },
                 };
                 var data = google.visualization.arrayToDataTable(status);

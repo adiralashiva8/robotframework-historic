@@ -44,10 +44,6 @@
             border-radius:25px;
         }
 
-        .txt {
-            text-transform:lowercase;
-        }
-
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -55,7 +51,7 @@
         function blockSpecialChar(e){
             var k;
             document.all ? k = e.keyCode : k = e.which;
-            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || k == 95 || k == 45 || (k >= 48 && k <= 57));
         }
     </script>
     <script type="text/javascript">
