@@ -140,8 +140,8 @@
         createPieChart({{ item[0]}}, {{ item[1]}}, 'overAllPieID', 'Overall Execution Result:');
         {% endfor %}
 
-        createLastTenExecutionTrendzBarGraph('lastTenExecutionTrendzID');
-        createLastTenPerformanceTrendzLineGraph('lastTenPerfExecutionTrendzID');
+        createLastThirtyExecutionTrendzBarGraph('lastThirtyExecutionTrendzID');
+        createLastThirtyPerformanceTrendzLineGraph('lastThirtyPerfExecutionTrendzID');
 		};
     </script>
 
@@ -336,8 +336,8 @@
         <div class='row'>
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <span style="font-weight:bold">Last 10 Executions Trends:</span>
-                    <div id="lastTenExecutionTrendzID" style="height:300px;width:auto;"></div>
+                    <span style="font-weight:bold">Last 30 Executions Trends:</span>
+                    <div id="lastThirtyExecutionTrendzID" style="height:300px;width:auto;"></div>
                 </div>
             </div>
         </div>
@@ -345,8 +345,8 @@
         <div class='row'>
             <div class="col-md-12">
                 <div class="col-md-12">
-                    <span style="font-weight:bold">Last 10 Executions Performance Trends:</span>
-                    <div id="lastTenPerfExecutionTrendzID" style="height:300px;width:auto;"></div>
+                    <span style="font-weight:bold">Last 30 Executions Performance Trends:</span>
+                    <div id="lastThirtyPerfExecutionTrendzID" style="height:300px;width:auto;"></div>
                 </div>
             </div>
         </div>
@@ -360,7 +360,7 @@
     </div>
 
     <script>
-        function createLastTenExecutionTrendzBarGraph(ChartID) {
+        function createLastThirtyExecutionTrendzBarGraph(ChartID) {
             var passArray = [];
             var failArray = [];
             var catgArray = [];
@@ -392,24 +392,18 @@
 				  options: {
 					legend: {
 					  position: 'bottom',
-					  offsetX: 10,
-					  offsetY: 0
 					}
 				  }
 				}],
 				plotOptions: {
 				  bar: {
 					dataLabels: {
-					  position: 'top',
-					  distributed: true
+					  position: 'center',
+                      hideOverflowingLabels: false
 					}
 				  },
 				  dataLabels: {
 					enabled: true,
-					style: {
-						colors: ['#333']
-					},
-					offsetX: 30
 				  },
 				},
 				colors: ['#2ecc71','#fc6666'],
@@ -442,7 +436,7 @@
         }
     </script>
     <script>
-        function createLastTenPerformanceTrendzLineGraph(ChartID) {
+        function createLastThirtyPerformanceTrendzLineGraph(ChartID) {
             var dataArray = [];
             var catgArray = [];
             {% for item in last_thirty_data %}
