@@ -83,11 +83,14 @@ def dashboard(db):
         cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
         last_ten_exe_pie_data = cursor.fetchall()
 
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
+        last_thirty_exe_pie_data = cursor.fetchall()
+
         cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
         over_all_exe_pie_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
-        last_ten_data = cursor.fetchall()
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        last_thirty_data = cursor.fetchall()
 
         cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
         execution_pass_data = cursor.fetchall()
@@ -98,9 +101,10 @@ def dashboard(db):
         cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
         execution_time_data = cursor.fetchall()
 
-        return render_template('dashboard.html', last_ten_data=last_ten_data,
+        return render_template('dashboard.html', last_thirty_data=last_thirty_data,
         last_exe_pie_data=last_exe_pie_data,
         last_ten_exe_pie_data=last_ten_exe_pie_data,
+        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
         over_all_exe_pie_data=over_all_exe_pie_data,
         execution_pass_data=execution_pass_data,
         execution_fail_data=execution_fail_data,
