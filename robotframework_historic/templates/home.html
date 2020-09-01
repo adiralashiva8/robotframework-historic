@@ -19,12 +19,12 @@
         <script src="./assets/js/require.min.js"></script>
         <script>
             requirejs.config({
-                baseUrl: ".",
+                baseUrl: "{{ url_for('static',filename='') }}",
             });
         </script>
         <!-- Dashboard Core -->
-        <link href="./assets/css/dashboard.css" rel="stylesheet" />
-        <script src="./assets/js/dashboard.js"></script>
+        <link href="/assets/css/dashboard.css" rel="stylesheet" />
+        <script src="/assets/js/dashboard.js"></script>
     </head>
 
     <body class="">

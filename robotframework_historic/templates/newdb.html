@@ -19,12 +19,12 @@
         <script src="./assets/js/require.min.js"></script>
         <script>
             requirejs.config({
-                baseUrl: ".",
+                baseUrl: "{{ url_for('static',filename='') }}",
             });
         </script>
         <!-- Dashboard Core -->
-        <link href="./assets/css/dashboard.css" rel="stylesheet" />
-        <script src="./assets/js/dashboard.js"></script>
+        <link href="/assets/css/dashboard.css" rel="stylesheet" />
+        <script src="/assets/js/dashboard.js"></script>
         <script type="text/javascript">
             function blockSpecialChar(e) {
                 var k;
@@ -67,7 +67,7 @@
                                         <input type="text" name="dbimage" id="dbimage" onclick="this.select();" value="https://i.ibb.co/FqtQyC5/rfh.png" class="form-control" />
                                     </div>
                                     <div class="form-footer btn-list mt-4 text-right">
-                                        <a href="./home.html" type="button" class="btn btn-secondary btn-space">Cancel</a>
+                                        <a href="/home" type="button" class="btn btn-secondary btn-space">Cancel</a>
                                         <button id="submit" type="submit" disabled="disabled" class="btn btn-primary btn-space">Create</button>
                                     </div>
                                 </div>

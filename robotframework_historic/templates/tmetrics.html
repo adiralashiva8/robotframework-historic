@@ -19,12 +19,12 @@
         <script src="./assets/js/require.min.js"></script>
         <script>
             requirejs.config({
-                baseUrl: ".",
+                baseUrl: "{{ url_for('static',filename='') }}",
             });
         </script>
         <!-- Dashboard Core -->
-        <link href="./assets/css/dashboard.css" rel="stylesheet" />
-        <script src="./assets/js/dashboard.js"></script>
+        <link href="/assets/css/dashboard.css" rel="stylesheet" />
+        <script src="/assets/js/dashboard.js"></script>
         <!-- Input Mask Plugin -->
         <script src="./assets/plugins/input-mask/plugin.js"></script>
         <!-- Datatables Plugin -->
@@ -45,7 +45,7 @@
                             <div class="col-lg order-lg-first">
                                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                                     <li class="nav-item">
-                                        <a href="./home.html" class="nav-link"><i class="fe fe-home" style="color: teal;"></i> Home</a>
+                                        <a href="/home.html" class="nav-link"><i class="fe fe-home" style="color: teal;"></i> Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"> <i class="fa fa-dashboard" style="color: CADETBLUE;"></i> Dashboard<i class="fe fe-chevron-down"></i></a>
