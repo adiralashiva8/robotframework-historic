@@ -66,8 +66,8 @@ def add_db():
     else:
         return render_template('newdb.html')
 
-@app.route('/<db>/dashboard', methods=['GET'])
-def dashboard(db):
+@app.route('/<db>/dashboardAll', methods=['GET'])
+def dashboardAll(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
 
@@ -104,7 +104,7 @@ def dashboard(db):
         cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
         execution_time_data = cursor.fetchall()
 
-        return render_template('dashboard.html', last_thirty_data=last_thirty_data,
+        return render_template('dashboardAll.html', last_thirty_data=last_thirty_data,
         last_exe_pie_data=last_exe_pie_data,
         last_ten_exe_pie_data=last_ten_exe_pie_data,
         last_thirty_exe_pie_data=last_thirty_exe_pie_data,
@@ -155,6 +155,156 @@ def dashboardRecent(db):
         execution_time_data = cursor.fetchall()
 
         return render_template('dashboardRecent.html', last_thirty_data=last_thirty_data,
+        last_exe_pie_data=last_exe_pie_data,
+        last_ten_exe_pie_data=last_ten_exe_pie_data,
+        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
+        over_all_exe_pie_data=over_all_exe_pie_data,
+        execution_pass_data=execution_pass_data,
+        execution_fail_data=execution_fail_data,
+        execution_time_data=execution_time_data,db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentFive', methods=['GET'])
+def dashboardRecentFive(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+        last_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
+        last_ten_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
+        last_thirty_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
+        over_all_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        last_thirty_data = cursor.fetchall()
+
+        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
+        execution_pass_data = cursor.fetchall()
+
+        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
+        execution_fail_data = cursor.fetchall()
+
+        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
+        execution_time_data = cursor.fetchall()
+
+        return render_template('dashboardRecentFive.html', last_thirty_data=last_thirty_data,
+        last_exe_pie_data=last_exe_pie_data,
+        last_ten_exe_pie_data=last_ten_exe_pie_data,
+        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
+        over_all_exe_pie_data=over_all_exe_pie_data,
+        execution_pass_data=execution_pass_data,
+        execution_fail_data=execution_fail_data,
+        execution_time_data=execution_time_data,db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentTen', methods=['GET'])
+def dashboardRecentTen(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+        last_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
+        last_ten_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
+        last_thirty_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
+        over_all_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        last_thirty_data = cursor.fetchall()
+
+        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
+        execution_pass_data = cursor.fetchall()
+
+        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
+        execution_fail_data = cursor.fetchall()
+
+        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
+        execution_time_data = cursor.fetchall()
+
+        return render_template('dashboardRecentTen.html', last_thirty_data=last_thirty_data,
+        last_exe_pie_data=last_exe_pie_data,
+        last_ten_exe_pie_data=last_ten_exe_pie_data,
+        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
+        over_all_exe_pie_data=over_all_exe_pie_data,
+        execution_pass_data=execution_pass_data,
+        execution_fail_data=execution_fail_data,
+        execution_time_data=execution_time_data,db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentThirty', methods=['GET'])
+def dashboardRecentThirty(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+        last_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
+        last_ten_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
+        last_thirty_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
+        over_all_exe_pie_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        last_thirty_data = cursor.fetchall()
+
+        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
+        execution_pass_data = cursor.fetchall()
+
+        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
+        execution_fail_data = cursor.fetchall()
+
+        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
+        execution_time_data = cursor.fetchall()
+
+        return render_template('dashboardRecentThirty.html', last_thirty_data=last_thirty_data,
         last_exe_pie_data=last_exe_pie_data,
         last_ten_exe_pie_data=last_ten_exe_pie_data,
         last_thirty_exe_pie_data=last_thirty_exe_pie_data,
