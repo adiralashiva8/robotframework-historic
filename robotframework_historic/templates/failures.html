@@ -103,7 +103,6 @@
                                                                                 <button id="submit" type="submit" class="btn btn-primary">Update</button>
                                                                             </div>
                                                                         </form>
-                                                                        <small>Use escaping character while using special characters or single quote</small>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -119,6 +118,12 @@
                                         $(".datatable").DataTable({
                                             "order": [[ 1, "asc" ]],
                                             "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
+                                            "aoColumnDefs": [ {
+                                                "aTargets": [ 4 ],
+                                                "mRender": function ( data, type, full ) {
+                                                    return $("<div/>").html(data).text(); 
+                                                }
+                                            } ]
                                         });
                                     });
                                 </script>

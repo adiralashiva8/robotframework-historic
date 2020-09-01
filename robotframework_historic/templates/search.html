@@ -76,7 +76,7 @@
                                         <a href="./flaky" class="nav-link" active><i class="fa fa-bolt" style="color: STEELBLUE;"></i> Flaky</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./search" class="nav-link"><i class="fa fa-search" style="color: CHOCOLATE;"></i> Search</a>
+                                        <a href="./search" class="nav-link active"><i class="fa fa-search" style="color: CHOCOLATE;"></i> Search</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="./compare" class="nav-link"><i class="fa fa-sliders" style="color: teal;"></i> Compare</a>
@@ -131,6 +131,12 @@
                                     require(["datatables", "jquery"], function (datatable, $) {
                                         $(".datatable").DataTable({
                                             order: [[0, "desc"]],
+                                            "aoColumnDefs": [ {
+                                                "aTargets": [ 5 ],
+                                                "mRender": function ( data, type, full ) {
+                                                    return $("<div/>").html(data).text(); 
+                                                }
+                                            } ]
                                         });
                                     });
                                 </script>
