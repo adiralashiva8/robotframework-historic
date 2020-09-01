@@ -3263,8 +3263,7 @@ input[type="button"].btn-block {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  /* color: #212529; */
-  color: blue
+  color: #212529;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
@@ -15006,8 +15005,7 @@ Card alert
 }
 
 .dropdown-item {
-  /* color: #6e7687; */
-  color: blue
+  color: #6e7687;
 }
 
 .dropdown-menu-arrow:before {
