@@ -154,7 +154,7 @@ def dashboardRecent(db):
         cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
         execution_time_data = cursor.fetchall()
 
-        return render_template('dashboard.html', last_thirty_data=last_thirty_data,
+        return render_template('dashboardRecent.html', last_thirty_data=last_thirty_data,
         last_exe_pie_data=last_exe_pie_data,
         last_ten_exe_pie_data=last_ten_exe_pie_data,
         last_thirty_exe_pie_data=last_thirty_exe_pie_data,
