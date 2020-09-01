@@ -124,6 +124,12 @@
                                     require(["datatables", "jquery"], function (datatable, $) {
                                         $(".datatable").DataTable({
                                             order: [[2, "asc"]],
+                                            "aoColumnDefs": [ {
+                                                "aTargets": [ 5 ],
+                                                "mRender": function ( data, type, full ) {
+                                                    return $("<div/>").html(data).text(); 
+                                                }
+                                            } ]
                                         });
                                     });
                                 </script>
