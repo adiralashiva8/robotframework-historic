@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic - Query</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .tabcontent {
+            padding: 60px 12px;
+        }
+
+        .dt-buttons {
+            margin-left: 5px;
+        }
+
+        .tablinks .active {
+            background-color: #666;
+            color: white;
+        }
+
+        form.example input[type=text] {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+            border-radius: 30px 0px 0px 30px;
+        }
+
+        form.example button {
+            float: left;
+            width: 10%;
+            padding: 8px;
+            background: #101010;
+            color: white;
+            font-size: 14px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+            border-radius: 0px 30px 30px 0px;
+        }
+
+        form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .tablecard {
+            background-color: white;
+            font-size: 14px;
+        }
+        th, td{
+            text-align:center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home">RF Historic</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="tablinks"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="tablinks"><a href="./ehistoric"><i class="fa fa-history"></i> History</a></li>
+                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Metrics</a></li>
+                    <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
+                    <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
+                    <li class="tablinks active"><a href="./query"><i class="fa fa-search-plus"></i> Query - &beta;</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tabcontent">
+        <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
+            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Query</h3>
+        </div>
+        <hr>
+        <form class="example" method="post" action="" style="margin:auto;max-width:900px">
+            <input id="textField" type="text" placeholder="Your Query Here: Select * from TB_EXECUTION;" name="query">
+            <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search-plus"></i> Execute</button>
+        </form>
+        <div style="padding:5px">Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables
+			<a href="https://bit.ly/3eRJ9uo" target="_blank">Tables Info</a>
+        </div>
+        <div style="color:red">{{error_message}}</div>
+        <hr>
+        <table class="table row-border tablecard" id="query">
+            <tbody>
+                {% for items in data %}
+                    <tr>
+                        {% for item in items %}
+                            <td style="word-wrap: break-word;max-width: 250px; white-space: normal;text-align:left;"> {{item}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var submitButton = document.getElementById("submit");
+        var textField = document.getElementById("textField");
+
+        textField.onkeyup = function(){
+            if (textField.value == "") {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
