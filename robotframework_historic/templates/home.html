@@ -19,12 +19,28 @@
         <script src="/assets/js/require.min.js"></script>
         <script>
             requirejs.config({
-                baseUrl: "{{ url_for('static',filename='') }}",
+                baseUrl: ".",
             });
         </script>
         <!-- Dashboard Core -->
         <link href="/assets/css/dashboard.css" rel="stylesheet" />
         <script src="/assets/js/dashboard.js"></script>
+
+        <style>
+            .text {
+                display: block;
+                width: 220px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .card-img-top {
+                width: 100%;
+                height: 10vw;
+                object-fit: fill;
+            }
+        </style>
     </head>
 
     <body class="">
