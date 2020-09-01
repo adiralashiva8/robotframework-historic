@@ -101,6 +101,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for item in data %}
                                         <tr>
                                             <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
                                             <td>{{item[1]}}</td>
