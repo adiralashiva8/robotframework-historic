@@ -6,7 +6,7 @@ from .args import parse_options
 # app = Flask(__name__, template_folder='templates', static_folder="react_app/build")
 app = Flask (__name__,
             static_url_path='', 
-            static_folder='static',
+            static_folder='templates',
             template_folder='templates')
 
 mysql = MySQL(app)
