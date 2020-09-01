@@ -1,63 +1,49 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon" />
-<title>RF Historic</title>
-<style>
-    body {
-        font-family: 'Source Sans Pro', sans-serif;
-        font-weight: 300;
-        background: -moz-linear-gradient(right,  #507ba3 0%, #53e3a6 100%);
-        background: -webkit-gradient(linear, right top, left top, from(#50a3a2), to(#53e3a6));
-        overflow: hidden;
-        color: white;
-    }
+<!doctype html>
+<html lang="en" dir="ltr">
 
-    .push {
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        border-radius: 25px;
-    }
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="theme-color" content="#4188c9">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+  <script src="./assets/js/require.min.js"></script>
+  <script>
+    requirejs.config({
+      baseUrl: '.'
+    });
+  </script>
+  <!-- Dashboard Core -->
+  <link href="./assets/css/dashboard.css" rel="stylesheet" />
+  <script src="./assets/js/dashboard.js"></script>
 
-<div class="container">
-    <!-- Feature Cards -->
-    <section class="d-flex" id="feature-cards">
-        <div class="container d-flex justify-content-center">
-            <div class="row align-items-center justify-content-center">
+</head>
 
-                <div class="col-12 align-self-center">
-                    <div class="row">
-                        <div class="col-12 col-lg-7 mx-auto text-center">
-                            <h2 class="display-4"></h2>
-                            <p class="text-muted lead mb-5"></p>
-                        </div>
-						<div class="col-12 col-lg-7 mx-auto text-center">
-                            <h2 class="display-4"></h2>
-                            <p class="text-muted lead mb-5"></p>
-                        </div>
-						<div class="col-12 col-lg-7 mx-auto text-center">
-                            <h2 class="display-4"></h2>
-                            <p class="text-muted lead mb-5"></p>
-                        </div>
-						<div class="col-12 col-lg-7 mx-auto text-center">
-                            <h2 class="display-4"></h2>
-                            <p class="text-muted lead mb-5"></p>
-                        </div>
-                        <div class="col-md-12 mx-auto text-center">
-                            <h2 class="display-4">Oops</h2>
-                            <p class="text-light">Not enough information available, come back after execution!</p>
-                            <hr>
-                        </div>
-                    </div>
+<body class="">
+  <div class="page">
+    <div class="page-content">
+      <div class="container text-center">
+        <div class="display-1 text-muted mb-5"><i class="si si-exclamation"></i> </div>
+        <h1 class="">Oops..</h1>
+        <p class="h4 text-muted font-weight-normal mb-7">Not enough information available, come back after execution&hellip;</p>
+        <a class="btn btn-primary" href="./home.html">
+          <i class="fe fe-arrow-left mr-2"></i> Back To Home
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
 
-                    <div class="row">
-                        <div class="col-md-12 mx-auto text-center">
-                            <a class="btn btn-light push" href="/home" type="button" style="width:50%;align:center">Back to Home »</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</section>
-</div>
+</html>

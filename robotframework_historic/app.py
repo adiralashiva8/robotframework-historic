@@ -3,7 +3,6 @@ from flask_mysqldb import MySQL
 import config
 from .args import parse_options
 
-# app = Flask(__name__, template_folder='templates', static_folder="react_app/build")
 app = Flask (__name__,
             static_url_path='', 
             static_folder='templates',
@@ -13,8 +12,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    # return redirect(url_for('home'))
-    return render_template('index.html')
+    return redirect(url_for('home'))
 
 @app.route('/redirect')
 def redirect_url():

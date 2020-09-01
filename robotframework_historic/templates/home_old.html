@@ -1,0 +1,91 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic - Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 300;
+            background: -moz-linear-gradient(right,  #507ba3 0%, #53e3a6 100%);
+            background: -webkit-gradient(linear, right top, left top, from(#50a3a2), to(#53e3a6));
+            color: rgb(22, 0, 0);
+        }
+
+        .box{
+            padding:30px 0px;
+        }
+
+        .text {
+            display: block;
+            width: 220px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 10vw;
+            object-fit: fill;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+        <p class="navbar-brand">RF Historic</p>
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse " id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto ">
+            <li class="nav-item">
+                <a class="btn btn-light text-primary" type=button href="/newdb"><i class="fa fa-plus-circle"></i> <b>New Project</b></a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container box">
+        <div class="row">
+            {% for item in data %}
+                <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                    <div class="card columns">
+                        <img src="{{item[3]}}" class="card-img-top" alt="logo" title="{{item[2]}}">
+                        <div class="card-body">
+                            <h5 class="card-title text" style="text-transform:capitalize;" title="{{item[1]}}">{{item[1]}}</h5>
+                            <small class="text-muted" title="Last Updated: {{item[5]}}"><i class="fa fa-clock-o fav"></i> {{item[5]}}</small>
+                            <hr>
+                            <table class="text-muted" style="width:100%;text-align:center;">
+                                <tbody>
+                                    <tr style="font-size:28px;">
+                                        <td style="color:rgb(80, 1, 80)">{{item[6]}}</td>
+                                        <td style="color:green">{{item[7]}}</td>
+                                    </tr>
+                                    <tr style="font-size:9px;">
+                                        <td style="color:silver">Total Executions</td>
+                                        <td style="color:silver">Recent Pass %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <a type="button" href="{{item[1]}}/deldbconf" class="btn btn-light float-left btn-sm"><i class="fa fa-trash-o"></i> Delete</a>
+                            <a type="button" href="{{item[1]}}/dashboard" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

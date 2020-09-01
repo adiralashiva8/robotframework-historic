@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic - Create DB</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 300;
+            background: -moz-linear-gradient(right,  #507ba3 0%, #53e3a6 100%);
+            background: -webkit-gradient(linear, right top, left top, from(#50a3a2), to(#53e3a6));
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        #db .container #db-row #db-column #db-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 480px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+            border-radius:25px;
+        }
+
+        #db .container #db-row #db-column #db-box #db-form {
+            padding: 20px;
+            border-radius:25px;
+        }
+
+        #db .container #db-row #db-column #db-box #db-form #register-link {
+            margin-top: -85px;
+            border-radius:25px;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function blockSpecialChar(e){
+            var k;
+            document.all ? k = e.keyCode : k = e.which;
+            return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || k == 95 || (k >= 48 && k <= 57));
+        }
+    </script>
+    <script type="text/javascript">
+        function forceLower(strInput) {
+            strInput.value=strInput.value.toLowerCase();
+        }
+    </script>
+</head>
+<body>
+    <body>
+    <div id="db">
+        <div class="container">
+            <div id="db-row" class="row justify-content-center align-items-center">
+                <div id="db-column" class="col-md-6">
+                    <div id="db-box" class="col-md-12">
+                        <form id="db-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Create Project</h3>
+                            <div class="form-group">
+                                <label for="dbname" class="text-info">Project Name:</label><br>
+                                <input type="text" name="dbname" id="dbname" class="form-control txt" onkeypress="return blockSpecialChar(event)">
+                            </div>
+                            <ul style="color:silver;">
+                                <li>Avoid space & special char in name</li>
+                                <li>Avoid duplicate names</li>
+                                <li>Avoid using number in first character</li>
+                            </ul>
+							<div class="form-group">
+                                <label for="dbdesc" class="text-info">Project Description:</label><br>
+                                <input type="text" name="dbdesc" id="dbdesc" class="form-control">
+                            </div>
+							<div class="form-group">
+                                <label for="dbimage" class="text-info">Project Image:</label><br>
+                                <input type="text" name="dbimage" id="dbimage" onclick="this.select();" value="https://i.ibb.co/FqtQyC5/rfh.png" class="form-control">
+                            </div>
+                            <table style="width:100%">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <a href="/home" type="button" class="btn btn-danger">Cancel</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+                                            <button id="submit" type="submit" disabled="disabled" class="btn btn-info">Create</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var submitButton = document.getElementById("submit");
+        var textField = document.getElementById("dbname");
+
+        textField.onkeyup = function(){
+            if (textField.value == "") {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
