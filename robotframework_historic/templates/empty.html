@@ -15,28 +15,28 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2019-04-04 16:55:45 +0200 -->
-    <title>Pagination - tabler.github.io - a responsive, flat and full featured admin template</title>
+    <title>Empty page - tabler.github.io - a responsive, flat and full featured admin template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{{ url_for('static',filename='assets/js/require.min.js') }}"></script>
+    <script src="./assets/js/require.min.js"></script>
     <script>
       requirejs.config({
           baseUrl: '.'
       });
     </script>
     <!-- Dashboard Core -->
-    <link href="{{ url_for('static',filename='assets/css/dashboard.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='assets/js/dashboard.js') }}"></script>
+    <link href="./assets/css/dashboard.css" rel="stylesheet" />
+    <script src="./assets/js/dashboard.js"></script>
     <!-- c3.js Charts Plugin -->
-    <link href="{{ url_for('static',filename='plugins/charts-c3/plugin.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='plugins/charts-c3/plugin.js') }}"></script>
+    <link href="./assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/charts-c3/plugin.js"></script>
     <!-- Google Maps Plugin -->
-    <link href="{{ url_for('static',filename='plugins/maps-google/plugin.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='plugins/maps-google/plugin.js') }}"></script>
+    <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
-    <script src="{{ url_for('static',filename='plugins/input-mask/plugin.js') }}"></script>
+    <script src="./assets/plugins/input-mask/plugin.js"></script>
     <!-- Datatables Plugin -->
-    <script src="{{ url_for('static',filename='plugins/datatables/plugin.js') }}"></script>
+    <script src="./assets/plugins/datatables/plugin.js"></script>
   </head>
   <body class="">
     <div class="page">
@@ -155,7 +155,7 @@
                     </div>
                   </li>
                   <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-file"></i> Pages</a>
+                    <a href="javascript:void(0)" class="nav-link active" data-toggle="dropdown"><i class="fe fe-file"></i> Pages</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="./profile.html" class="dropdown-item ">Profile</a>
                       <a href="./login.html" class="dropdown-item ">Login</a>
@@ -168,7 +168,7 @@
                       <a href="./500.html" class="dropdown-item ">500 error</a>
                       <a href="./503.html" class="dropdown-item ">503 error</a>
                       <a href="./email.html" class="dropdown-item ">Email</a>
-                      <a href="./empty.html" class="dropdown-item ">Empty page</a>
+                      <a href="./empty.html" class="dropdown-item active">Empty page</a>
                       <a href="./rtl.html" class="dropdown-item ">RTL mode</a>
                     </div>
                   </li>
@@ -187,178 +187,6 @@
           </div>
         </div>
         <div class="my-3 my-md-5">
-          <div class="container">
-            <div>
-              <ul class="pagination ">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination ">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                <li class="page-item"><a class="page-link" href="#">7</a></li>
-                <li class="page-item"><a class="page-link" href="#">8</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination  pagination-pager">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination  pagination-pager">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination ">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <i class="fe fe-chevron-left"></i>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    <i class="fe fe-chevron-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination justify-content-center">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination justify-content-end">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="pagination pagination-simple">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="d-flex align-items-center mb-4">
-              <div class="page-total-text ">1-20 of 85 items</div>
-              <ul class="pagination m-0">
-                <li class="page-item page-prev disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    Prev
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                  <a class="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
       <div class="footer">

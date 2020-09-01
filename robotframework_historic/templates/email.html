@@ -15,28 +15,28 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2019-04-04 16:55:45 +0200 -->
-    <title>Store components - tabler.github.io - a responsive, flat and full featured admin template</title>
+    <title>Email - tabler.github.io - a responsive, flat and full featured admin template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{{ url_for('static',filename='assets/js/require.min.js') }}"></script>
+    <script src="./assets/js/require.min.js"></script>
     <script>
       requirejs.config({
           baseUrl: '.'
       });
     </script>
     <!-- Dashboard Core -->
-    <link href="{{ url_for('static',filename='assets/css/dashboard.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='assets/js/dashboard.js') }}"></script>
+    <link href="./assets/css/dashboard.css" rel="stylesheet" />
+    <script src="./assets/js/dashboard.js"></script>
     <!-- c3.js Charts Plugin -->
-    <link href="{{ url_for('static',filename='plugins/charts-c3/plugin.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='plugins/charts-c3/plugin.js') }}"></script>
+    <link href="./assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/charts-c3/plugin.js"></script>
     <!-- Google Maps Plugin -->
-    <link href="{{ url_for('static',filename='plugins/maps-google/plugin.css') }}" rel="stylesheet" />
-    <script src="{{ url_for('static',filename='plugins/maps-google/plugin.js') }}"></script>
+    <link href="./assets/plugins/maps-google/plugin.css" rel="stylesheet" />
+    <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
-    <script src="{{ url_for('static',filename='plugins/input-mask/plugin.js') }}"></script>
+    <script src="./assets/plugins/input-mask/plugin.js"></script>
     <!-- Datatables Plugin -->
-    <script src="{{ url_for('static',filename='plugins/datatables/plugin.js') }}"></script>
+    <script src="./assets/plugins/datatables/plugin.js"></script>
   </head>
   <body class="">
     <div class="page">
@@ -145,11 +145,11 @@
                     </div>
                   </li>
                   <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link active" data-toggle="dropdown"><i class="fe fe-calendar"></i> Components</a>
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-calendar"></i> Components</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="./maps.html" class="dropdown-item ">Maps</a>
                       <a href="./icons.html" class="dropdown-item ">Icons</a>
-                      <a href="./store.html" class="dropdown-item active">Store</a>
+                      <a href="./store.html" class="dropdown-item ">Store</a>
                       <a href="./blog.html" class="dropdown-item ">Blog</a>
                       <a href="./carousel.html" class="dropdown-item ">Carousel</a>
                     </div>
@@ -188,165 +188,68 @@
         </div>
         <div class="my-3 my-md-5">
           <div class="container">
-            <div class="page-header">
-              <h1 class="page-title">
-                Store components
-              </h1>
-            </div>
-            <div class="row row-cards">
-              <div class="col-lg-3">
-                <div class="row">
-                  <div class="col-md-6 col-lg-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="mb-4 text-center">
-                          <img src="demo/products/apple-iphone7-special.jpg" alt="Apple iPhone 7 128GB" class="img-fluid">
-                        </div>
-                        <h4 class="card-title"><a href="javascript:void(0)">Apple iPhone 7 Plus 256GB Red Special Edition</a></h4>
-                        <div class="card-subtitle">
-                          Apple
-                        </div>
-                        <div class="mt-5 d-flex align-items-center">
-                          <div class="product-price">
-                            <strong>$499</strong>
-                          </div>
-                          <div class="ml-auto">
-                            <a href="javascript:void(0)" class="btn btn-primary"><i class="fe fe-plus"></i> Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h3 class="page-title mb-5">Mail Service</h3>
+                <div>
+                  <div class="list-group list-group-transparent mb-0">
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center active">
+                      <span class="icon mr-3"><i class="fe fe-inbox"></i></span>Inbox <span class="ml-auto badge badge-primary">14</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-send"></i></span>Sent Mail
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-alert-circle"></i></span>Important <span class="ml-auto badge badge-secondary">3</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-star"></i></span>Starred
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-file"></i></span>Drafts
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-tag"></i></span>Tags
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                      <span class="icon mr-3"><i class="fe fe-trash-2"></i></span>Trash
+                    </a>
                   </div>
-                  <div class="col-md-6 col-lg-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="mb-4 text-center">
-                          <img src="demo/products/gopro-hero.jpg" alt="Apple iPhone 7 128GB" class="img-fluid">
-                        </div>
-                        <h4 class="card-title"><a href="javascript:void(0)">GoPro HERO6 Black</a></h4>
-                        <div class="card-subtitle">
-                          GoPro
-                        </div>
-                        <div class="mt-5 d-flex align-items-center">
-                          <div class="product-price">
-                            <strong>$599</strong>
-                          </div>
-                          <div class="ml-auto">
-                            <a href="javascript:void(0)" class="btn btn-primary"><i class="fe fe-plus"></i> Add to cart</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="mt-6">
+                    <a href="#" class="btn btn-secondary btn-block">Compose new Email</a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-9">
+              <div class="col-md-9">
                 <div class="card">
-                  <table class="table card-table table-vcenter">
-                    <tr>
-                      <td><img src="demo/products/apple-iphone7-special.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Apple iPhone 7 Plus 256GB Red Special Edition
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">98 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">38 offers</td>
-                      <td class="text-right">
-                        <strong>$499</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/apple-macbook-pro.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Apple MacBook Pro i7 3,1GHz/16/512/Radeon 560 Space Gray
-                        <div class="badge badge-default badge-md">New</div>
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">97 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">13 offers</td>
-                      <td class="text-right">
-                        <strong>$1499</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/apple-iphone7.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Apple iPhone 7 32GB Jet Black
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">48 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">38 offers</td>
-                      <td class="text-right">
-                        <strong>$499</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/gopro-hero.jpg" alt="" class="h-8"></td>
-                      <td>
-                        GoPro HERO6 Black
-                        <div class="badge badge-default badge-md">New</div>
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">66 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">47 offers</td>
-                      <td class="text-right">
-                        <strong>$599</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/msi.jpg" alt="" class="h-8"></td>
-                      <td>
-                        MSI GV62 i5-7300HQ/8GB/1TB/Win10X GTX1050
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">59 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">26 offers</td>
-                      <td class="text-right">
-                        <strong>$1599</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/xiaomi-mi.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Xiaomi Mi A1 64GB Black
-                        <div class="badge badge-default badge-md">New</div>
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">63 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">43 offers</td>
-                      <td class="text-right">
-                        <strong>$269</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/huawei-mate.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Huawei Mate 10 Pro Dual SIM Gray
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">71 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">12 offers</td>
-                      <td class="text-right">
-                        <strong>$999</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/sony-kd.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Sony KD-49XE7005
-                        <div class="badge badge-default badge-md">New</div>
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">54 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">14 offers</td>
-                      <td class="text-right">
-                        <strong>$799</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><img src="demo/products/samsung-galaxy.jpg" alt="" class="h-8"></td>
-                      <td>
-                        Samsung Galaxy A5 A520F 2017 LTE Black Sky
-                      </td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">37 reviews</td>
-                      <td class="text-right text-muted d-none d-md-table-cell text-nowrap">40 offers</td>
-                      <td class="text-right">
-                        <strong>$399</strong>
-                      </td>
-                    </tr>
-                  </table>
+                  <div class="card-header">
+                    <h3 class="card-title">Compose new message</h3>
+                  </div>
+                  <div class="card-body">
+                    <form action="">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <label class="col-sm-2">To:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <label class="col-sm-2">Subject:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <textarea rows="10" class="form-control"></textarea>
+                      <div class="btn-list mt-4 text-right">
+                        <button type="button" class="btn btn-secondary btn-space">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-space">Send message</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
