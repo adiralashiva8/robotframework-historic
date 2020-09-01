@@ -9,7 +9,8 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return redirect(url_for('home'))
+    # return redirect(url_for('home'))
+    return render_template('pages/index.html')
 
 @app.route('/redirect')
 def redirect_url():
