@@ -50,11 +50,11 @@
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"> <i class="fa fa-dashboard" style="color: CADETBLUE;"></i> Dashboard<i class="fe fe-chevron-down"></i></a>
                                         <div class="dropdown-menu dropdown-menu-arrow">
-                                            <a href="./dashboardRecent" class="dropdown-item" style="color:skyblue">Recent</a>
-                                            <a href="./dashboardRecentFive" class="dropdown-item" style="color:skyblue">Recent 5</a>
-                                            <a href="./dashboardRecentTen" class="dropdown-item" style="color:skyblue">Recent 10</a>
-                                            <a href="./dashboardRecentThirty" class="dropdown-item" style="color:skyblue">Recent 30</a>
-                                            <a href="./dashboardAll" class="dropdown-item" style="color:skyblue">Over All</a>
+                                            <a href="./dashboardRecent" class="dropdown-item" style="color:deepskyblue">Recent</a>
+                                            <a href="./dashboardRecentFive" class="dropdown-item" style="color:deepskyblue">Recent 5</a>
+                                            <a href="./dashboardRecentTen" class="dropdown-item" style="color:deepskyblue">Recent 10</a>
+                                            <a href="./dashboardRecentThirty" class="dropdown-item" style="color:deepskyblue">Recent 30</a>
+                                            <a href="./dashboardAll" class="dropdown-item" style="color:deepskyblue">Over All</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
@@ -82,11 +82,23 @@
                 </div>
                 <div class="my-3 my-md-5">
                     <form class="form-inline" method="post" action="">
-                        <label for="id1">Execution ID:</label>
-                        <input type="text" id="eid_one" placeholder="Enter EID" name="eid_one" onkeypress='validate(event)'>
-                        <label for="id2">Execution ID:</label>
-                        <input type="text" id="eid_two" placeholder="Enter EID" name="eid_two" onkeypress='validate(event)'>
-                        <button id="submit" type="submit" disabled="disabled">Submit</button>
+                        <div class="row row-sm align-items-center mb-3">
+                            <div class="col">
+                              <div class="input-group">
+                                <span class="input-group-text">#</span>
+                                <input type="text" class="form-control" placeholder="EID" id="eid_one" name="eid_one" onkeypress='validate(event)'>
+                              </div>
+                            </div>
+                            <div class="col-auto">—</div>
+                            <div class="col">
+                              <div class="input-group">
+                                <span class="input-group-text">#</span>
+                                <input type="text" class="form-control" placeholder="EID">
+                                <input type="text" class="form-control" placeholder="EID" id="eid_two" name="eid_two" onkeypress='validate(event)'>
+                              </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" id="submit" type="submit" disabled="disabled">Compare</button>
                     </form>
                     <div class="col-12">
                         <div class="card">
