@@ -42,6 +42,14 @@
                 <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
                     <div class="container">
                         <div class="row align-items-center">
+                            <div class="col-lg-3 ml-auto">
+                                <form class="input-icon my-3 my-lg-0" method="post" action="">
+                                    <input id="textField" name="query" type="search" class="form-control header-search" placeholder="Query Here" tabindex="1">
+                                    <div class="input-icon-addon">
+                                    <i class="fe fe-search"></i>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="col-lg order-lg-first">
                                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                                     <li class="nav-item">
@@ -50,11 +58,11 @@
                                     <li class="nav-item">
                                         <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"> <i class="fa fa-dashboard" style="color: CADETBLUE;"></i> Dashboard<i class="fe fe-chevron-down"></i></a>
                                         <div class="dropdown-menu dropdown-menu-arrow">
-                                            <a href="./dashboardRecent" class="dropdown-item" style="color:deepskyblue">Recent</a>
-                                            <a href="./dashboardRecentFive" class="dropdown-item" style="color:deepskyblue">Recent 5</a>
-                                            <a href="./dashboardRecentTen" class="dropdown-item" style="color:deepskyblue">Recent 10</a>
-                                            <a href="./dashboardRecentThirty" class="dropdown-item" style="color:deepskyblue">Recent 30</a>
-                                            <a href="./dashboardAll" class="dropdown-item" style="color:deepskyblue">Over All</a>
+                                            <a href="./dashboardRecent" class="dropdown-item" style="color:blue">Recent</a>
+                                            <a href="./dashboardRecentFive" class="dropdown-item" style="color:blue">Recent 5</a>
+                                            <a href="./dashboardRecentTen" class="dropdown-item" style="color:blue">Recent 10</a>
+                                            <a href="./dashboardRecentThirty" class="dropdown-item" style="color:blue">Recent 30</a>
+                                            <a href="./dashboardAll" class="dropdown-item" style="color:blue">Over All</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
@@ -81,20 +89,6 @@
                     </div>
                 </div>
                 <div class="my-3 my-md-5">
-                    <form class="form-inline" method="post" action="">
-                        <div class="row row-sm align-items-center mb-3">
-                            <div class="col">
-                              <div class="input-group">
-                                <span class="input-group-text">#</span>
-                                <input id="textField" type="text" placeholder="Select * from TB_EXECUTION;" name="query">
-                              </div>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary btn-block" id="submit" type="submit" disabled="disabled">Execute</button>
-                            </div>
-                        </div>
-                    </form>
-
                     <div style="padding:5px">Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables
                         <a href="https://bit.ly/3eRJ9uo" target="_blank">Tables Info</a>
                     </div>
