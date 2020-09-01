@@ -69,10 +69,12 @@
                         {% for item in data %}
                             <div class="col-sm-6 col-xl-3">
                                 <div class="card">
-                                    <img src="{{item[3]}}" class="card-img-top" alt="logo" title="{{item[2]}}">
-                                    <div class="card-body">
-                                        <h5 class="card-title text" style="text-transform:capitalize;" title="{{item[1]}}">{{item[1]}}</h5>
-                                        <small class="text-muted" title="Last Updated: {{item[5]}}"><i class="fa fa-clock-o fav"></i> {{item[5]}}</small>
+                                    <a href="#">
+                                        <img src="{{item[3]}}" class="card-img-top" alt="logo" title="{{item[2]}}">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h4 class="card-title text" style="text-transform:capitalize;" title="{{item[1]}}">{{item[1]}}</h4>
+                                        <div class="text-muted" title="Last Updated: {{item[5]}}"><i class="fa fa-clock-o fav"></i> {{item[5]}}</div>
                                         <hr>
                                         <table class="text-muted" style="width:100%;text-align:center;">
                                             <tbody>
@@ -87,7 +89,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="d-flex card-footer">
                                         <a type="button" href="{{item[1]}}/deldbconf" class="btn btn-light float-left btn-sm"><i class="fa fa-trash-o"></i> Delete</a>
                                         <a type="button" href="{{item[1]}}/dashboardRecent" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
                                     </div>
