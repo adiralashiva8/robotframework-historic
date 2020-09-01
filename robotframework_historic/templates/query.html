@@ -81,10 +81,17 @@
                     </div>
                 </div>
                 <div class="my-3 my-md-5">
-                    <form class="example" method="post" action="" style="margin:auto;max-width:900px">
-                        <input id="textField" type="text" placeholder="Your Query Here: Select * from TB_EXECUTION;" name="query">
-                        <button id="submit" type="submit" disabled="disabled"><i class="fa fa-search-plus"></i> Execute</button>
+                    <form class="form-inline" method="post" action="">
+                        <div class="row row-sm align-items-center mb-3">
+                            <div class="col">
+                              <div class="input-group">
+                                <input id="textField" type="text" placeholder="Select * from TB_EXECUTION;" name="query">
+                              </div>
+                            </div>
+                            <button class="btn btn-primary btn-block" id="submit" type="submit" disabled="disabled">Execute</button>
+                        </div>
                     </form>
+
                     <div style="padding:5px">Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables
                         <a href="https://bit.ly/3eRJ9uo" target="_blank">Tables Info</a>
                     </div>
