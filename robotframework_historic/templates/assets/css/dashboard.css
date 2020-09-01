@@ -15006,7 +15006,8 @@ Card alert
 }
 
 .dropdown-item {
-  color: #6e7687;
+  /* color: #6e7687; */
+  color: blue
 }
 
 .dropdown-menu-arrow:before {
