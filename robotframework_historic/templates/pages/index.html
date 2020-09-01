@@ -21,7 +21,7 @@
     <script src="{{ url_for('static',filename='js/require.min.js') }}"></script>
     <script>
       requirejs.config({
-          baseUrl: '.'
+          baseUrl: "{{ url_for('static',filename='/') }}"
       });
     </script>
     <!-- Dashboard Core -->
