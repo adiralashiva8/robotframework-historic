@@ -9,7 +9,7 @@ shim: {
 'core': ['bootstrap', 'jquery'],
 },
 paths: {
-'core': 'assets/js/core',
+'core': 'js/core',
 'jquery': 'js/vendors/jquery-3.2.1.min',
 'bootstrap': 'js/vendors/bootstrap.bundle.min',
 'sparkline': 'js/vendors/jquery.sparkline.min',
