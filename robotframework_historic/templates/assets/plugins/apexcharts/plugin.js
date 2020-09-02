@@ -3,6 +3,6 @@ require.config({
         'apexcharts': ['jquery','core'],
     },
     paths: {
-        'apexcharts': 'assets/plugins/apexcharts/apexcharts.min',
+        'apexcharts': 'assets/plugins/apexcharts/apexcharts.amd',
     }
 });
