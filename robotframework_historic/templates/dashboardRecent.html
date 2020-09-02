@@ -28,6 +28,8 @@
 
         <!-- Datatables Plugin -->
         <script src="/assets/plugins/datatables/plugin.js"></script>
+
+        <link href="/assets/plugins/apexcharts/apexcharts.css" rel="stylesheet" />
         <script src="/assets/plugins/apexcharts/plugin.js"></script>
     </head>
     <body class="">
@@ -259,9 +261,7 @@
                         }]
                     };
 
-                    window.ApexCharts = require('apexcharts');
-                    console.log(window.ApexCharts);
-                    var chart = new window.ApexCharts(document.querySelector("#lastPieID"), options);
+                    var chart = new apexcharts(document.querySelector("#lastPieID"), options);
                     chart.render();
                 });
             });
