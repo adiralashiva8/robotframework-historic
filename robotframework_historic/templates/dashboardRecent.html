@@ -236,7 +236,6 @@
                         {% for item in last_exe_pie_data %}
                             series: [{{ item[0]}}, {{ item[1]}}],
                         {% endfor %}
-                        series: [passed_count, failed_count],
                         labels: ["Pass", "Fail"],
                         chart: {
                             // width: 330,
