@@ -91,7 +91,7 @@
                                             6%
                                             <i class="fe fe-chevron-up"></i>
                                         </div>
-                                        <div class="h1 m-0" style="color:#2ecc71">{{last_exe_pie_data[0][0]}}</div>
+                                        <div class="h1 m-0" style="color:#2ecc71">{{last_exe_data[0][0]}}</div>
                                         <div class="text-muted mb-4">Passed Tests</div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                             -3%
                                             <i class="fe fe-chevron-down"></i>
                                         </div>
-                                        <div class="h1 m-0" style="color:#fc6666">{{last_exe_pie_data[0][1]}}</div>
+                                        <div class="h1 m-0" style="color:#fc6666">{{last_exe_data[0][1]}}</div>
                                         <div class="text-muted mb-4">Failed Tests</div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                             9%
                                             <i class="fe fe-chevron-up"></i>
                                         </div>
-                                        <div class="h1 m-0" style="color:cadetblue">{{last_exe_pie_data[0][3]}}</div>
+                                        <div class="h1 m-0" style="color:cadetblue">{{last_exe_data[0][3]}}</div>
                                         <div class="text-muted mb-4">Duration (min)</div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                         <h3 class="card-title">Required Analysis</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-pie123" style="height: 16rem;"></div>
+                                        <div id="lastAnalyID" style="height: 16rem;"></div>
                                     </div>
                                 </div>
                                 
@@ -233,7 +233,53 @@
         <script>
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var options = {
-                    {% for item in last_exe_pie_data %}
+                    chart: {
+                        height: 250,
+                        type: "radialBar"
+                    },
+                    
+                    series: [{{req_anal_perc_data}}],
+                    
+                    plotOptions: {
+                        radialBar: {
+                            hollow: {
+                                margin: 15,
+                                size: "70%"
+                            },
+                        
+                            dataLabels: {
+                                showOn: "always",
+                                name: {
+                                offsetY: -10,
+                                show: true,
+                                color: "#888",
+                                fontSize: "13px"
+                                },
+                                value: {
+                                color: "#111",
+                                fontSize: "30px",
+                                show: true
+                                }
+                            }
+                        }
+                    },
+
+                    stroke: {
+                        lineCap: "round",
+                    },
+                    {% for item in last_exe_data %}
+                        labels: ["Total - ".concat({{item[0]}})]
+                    {% endfor %}
+                };
+
+                var chart = new ApexCharts(document.querySelector("#lastAnalyID"), options);
+                chart.render();
+            });
+        </script>
+        <script>
+            require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
+                var options = {
+                    {% for item in last_exe_data %}
                         series: [{{ item[0]}}, {{ item[1]}}],
                     {% endfor %}
                     labels: ["Pass", "Fail"],
