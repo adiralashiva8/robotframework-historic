@@ -74,13 +74,6 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    window.onload = function () {
-                        {% for item in last_exe_pie_data %}
-                            createPieChart({{ item[0]}}, {{ item[1] }}, 'lastPieID', 'Last Execution Result:');
-                        {% endfor %}
-                    };
-                </script>
                 <div class="my-3 my-md-5">
                     <div class="container">
                         <div class="page-header">
@@ -238,35 +231,38 @@
         </div>
         <script>
             require(['apexcharts', 'jquery'], function(apexcharts, $) {
-            function createPieChart(passed_count, failed_count, ChartID, ChartName) {
-                var options = {
-                    series: [passed_count, failed_count],
-                    labels: ["Pass", "Fail"],
-                    chart: {
-                        // width: 330,
-                        type: 'donut',
-                    },
-                    legend: {
-                        show: true,
-                        position: 'top',
-                        horizontalAlign: 'left'
-                    },
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            fontWeight: 'normal',
+                $(document).ready(function() {
+                    var options = {
+                        {% for item in last_exe_pie_data %}
+                            series: [{{ item[0]}}, {{ item[1]}}],
+                        {% endfor %}
+                        series: [passed_count, failed_count],
+                        labels: ["Pass", "Fail"],
+                        chart: {
+                            // width: 330,
+                            type: 'donut',
                         },
-                    },
-                    colors: ['#2ecc71', '#fc6666'],
-                    responsive: [{
-                        breakpoint: 480,
-                    }]
-                };
-    
-                var chart = new ApexCharts(document.getElementById(ChartID), options);
-                chart.render();
-            }
-        });
+                        legend: {
+                            show: true,
+                            position: 'top',
+                            horizontalAlign: 'left'
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontWeight: 'normal',
+                            },
+                        },
+                        colors: ['#2ecc71', '#fc6666'],
+                        responsive: [{
+                            breakpoint: 480,
+                        }]
+                    };
+        
+                    var chart = new ApexCharts(document.getElementById('lastPieID'), options);
+                    chart.render();
+                }
+            });
         </script>
     </body>
 </html>
