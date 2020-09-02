@@ -134,7 +134,7 @@ def dashboardRecent(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 2;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, A from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
@@ -143,13 +143,11 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
         req_anal_data = cursor.fetchall()
 
-        cursor.execute("select ROUND(AVG(execution_pass),2) from TB_SUITE order by execution_id desc;")
+        cursor.execute("select ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
         suite_avg_dur_data = cursor.fetchall()
 
-        cursor.execute("select ROUND(AVG(execution_pass),2) from TB_TEST order by execution_id desc;")
+        cursor.execute("select ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
         test_avg_dur_data = cursor.fetchall()
-
-         ROUND(AVG(execution_pass),2)
 
         # required analysis percentage
         if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
