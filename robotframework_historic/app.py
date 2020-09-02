@@ -149,8 +149,7 @@ def dashboardRecent(db):
         return render_template('dashboardRecent.html', last_exe_data=last_exe_data,
          prev_exe_data=prev_exe_data,
          req_anal_data=req_anal_data,
-         req_anal_perc_data=req_anal_perc_data
-         db_name=db)
+         req_anal_perc_data=req_anal_perc_data, db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
