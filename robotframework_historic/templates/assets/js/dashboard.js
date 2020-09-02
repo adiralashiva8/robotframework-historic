@@ -2,7 +2,7 @@ require.config({
 shim: {
 'bootstrap': ['jquery'],
 'tablesorter': ['jquery'],
-'apexchart': ['jquery'],
+'apexcharts': ['jquery'],
 'core': ['bootstrap', 'jquery'],
 },
 paths: {
@@ -12,7 +12,7 @@ paths: {
 'selectize': 'assets/js/vendors/selectize.min',
 'tablesorter': 'assets/js/vendors/jquery.tablesorter.min',
 'circle-progress': 'assets/js/vendors/circle-progress.min',
-'apexchart': 'assets/js/vendors/apexchart',
+'apexcharts': 'assets/js/vendors/apexcharts.min',
 }
 });
 window.tabler = {
