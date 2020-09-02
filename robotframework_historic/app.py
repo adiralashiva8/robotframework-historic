@@ -134,13 +134,13 @@ def dashboardRecent(db):
         cursor.execute("SELECT Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 2;")
         data = cursor.fetchone()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % data[0][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % str(data[0][0]))
         last_exe_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % data[1][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % str(data[1][0]))
         prev_exe_data = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % data[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % str(data[0][0]))
         req_anal_data = cursor.fetchall()
 
         # required analysis percentage
