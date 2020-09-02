@@ -114,7 +114,7 @@
                                                 <i class="fe fe-chevron-down"></i>
                                             </div>
                                         {% else %}
-                                            <div class="text-right text-red">
+                                            <div class="text-right text-green">
                                                 {{failed_test_dif}}
                                                 <i class="fe fe-chevron-up"></i>
                                             </div>
@@ -177,12 +177,12 @@
                                             <tr>
                                                 <td width="1"><i class="fa fa-th-large text-muted"></i></td>
                                                 <td>Average Suite Duration</td>
-                                                <td class="text-right"><span class="text-muted">{{suite_avg_dur_data}}</span></td>
+                                                <td class="text-right"><span class="text-muted">{{suite_avg_dur_data[0][0]}}m</span></td>
                                             </tr>
                                             <tr>
                                                 <td><i class="fa fa-list-alt text-muted"></i></td>
                                                 <td>Average Test Duration</td>
-                                                <td class="text-right"><span class="text-muted">{{test_avg_dur_data}}</span></td>
+                                                <td class="text-right"><span class="text-muted">{{test_avg_dur_data[0][0]}}m</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -194,64 +194,24 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Top 5 Failed Suites</h3>
+                                        <h3 class="card-title">Top 5 Common Failed Suites</h3>
+                                        * Common suites which are failed in recent and recent-1 executions
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table card-table table-striped table-vcenter">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="2">User</th>
-                                                    <th>Commit</th>
-                                                    <th>Date</th>
-                                                    <th></th>
+                                                    <th>Suite Name</th>
+                                                    <th>% Of Failure</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="w-1"><span class="avatar" style="background-image: url(./demo/faces/male/9.jpg);"></span></td>
-                                                    <td>Ronald Bradley</td>
-                                                    <td>Initial commit</td>
-                                                    <td class="text-nowrap">May 6, 2018</td>
-                                                    <td class="w-1">
-                                                        <a href="#" class="icon"><i class="fe fe-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="avatar">BM</span></td>
-                                                    <td>Russell Gibson</td>
-                                                    <td>Main structure</td>
-                                                    <td class="text-nowrap">April 22, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="icon"><i class="fe fe-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="avatar" style="background-image: url(./demo/faces/female/1.jpg);"></span></td>
-                                                    <td>Beverly Armstrong</td>
-                                                    <td>Left sidebar adjustments</td>
-                                                    <td class="text-nowrap">April 15, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="icon"><i class="fe fe-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="avatar" style="background-image: url(./demo/faces/male/4.jpg);"></span></td>
-                                                    <td>Bobby Knight</td>
-                                                    <td>Topbar dropdown style</td>
-                                                    <td class="text-nowrap">April 8, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="icon"><i class="fe fe-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="avatar" style="background-image: url(./demo/faces/female/11.jpg);"></span></td>
-                                                    <td>Sharon Wells</td>
-                                                    <td>Fixes #625</td>
-                                                    <td class="text-nowrap">April 9, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="icon"><i class="fe fe-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                {% for item in common_five_failed_suites %}
+                                                    <tr>
+                                                        <td>{{item[0]}}</td>
+                                                        <td>{{item[1]}}</td>
+                                                    </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -266,7 +226,7 @@
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var options = {
                     chart: {
-                        height: 300,
+                        height: 250,
                         type: "radialBar"
                     },
                     
@@ -289,7 +249,7 @@
                                 },
                                 value: {
                                     color: "#111",
-                                    fontSize: "25px",
+                                    fontSize: "16px",
                                     show: true
                                 }
                             }
@@ -322,8 +282,8 @@
                     },
                     legend: {
                         show: true,
-                        position: 'top',
-                        horizontalAlign: 'right'
+                        position: 'bottom',
+                        horizontalAlign: 'center'
                     },
                     dataLabels: {
                         enabled: true,

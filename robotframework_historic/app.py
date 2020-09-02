@@ -143,11 +143,14 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
         req_anal_data = cursor.fetchall()
 
-        cursor.execute("select ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
         suite_avg_dur_data = cursor.fetchall()
 
-        cursor.execute("select ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
         test_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("SELECT Suite_Name, Suite_Fail as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC LIMIT 5;" % exe_info[1][0])
+        common_five_failed_suites = cursor.fetchall()
 
         # required analysis percentage
         if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
@@ -168,6 +171,7 @@ def dashboardRecent(db):
          failed_test_dif=failed_test_dif,
          suite_avg_dur_data=suite_avg_dur_data,
          test_avg_dur_data=test_avg_dur_data,
+         common_five_failed_suites=common_five_failed_suites,
          db_name=db)
 
     else:
