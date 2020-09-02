@@ -232,6 +232,7 @@
         <script>
             require(['apexcharts', 'jquery'], function(apexcharts, $) {
                 $(document).ready(function() {
+
                     var options = {
                         {% for item in last_exe_pie_data %}
                             series: [{{ item[0]}}, {{ item[1]}}],
@@ -257,9 +258,10 @@
                             breakpoint: 480,
                         }]
                     };
-        
-                    import ApexCharts from 'apexcharts';
-                    var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
+
+                    window.ApexCharts = require('apexcharts');
+                    console.log(window.ApexCharts);
+                    var chart = new window.ApexCharts(document.querySelector("#lastPieID"), options);
                     chart.render();
                 });
             });
