@@ -232,7 +232,7 @@
             </div>
         </div>
         <script>
-            require(['apexcharts', 'jquery'], function(apexcharts, $) {
+            // require(['apexcharts', 'jquery'], function(apexcharts, $) {
                 $(document).ready(function() {
 
                     var options = {
@@ -261,10 +261,10 @@
                         }]
                     };
 
-                    var chart = new apexcharts(document.querySelector("#lastPieID"), options);
+                    var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
                     chart.render();
                 });
-            });
+            // });
         </script>
     </body>
 </html>
