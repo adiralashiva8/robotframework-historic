@@ -88,7 +88,7 @@
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right text-green">
-                                            6%
+                                            {{passed_test_dif}}
                                             <i class="fe fe-chevron-up"></i>
                                         </div>
                                         <div class="h1 m-0" style="color:#2ecc71">{{last_exe_data[0][0]}}</div>
@@ -100,7 +100,7 @@
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right text-red">
-                                            -3%
+                                            {{failed_test_dif}}
                                             <i class="fe fe-chevron-down"></i>
                                         </div>
                                         <div class="h1 m-0" style="color:#fc6666">{{last_exe_data[0][1]}}</div>
@@ -111,10 +111,6 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
-                                        <div class="text-right text-green">
-                                            9%
-                                            <i class="fe fe-chevron-up"></i>
-                                        </div>
                                         <div class="h1 m-0" style="color:cadetblue">{{last_exe_data[0][3]}}</div>
                                         <div class="text-muted mb-4">Duration (min)</div>
                                     </div>
@@ -123,11 +119,7 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
-                                        <div class="text-right text-green">
-                                            3%
-                                            <i class="fe fe-chevron-up"></i>
-                                        </div>
-                                        <div class="h1 m-0">27.3K</div>
+                                        <div class="h1 m-0">{{new_tests_count}}</div>
                                         <div class="text-muted mb-4">New Tests</div>
                                     </div>
                                 </div>
@@ -148,7 +140,7 @@
                             <div class="col-lg-6 col-xl-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Required Analysis</h3>
+                                        <h3 class="card-title">Failure Analysis</h3>
                                     </div>
                                     <div class="card-body">
                                         <div id="lastAnalyID" style="height: 16rem;"></div>
@@ -234,7 +226,7 @@
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var options = {
                     chart: {
-                        height: 250,
+                        height: 310,
                         type: "radialBar"
                     },
                     
@@ -243,14 +235,14 @@
                     plotOptions: {
                         radialBar: {
                             hollow: {
-                                margin: 15,
-                                size: "70%"
+                                // margin: 15,
+                                size: "80%"
                             },
                         
                             dataLabels: {
                                 showOn: "always",
                                 name: {
-                                offsetY: -10,
+                                // offsetY: -10,
                                 show: true,
                                 color: "#888",
                                 fontSize: "13px"
@@ -267,8 +259,8 @@
                     stroke: {
                         lineCap: "round",
                     },
-                    {% for item in last_exe_data %}
-                        labels: ["Total - ".concat({{item[0]}})]
+                    {% for item in req_anal_data %}
+                        labels: ["Pending - ".concat({{item[0]}})]
                     {% endfor %}
                 };
 
