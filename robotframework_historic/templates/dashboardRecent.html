@@ -87,10 +87,17 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
-                                        <div class="text-right text-green">
-                                            {{passed_test_dif}}
-                                            <i class="fe fe-chevron-up"></i>
-                                        </div>
+                                        {% if (passed_test_dif > 0) %}
+                                            <div class="text-right text-green">
+                                                {{passed_test_dif}}
+                                                <i class="fe fe-chevron-up"></i>
+                                            </div>
+                                        {% else %}
+                                            <div class="text-right text-red">
+                                                {{passed_test_dif}}
+                                                <i class="fe fe-chevron-down"></i>
+                                            </div>
+                                        {% endif %}
                                         <div class="h1 m-0" style="color:#2ecc71">{{last_exe_data[0][0]}}</div>
                                         <div class="text-muted mb-4">Passed Tests</div>
                                     </div>
@@ -99,6 +106,17 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
+                                        {% if (failed_test_dif > 0) %}
+                                            <div class="text-right text-red">
+                                                {{failed_test_dif}}
+                                                <i class="fe fe-chevron-down"></i>
+                                            </div>
+                                        {% else %}
+                                            <div class="text-right text-green">
+                                                {{failed_test_dif}}
+                                                <i class="fe fe-chevron-up"></i>
+                                            </div>
+                                        {% endif %}
                                         <div class="text-right text-red">
                                             {{failed_test_dif}}
                                             <i class="fe fe-chevron-down"></i>
@@ -111,6 +129,7 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
+                                        <div class="text-right text-red">.</div>
                                         <div class="h1 m-0" style="color:cadetblue">{{last_exe_data[0][3]}}</div>
                                         <div class="text-muted mb-4">Duration (min)</div>
                                     </div>
@@ -119,6 +138,7 @@
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-body p-3 text-center">
+                                        <div class="text-right text-red">.</div>
                                         <div class="h1 m-0">{{new_tests_count}}</div>
                                         <div class="text-muted mb-4">New Tests</div>
                                     </div>
@@ -226,7 +246,7 @@
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var options = {
                     chart: {
-                        height: 310,
+                        height: 300,
                         type: "radialBar"
                     },
                     
@@ -240,17 +260,17 @@
                             },
                         
                             dataLabels: {
-                                showOn: "always",
+                                // showOn: "always",
                                 name: {
-                                // offsetY: -10,
-                                show: true,
-                                color: "#888",
-                                fontSize: "13px"
+                                    // offsetY: -10,
+                                    show: true,
+                                    color: "#888",
+                                    fontSize: "20px"
                                 },
                                 value: {
-                                color: "#111",
-                                fontSize: "30px",
-                                show: true
+                                    color: "#111",
+                                    fontSize: "25px",
+                                    show: true
                                 }
                             }
                         }
