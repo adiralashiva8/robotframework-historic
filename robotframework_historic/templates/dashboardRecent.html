@@ -258,7 +258,8 @@
                         }]
                     };
         
-                    var chart = new ApexCharts(document.getElementById('lastPieID'), options);
+                    import ApexCharts from 'apexcharts';
+                    var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
                     chart.render();
                 });
             });
