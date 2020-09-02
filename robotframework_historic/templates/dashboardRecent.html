@@ -29,7 +29,7 @@
         <!-- Datatables Plugin -->
         <script src="/assets/plugins/datatables/plugin.js"></script>
 
-        <link href="/assets/plugins/apexcharts/apexcharts.css" rel="stylesheet" />
+        <!-- Apex Charts Plugin -->
         <script src="/assets/plugins/apexcharts/plugin.js"></script>
     </head>
     <body class="">
@@ -232,38 +232,35 @@
             </div>
         </div>
         <script>
-            require(['apexcharts', 'jquery'], function(apexcharts, $) {
-                $(document).ready(function() {
-
-                    var options = {
-                        {% for item in last_exe_pie_data %}
-                            series: [{{ item[0]}}, {{ item[1]}}],
-                        {% endfor %}
-                        labels: ["Pass", "Fail"],
-                        chart: {
-                            // width: 330,
-                            type: 'donut',
+            require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
+                var options = {
+                    {% for item in last_exe_pie_data %}
+                        series: [{{ item[0]}}, {{ item[1]}}],
+                    {% endfor %}
+                    labels: ["Pass", "Fail"],
+                    chart: {
+                        width: 310,
+                        width: 250,
+                        type: 'donut',
+                    },
+                    legend: {
+                        show: true,
+                        position: 'top',
+                        horizontalAlign: 'right'
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'normal',
                         },
-                        legend: {
-                            show: true,
-                            position: 'top',
-                            horizontalAlign: 'left'
-                        },
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                fontWeight: 'normal',
-                            },
-                        },
-                        colors: ['#2ecc71', '#fc6666'],
-                        responsive: [{
-                            breakpoint: 480,
-                        }]
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
-                    chart.render();
-                });
+                    },
+                    colors: ['#2ecc71', '#fc6666'],
+                    responsive: [{
+                        breakpoint: 480,
+                    }]
+                };
+                var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
+                chart.render();
             });
         </script>
     </body>
