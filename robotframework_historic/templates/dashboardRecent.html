@@ -233,7 +233,7 @@
         </div>
         <script>
             // require(['apexcharts', 'jquery'], function(apexcharts, $) {
-                $(document).ready(function() {
+                // $(document).ready(function() {
 
                     var options = {
                         {% for item in last_exe_pie_data %}
@@ -263,7 +263,7 @@
 
                     var chart = new ApexCharts(document.querySelector("#lastPieID"), options);
                     chart.render();
-                });
+                // });
             // });
         </script>
     </body>
