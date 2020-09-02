@@ -134,7 +134,7 @@ def dashboardRecent(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 2;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, A from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
@@ -143,13 +143,21 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
         req_anal_data = cursor.fetchall()
 
+        cursor.execute("select ROUND(AVG(execution_pass),2) from TB_SUITE order by execution_id desc;")
+        suite_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("select ROUND(AVG(execution_pass),2) from TB_TEST order by execution_id desc;")
+        test_avg_dur_data = cursor.fetchall()
+
+         ROUND(AVG(execution_pass),2)
+
         # required analysis percentage
         if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
             req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
         else:
             req_anal_perc_data = 0
         
-        new_tests_count = exe_info[0][1] - exe_info[1][0]
+        new_tests_count = exe_info[0][1] - exe_info[1][1]
         passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
         failed_test_dif = last_exe_data[0][1] - prev_exe_data[0][1]
 
@@ -160,6 +168,8 @@ def dashboardRecent(db):
          new_tests_count=new_tests_count,
          passed_test_dif=passed_test_dif,
          failed_test_dif=failed_test_dif,
+         suite_avg_dur_data=suite_avg_dur_data,
+         test_avg_dur_data=test_avg_dur_data,
          db_name=db)
 
     else:
