@@ -25,16 +25,12 @@
         <!-- Dashboard Core -->
         <link href="/assets/css/dashboard.css" rel="stylesheet" />
         <script src="/assets/js/dashboard.js"></script>
-        <!-- c3.js Charts Plugin -->
-        <link href="/assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
-        <script src="/assets/plugins/charts-c3/plugin.js"></script>
-        <!-- Google Maps Plugin -->
-        <link href="/assets/plugins/maps-google/plugin.css" rel="stylesheet" />
-        <script src="/assets/plugins/maps-google/plugin.js"></script>
         <!-- Input Mask Plugin -->
         <script src="/assets/plugins/input-mask/plugin.js"></script>
         <!-- Datatables Plugin -->
         <script src="/assets/plugins/datatables/plugin.js"></script>
+        <!-- Apex Charts -->
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     </head>
     <body class="">
         <div class="page">
@@ -80,6 +76,13 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    window.onload = function () {
+                        {% for item in last_exe_pie_data %}
+                            createPieChart({{ item[0]}}, {{ item[1] }}, 'lastPieID', 'Last Execution Result:');
+                        {% endfor %}
+                    };
+                </script>
                 <div class="my-3 my-md-5">
                     <div class="container">
                         <div class="page-header">
@@ -95,7 +98,7 @@
                                             6%
                                             <i class="fe fe-chevron-up"></i>
                                         </div>
-                                        <div class="h1 m-0">43</div>
+                                        <div class="h1 m-0" style="color:#2ecc71">{{last_exe_pie_data[0][0]}}</div>
                                         <div class="text-muted mb-4">Passed Tests</div>
                                     </div>
                                 </div>
@@ -107,7 +110,7 @@
                                             -3%
                                             <i class="fe fe-chevron-down"></i>
                                         </div>
-                                        <div class="h1 m-0">17</div>
+                                        <div class="h1 m-0" style="color:#fc6666">{{last_exe_pie_data[0][1]}}</div>
                                         <div class="text-muted mb-4">Failed Tests</div>
                                     </div>
                                 </div>
@@ -119,7 +122,7 @@
                                             9%
                                             <i class="fe fe-chevron-up"></i>
                                         </div>
-                                        <div class="h1 m-0">7</div>
+                                        <div class="h1 m-0" style="color:cadetblue">{{last_exe_pie_data[0][3]}}</div>
                                         <div class="text-muted mb-4">Duration (min)</div>
                                     </div>
                                 </div>
@@ -143,96 +146,23 @@
                                     <div class="col-sm-6">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Chart title</h3>
+                                                <h3 class="card-title">Execution Result</h3>
                                             </div>
                                             <div class="card-body">
-                                                <div id="chart-donut" style="height: 12rem;"></div>
+                                                <div id="lastPieID" style="height: 12rem;"></div>
                                             </div>
                                         </div>
-                                        <script>
-                                            require(["c3", "jquery"], function (c3, $) {
-                                                $(document).ready(function () {
-                                                    var chart = c3.generate({
-                                                        bindto: "#chart-donut", // id of chart wrapper
-                                                        data: {
-                                                            columns: [
-                                                                // each columns data
-                                                                ["data1", 63],
-                                                                ["data2", 37],
-                                                            ],
-                                                            type: "donut", // default type of chart
-                                                            colors: {
-                                                                data1: tabler.colors["green"],
-                                                                data2: tabler.colors["green-light"],
-                                                            },
-                                                            names: {
-                                                                // name of each serie
-                                                                data1: "Maximum",
-                                                                data2: "Minimum",
-                                                            },
-                                                        },
-                                                        axis: {},
-                                                        legend: {
-                                                            show: false, //hide legend
-                                                        },
-                                                        padding: {
-                                                            bottom: 0,
-                                                            top: 0,
-                                                        },
-                                                    });
-                                                });
-                                            });
-                                        </script>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h3 class="card-title">Chart title</h3>
+                                                <h3 class="card-title">Required Analysis</h3>
                                             </div>
                                             <div class="card-body">
-                                                <div id="chart-pie" style="height: 12rem;"></div>
+                                                // <div id="chart-pie" style="height: 12rem;"></div>
                                             </div>
                                         </div>
-                                        <script>
-                                            require(["c3", "jquery"], function (c3, $) {
-                                                $(document).ready(function () {
-                                                    var chart = c3.generate({
-                                                        bindto: "#chart-pie", // id of chart wrapper
-                                                        data: {
-                                                            columns: [
-                                                                // each columns data
-                                                                ["data1", 63],
-                                                                ["data2", 44],
-                                                                ["data3", 12],
-                                                                ["data4", 14],
-                                                            ],
-                                                            type: "pie", // default type of chart
-                                                            colors: {
-                                                                data1: tabler.colors["blue-darker"],
-                                                                data2: tabler.colors["blue"],
-                                                                data3: tabler.colors["blue-light"],
-                                                                data4: tabler.colors["blue-lighter"],
-                                                            },
-                                                            names: {
-                                                                // name of each serie
-                                                                data1: "A",
-                                                                data2: "B",
-                                                                data3: "C",
-                                                                data4: "D",
-                                                            },
-                                                        },
-                                                        axis: {},
-                                                        legend: {
-                                                            show: false, //hide legend
-                                                        },
-                                                        padding: {
-                                                            bottom: 0,
-                                                            top: 0,
-                                                        },
-                                                    });
-                                                });
-                                            });
-                                        </script>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +170,7 @@
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Development Activity</h3>
+                                        <h3 class="card-title">Top 5 Failed Suites</h3>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table card-table table-striped table-vcenter">
@@ -308,5 +238,35 @@
                 </div>
             </div>
         </div>
+        <script>
+            function createPieChart(passed_count, failed_count, ChartID, ChartName) {
+                var options = {
+                    series: [passed_count, failed_count],
+                    labels: ["Pass", "Fail"],
+                    chart: {
+                        // width: 330,
+                        type: 'donut',
+                    },
+                    legend: {
+                        show: true,
+                        position: 'top',
+                        horizontalAlign: 'left'
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'normal',
+                        },
+                    },
+                    colors: ['#2ecc71', '#fc6666'],
+                    responsive: [{
+                        breakpoint: 480,
+                    }]
+                };
+    
+                var chart = new ApexCharts(document.getElementById(ChartID), options);
+                chart.render();
+            }
+        </script>
     </body>
 </html>
