@@ -195,25 +195,27 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Top 5 Common Failed Suites</h3>
-                                        <p class="text-muted">* Common suites which are failed b/w recent and recent-1 executions</p>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table card-table table-striped table-vcenter">
                                             <thead>
                                                 <tr>
                                                     <th>Suite Name</th>
-                                                    <th>Recent Failures</th>
+                                                    <th class="text-center">Recent Failures</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for item in common_failed_suites %}
                                                     <tr>
                                                         <td>{{item[0]}}</td>
-                                                        <td>{{item[1]}}</td>
+                                                        <td class="text-center">{{item[1]}}</td>
                                                     </tr>
                                                 {% endfor %}
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        * Common suites which are failed b/w recent and recent-5 executions
                                     </div>
                                 </div>
                             </div>
