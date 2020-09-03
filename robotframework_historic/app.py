@@ -244,13 +244,19 @@ def dashboardRecentFive(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),2), ROUND(AVG(Execution_Fail),2), ROUND(AVG(Execution_Time),2), Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
-        exe_id_data = cursor.fetchall()
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        exe_id_avg_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        exe_id_filter_data = cursor.fetchall()
 
         cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
         common_failed_suites = cursor.fetchall()
 
-        return render_template('dashboardRecentFive.html', exe_id_data=exe_id_data, common_failed_suites=common_failed_suites, db_name=db)
+        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))

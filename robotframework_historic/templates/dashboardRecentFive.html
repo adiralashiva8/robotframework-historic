@@ -89,7 +89,7 @@
                                     <div class="card-status card-status-left bg-green"></div>
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
-                                        <div class="h1 m-0" style="color:#2ecc71">{{exe_id_data[0][0]}}</div>
+                                        <div class="h1 m-0" style="color:#2ecc71">{{exe_id_avg_data[0][0]}}</div>
                                         <div class="text-muted mb-4">Avg Passed Tests</div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                     <div class="card-status card-status-left bg-red"></div>
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
-                                        <div class="h1 m-0" style="color:#fc6666">{{exe_id_data[0][1]}}</div>
+                                        <div class="h1 m-0" style="color:#fc6666">{{exe_id_avg_data[0][1]}}</div>
                                         <div class="text-muted mb-4">Avg Failed Tests</div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="card-status card-status-left bg-teal"></div>
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
-                                        <div class="h1 m-0" style="color:cadetblue">{{exe_id_data[0][2]}}</div>
+                                        <div class="h1 m-0" style="color:cadetblue">{{exe_id_avg_data[0][2]}}</div>
                                         <div class="text-muted mb-4">Avg Duration (min)</div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                         </div>
                                 
                         <div class="row row-cards">
-                            <div class="col-lg-6">
+                            <div class="col-l2">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Recent 5 Execution Results Trend</h3>
@@ -137,7 +137,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row row-cards">
+                            <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Recent 5 Execution Performance Trend</h3>
@@ -188,10 +190,10 @@
                 var failArray = [];
                 var catgArray = [];
     
-                {% for item in exe_id_data %}
-                    catgArray.push({{item[3]}});
-                    passArray.push({{item[4]}});
-                    failArray.push({{item[5]}});
+                {% for item in exe_id_filter_data %}
+                    catgArray.push({{item[0]}});
+                    passArray.push({{item[1]}});
+                    failArray.push({{item[2]}});
                 {% endfor %}
     
                 var options = {
@@ -264,8 +266,8 @@
                 var dataArray = [];
                 var catgArray = [];
                 {% for item in exe_id_data %}
-                    dataArray.push({{item[6]}});
-                    catgArray.push({{item[3]}});
+                    dataArray.push({{item[3]}});
+                    catgArray.push({{item[0]}});
                 {% endfor %}
         
                 var options = {
