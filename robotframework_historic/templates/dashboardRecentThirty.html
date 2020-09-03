@@ -160,7 +160,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Tests Trend</h3>
+                                        <h3 class="card-title">Recent Execution Tests Count Trend</h3>
                                         <div class="card-options">
                                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                         </div>
@@ -362,7 +362,7 @@
                     },
                     series: [
                         {
-                            name: "Time",
+                            name: "Count",
                             data: dataArray
                         }
                     ],
@@ -371,19 +371,9 @@
                     },
                     yaxis: {
                         title: {
-                            text: 'Duration (min)'
+                            text: 'Test Cases Count'
                         }
                     },
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return val + " (min)"
-                            }
-                        },
-                        x: {
-                            show: false
-                        }
-                    }
                 };
         
                 var chart = new ApexCharts(document.querySelector("#recentLineIDTest"), options);
