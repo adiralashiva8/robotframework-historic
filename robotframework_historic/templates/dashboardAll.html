@@ -80,10 +80,20 @@
                     <div class="container">
                         <div class="page-header">
                             <h1 class="page-title">
-                                Dashboard - Recent 5 Executions
+                                Dashboard - Overall
                             </h1>
                         </div>
                         <div class="row row-cards">
+                            <div class="col-6 col-sm-4 col-lg-3">
+                                <div class="card">
+                                    <div class="card-status card-status-left bg-orange"></div>
+                                    <div class="card-body p-3 text-center">
+                                        <div class="text-right" style="color:white">.</div>
+                                        <div class="h1 m-0">{{results_data[0][0]}}</div>
+                                        <div class="text-muted mb-4">No. Of Executions</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-6 col-sm-4 col-lg-3">
                                 <div class="card">
                                     <div class="card-status card-status-left bg-green"></div>
@@ -114,73 +124,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
-                                <div class="card">
-                                    <div class="card-status card-status-left bg-orange"></div>
-                                    <div class="card-body p-3 text-center">
-                                        <div class="text-right" style="color:white">.</div>
-                                        <div class="h1 m-0">ABC</div>
-                                        <div class="text-muted mb-4">New Tests</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                
-                        <div class="row row-cards">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Results Trend</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="recentBarID" style="height: 16rem;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row row-cards">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Performance Trend</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="recentAreaID" style="height: 16rem;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            
-                        <div class="row row-cards">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Top 5 Common Failed Suites</h3>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table card-table table-striped table-vcenter">
-                                            <thead>
-                                                <tr>
-                                                    <th>Suite Name</th>
-                                                    <th class="text-center">Recent Failures</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for item in common_failed_suites %}
-                                                    <tr>
-                                                        <td>{{item[0]}}</td>
-                                                        <td class="text-center">{{item[1]}}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="card-footer text-muted">
-                                        * Common suites which are failed b/w recent and recent-5 executions
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
