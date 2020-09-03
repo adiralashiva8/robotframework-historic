@@ -131,6 +131,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Recent Execution Results Trend</h3>
+                                        <div class="card-options">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div id="recentBarID" style="height: 16rem;"></div>
@@ -143,9 +146,12 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Recent Execution Performance Trend</h3>
+                                        <div class="card-options">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                        </div>
                                     </div>
                                     <div class="card-body">
-                                        <div id="recentAreaID" style="height: 16rem;"></div>
+                                        <div id="recentLineID" style="height: 16rem;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -156,6 +162,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Top 5 Common Failed Suites</h3>
+                                        <div class="card-options">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                        </div>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table card-table table-striped table-vcenter">
@@ -311,7 +320,7 @@
                     }
                 };
         
-                var chart = new ApexCharts(document.querySelector("#recentAreaID"), options);
+                var chart = new ApexCharts(document.querySelector("#recentLineID"), options);
                 chart.render();
             });
         </script>
