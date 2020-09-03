@@ -240,7 +240,6 @@ def dashboardRecentFive(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        # Get last row execution ID
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_info = cursor.fetchall()
 
@@ -275,38 +274,22 @@ def dashboardRecentTen(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
-        last_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
-        last_ten_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        exe_id_avg_data = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
-        last_thirty_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
-        over_all_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
+        common_failed_suites = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
-        last_thirty_data = cursor.fetchall()
-
-        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
-        execution_pass_data = cursor.fetchall()
-
-        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
-        execution_fail_data = cursor.fetchall()
-
-        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
-        execution_time_data = cursor.fetchall()
-
-        return render_template('dashboardRecentTen.html', last_thirty_data=last_thirty_data,
-        last_exe_pie_data=last_exe_pie_data,
-        last_ten_exe_pie_data=last_ten_exe_pie_data,
-        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
-        over_all_exe_pie_data=over_all_exe_pie_data,
-        execution_pass_data=execution_pass_data,
-        execution_fail_data=execution_fail_data,
-        execution_time_data=execution_time_data,db_name=db)
+        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
@@ -325,38 +308,22 @@ def dashboardRecentThirty(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
-        last_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
-        last_ten_exe_pie_data = cursor.fetchall()
-
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
-        last_thirty_exe_pie_data = cursor.fetchall()
-
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
-        over_all_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
-        last_thirty_data = cursor.fetchall()
+        exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
-        execution_pass_data = cursor.fetchall()
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
+        common_failed_suites = cursor.fetchall()
 
-        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
-        execution_fail_data = cursor.fetchall()
-
-        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
-        execution_time_data = cursor.fetchall()
-
-        return render_template('dashboardRecentThirty.html', last_thirty_data=last_thirty_data,
-        last_exe_pie_data=last_exe_pie_data,
-        last_ten_exe_pie_data=last_ten_exe_pie_data,
-        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
-        over_all_exe_pie_data=over_all_exe_pie_data,
-        execution_pass_data=execution_pass_data,
-        execution_fail_data=execution_fail_data,
-        execution_time_data=execution_time_data,db_name=db)
+        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))

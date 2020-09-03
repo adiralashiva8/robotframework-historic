@@ -120,7 +120,7 @@
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
                                         <div class="h1 m-0">ABC</div>
-                                        <div class="text-muted mb-4">New Tests - sum(5)</div>
+                                        <div class="text-muted mb-4">New Tests</div>
                                     </div>
                                 </div>
                             </div>
@@ -130,10 +130,10 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent 5 Execution Results Trend</h3>
+                                        <h3 class="card-title">Recent Execution Results Trend</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="recentFiveBarID" style="height: 16rem;"></div>
+                                        <div id="recentBarID" style="height: 16rem;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -142,10 +142,10 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent 5 Execution Performance Trend</h3>
+                                        <h3 class="card-title">Recent Execution Performance Trend</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="recentFiveAreaID" style="height: 16rem;"></div>
+                                        <div id="recentAreaID" style="height: 16rem;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@
                 }
             };
 
-            var chart = new ApexCharts(document.querySelector("#recentFiveBarID"), options);
+            var chart = new ApexCharts(document.querySelector("#recentBarID"), options);
             chart.render();
             });
         </script>
@@ -276,13 +276,14 @@
                 var options = {
                     chart: {
                         height: 350,
-                        type: "area"
+                        type: "line"
+                    },
+                    stroke: {
+                        width: 2,
+                        curve: 'straight',
                     },
                     dataLabels: {
                         enabled: true,
-                        style: {
-                            fontWeight: 'normal',
-                        },
                     },
                     series: [
                         {
@@ -290,15 +291,6 @@
                             data: dataArray
                         }
                     ],
-                    fill: {
-                        type: "gradient",
-                        gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.7,
-                            opacityTo: 0.9,
-                            stops: [0, 90, 100]
-                        }
-                    },
                     xaxis: {
                         categories: catgArray
                     },
@@ -319,7 +311,7 @@
                     }
                 };
         
-                var chart = new ApexCharts(document.querySelector("#recentFiveAreaID"), options);
+                var chart = new ApexCharts(document.querySelector("#recentAreaID"), options);
                 chart.render();
             });
         </script>
