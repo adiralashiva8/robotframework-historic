@@ -252,9 +252,13 @@ def dashboardRecentFive(db):
         cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
         common_failed_suites = cursor.fetchall()
 
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
+
         return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
          exe_id_filter_data=exe_id_filter_data,
          common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
          db_name=db)
 
     else:
@@ -286,9 +290,13 @@ def dashboardRecentTen(db):
         cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
         common_failed_suites = cursor.fetchall()
 
-        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
+
+        return render_template('dashboardRecentTen.html', exe_id_avg_data=exe_id_avg_data,
          exe_id_filter_data=exe_id_filter_data,
          common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
          db_name=db)
 
     else:
@@ -320,9 +328,13 @@ def dashboardRecentThirty(db):
         cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
         common_failed_suites = cursor.fetchall()
 
-        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
+
+        return render_template('dashboardRecentThirty.html', exe_id_avg_data=exe_id_avg_data,
          exe_id_filter_data=exe_id_filter_data,
          common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
          db_name=db)
 
     else:
