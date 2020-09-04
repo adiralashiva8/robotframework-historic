@@ -165,7 +165,7 @@ def dashboardRecentFive(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
@@ -203,7 +203,7 @@ def dashboardRecentTen(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
@@ -241,7 +241,7 @@ def dashboardRecentThirty(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
