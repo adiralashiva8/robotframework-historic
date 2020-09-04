@@ -130,7 +130,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Results Trend</h3>
+                                        <h3 class="card-title">Recent 30 Executions Result Trend</h3>
                                         <div class="card-options">
                                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                         </div>
@@ -145,7 +145,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Performance Trend</h3>
+                                        <h3 class="card-title">Recent 30 Executions Performance Trend</h3>
                                         <div class="card-options">
                                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                         </div>
@@ -160,7 +160,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Recent Execution Tests Count Trend</h3>
+                                        <h3 class="card-title">Recent 30 Executions Tests Count Trend</h3>
                                         <div class="card-options">
                                             <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                         </div>
@@ -186,6 +186,7 @@
                                                 <tr>
                                                     <th>Suite Name</th>
                                                     <th class="text-center">Recent Failures</th>
+                                                    <th class="text-center">Occurrence</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -193,6 +194,7 @@
                                                     <tr>
                                                         <td>{{item[0]}}</td>
                                                         <td class="text-center">{{item[1]}}</td>
+                                                        <td class="text-center">{{item[2]}}</td>
                                                     </tr>
                                                 {% endfor %}
                                             </tbody>
