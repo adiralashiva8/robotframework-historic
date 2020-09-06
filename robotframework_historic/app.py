@@ -83,7 +83,20 @@ def dashboardAll(db):
         cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION;")
         exe_id_avg_data = cursor.fetchall()
 
-        return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data, results_data=results_data, db_name=db)
+        cursor.execute("SELECT ROUND((Execution_Pass/Execution_Total)*100, 2) from TB_EXECUTION;")
+        exe_perc_data = cursor.fetchall()
+
+        ninty_five_pass_count = get_count_by_perc(exe_perc_data[0],95)
+        ninty_pass_count =  get_count_by_perc(exe_perc_data[0],90)
+        eighty_five_pass_count = get_count_by_perc(exe_perc_data[0],85)
+        eighty_pass_count = get_count_by_perc(exe_perc_data[0],80)
+
+        return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
+         ninty_five_pass_count=ninty_five_pass_count,
+         ninty_pass_count=ninty_pass_count,
+         eighty_five_pass_count=eighty_five_pass_count,
+         eighty_pass_count=eighty_pass_count,
+         results_data=results_data, db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
@@ -449,6 +462,15 @@ def sort_tests(data_list):
         except KeyError:
             out[elem[1]] = list(elem)
     return [tuple(values) for values in out.values()]
+
+def get_count_by_perc(data_list, required_per):
+    count = 0
+
+    for item in data_list:
+        if item > required_per:
+            count+=count
+
+    return count
 
 def main():
 
