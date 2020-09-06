@@ -86,10 +86,10 @@ def dashboardAll(db):
         cursor.execute("SELECT ROUND((Execution_Pass/Execution_Total)*100, 2) from TB_EXECUTION;")
         exe_perc_data = cursor.fetchall()
 
-        ninty_five_pass_count = get_count_by_perc(exe_perc_data[0],95)
-        ninty_pass_count =  get_count_by_perc(exe_perc_data[0],90)
-        eighty_five_pass_count = get_count_by_perc(exe_perc_data[0],85)
-        eighty_pass_count = get_count_by_perc(exe_perc_data[0],80)
+        ninty_five_pass_count = get_count_by_perc(exe_perc_data,95)
+        ninty_pass_count =  get_count_by_perc(exe_perc_data,90)
+        eighty_five_pass_count = get_count_by_perc(exe_perc_data,85)
+        eighty_pass_count = get_count_by_perc(exe_perc_data,80)
 
         return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
          ninty_five_pass_count=ninty_five_pass_count,
@@ -465,20 +465,15 @@ def sort_tests(data_list):
 
 def get_count_by_perc(data_list, required_per):
     count = 0
-
     for item in data_list:
-        if item > required_per:
-            count+=count
-
+        if item[0] > required_per:
+            count += 1
     return count
 
 def main():
-
     args = parse_options()
-
     app.config['MYSQL_HOST'] = args.sqlhost
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
-
     app.run(host=args.apphost)
