@@ -13,7 +13,7 @@
 
 ## Robotframework Historic Overview
 
- > Sample Report [Link](https://rfhistoric.netlify.com/)
+ > Sample Report (old view) [Link](https://rfhistoric.netlify.com/)
 
 ---
 
@@ -42,7 +42,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.1.9
+    pip install robotframework-historic==0.2.0
     ```
 
     > Case 2: Using setup.py (root)
@@ -61,7 +61,7 @@
 
  - __Step 5:__ Install robotframework-historic-parser
     ```
-    pip install robotframework-historic-parser==0.1.9
+    pip install robotframework-historic-parser==0.2.0
     ```
    > _Note:_ Above all actions are one time activities
 
