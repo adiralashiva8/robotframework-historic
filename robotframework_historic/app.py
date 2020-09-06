@@ -3,7 +3,10 @@ from flask_mysqldb import MySQL
 import config
 from .args import parse_options
 
-app = Flask(__name__, template_folder='templates')
+app = Flask (__name__,
+            static_url_path='', 
+            static_folder='templates',
+            template_folder='templates')
 
 mysql = MySQL(app)
 
@@ -63,8 +66,8 @@ def add_db():
     else:
         return render_template('newdb.html')
 
-@app.route('/<db>/dashboard', methods=['GET'])
-def dashboard(db):
+@app.route('/<db>/dashboardAll', methods=['GET'])
+def dashboardAll(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
 
@@ -77,38 +80,197 @@ def dashboard(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
-        last_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION;")
+        exe_id_avg_data = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 10) AS T;")
-        last_ten_exe_pie_data = cursor.fetchall()
+        cursor.execute("SELECT ROUND((Execution_Pass/Execution_Total)*100, 2) from TB_EXECUTION;")
+        exe_perc_data = cursor.fetchall()
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from (SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 30) AS T;")
-        last_thirty_exe_pie_data = cursor.fetchall()
+        ninty_five_pass_count = get_count_by_perc(exe_perc_data,95)
+        ninty_pass_count =  get_count_by_perc(exe_perc_data,90)
+        eighty_five_pass_count = get_count_by_perc(exe_perc_data,85)
+        eighty_pass_count = get_count_by_perc(exe_perc_data,80)
 
-        cursor.execute("SELECT SUM(Execution_Pass), SUM(Execution_Fail), SUM(Execution_Total), COUNT(Execution_Id) from TB_EXECUTION order by Execution_Id desc;")
-        over_all_exe_pie_data = cursor.fetchall()
+        return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
+         ninty_five_pass_count=ninty_five_pass_count,
+         ninty_pass_count=ninty_pass_count,
+         eighty_five_pass_count=eighty_five_pass_count,
+         eighty_pass_count=eighty_pass_count,
+         results_data=results_data, db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecent', methods=['GET'])
+def dashboardRecent(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 2;")
+        exe_info = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        last_exe_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
+        prev_exe_data = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
+        req_anal_data = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
+        suite_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
+        test_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("SELECT Suite_Name, Suite_Fail, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC, Suite_Fail DESC LIMIT 5;" % exe_info[1][0])
+        common_failed_suites = cursor.fetchall()
+
+        # required analysis percentage
+        if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
+            req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
+        else:
+            req_anal_perc_data = 0
+        
+        new_tests_count = exe_info[0][1] - exe_info[1][1]
+        passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
+        failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
+
+        return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
+         prev_exe_data=prev_exe_data,
+         req_anal_data=req_anal_data,
+         req_anal_perc_data=req_anal_perc_data,
+         new_tests_count=new_tests_count,
+         passed_test_dif=passed_test_dif,
+         failed_test_dif=failed_test_dif,
+         suite_avg_dur_data=suite_avg_dur_data,
+         test_avg_dur_data=test_avg_dur_data,
+         common_failed_suites=common_failed_suites,
+         db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentFive', methods=['GET'])
+def dashboardRecentFive(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        exe_info = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        exe_id_avg_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        exe_id_filter_data = cursor.fetchall()
+
+        cursor.execute("SELECT Suite_Name, Suite_Fail, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC, Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
+        common_failed_suites = cursor.fetchall()
+
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
+
+        return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
+         db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentTen', methods=['GET'])
+def dashboardRecentTen(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        exe_info = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        exe_id_avg_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        exe_id_filter_data = cursor.fetchall()
+
+        cursor.execute("SELECT Suite_Name, Suite_Fail, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC, Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
+        common_failed_suites = cursor.fetchall()
+
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
+
+        return render_template('dashboardRecentTen.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
+         db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboardRecentThirty', methods=['GET'])
+def dashboardRecentThirty(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        exe_info = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
-        last_thirty_data = cursor.fetchall()
+        exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("select execution_pass, ROUND(MIN(execution_pass),2), ROUND(AVG(execution_pass),2), ROUND(MAX(execution_pass),2) from TB_EXECUTION order by execution_id desc;")
-        execution_pass_data = cursor.fetchall()
+        cursor.execute("SELECT Suite_Name, Suite_Fail, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC, Suite_Fail DESC LIMIT 5;" % exe_info[-1][0])
+        common_failed_suites = cursor.fetchall()
 
-        cursor.execute("select execution_fail, ROUND(MIN(execution_fail),2), ROUND(AVG(execution_fail),2), ROUND(MAX(execution_fail),2) from TB_EXECUTION order by execution_id desc;")
-        execution_fail_data = cursor.fetchall()
+        # new tests
+        new_tests = exe_info[0][1] - exe_info[-1][1]
 
-        cursor.execute("select execution_time, ROUND(MIN(execution_time),2), ROUND(AVG(execution_time),2), ROUND(MAX(execution_time),2) from TB_EXECUTION order by execution_id desc;")
-        execution_time_data = cursor.fetchall()
-
-        return render_template('dashboard.html', last_thirty_data=last_thirty_data,
-        last_exe_pie_data=last_exe_pie_data,
-        last_ten_exe_pie_data=last_ten_exe_pie_data,
-        last_thirty_exe_pie_data=last_thirty_exe_pie_data,
-        over_all_exe_pie_data=over_all_exe_pie_data,
-        execution_pass_data=execution_pass_data,
-        execution_fail_data=execution_fail_data,
-        execution_time_data=execution_time_data,db_name=db)
+        return render_template('dashboardRecentThirty.html', exe_id_avg_data=exe_id_avg_data,
+         exe_id_filter_data=exe_id_filter_data,
+         common_failed_suites=common_failed_suites,
+         new_tests=new_tests,
+         db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
@@ -226,9 +388,12 @@ def search(db):
         search = request.form['search']
         cursor = mysql.connection.cursor()
         use_db(cursor, db)
-        cursor.execute("SELECT * from TB_TEST WHERE Test_Name LIKE '%{name}%' OR Test_Status LIKE '%{name}%' OR Execution_Id LIKE '%{name}%' ORDER BY Execution_Id DESC LIMIT 10000;".format(name=search))
-        data = cursor.fetchall()
-        return render_template('search.html', data=data, db_name=db)
+        if search:
+            cursor.execute("SELECT * from TB_TEST WHERE Test_Name LIKE '%{name}%' OR Test_Status LIKE '%{name}%' OR Execution_Id LIKE '%{name}%' ORDER BY Execution_Id DESC LIMIT 10000;".format(name=search))
+            data = cursor.fetchall()
+            return render_template('search.html', data=data, db_name=db)
+        else:
+            return render_template('search.html', db_name=db)    
     else:
         return render_template('search.html', db_name=db)
 
@@ -298,13 +463,17 @@ def sort_tests(data_list):
             out[elem[1]] = list(elem)
     return [tuple(values) for values in out.values()]
 
+def get_count_by_perc(data_list, required_per):
+    count = 0
+    for item in data_list:
+        if item[0] > required_per:
+            count += 1
+    return count
+
 def main():
-
     args = parse_options()
-
     app.config['MYSQL_HOST'] = args.sqlhost
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
-
     app.run(host=args.apphost)

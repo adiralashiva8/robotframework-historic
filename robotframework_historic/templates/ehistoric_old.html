@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>RF Historic - History</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!-- Bootstrap core Datatable-->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js" type="text/javascript"></script>
+    <style>
+        .tabcontent {
+            padding: 60px 12px;
+        }
+        body {
+            font-family: -apple-system, sans-serif;
+
+        }
+        .dt-buttons {
+            margin-left: 5px;
+        }
+
+        .tablinks .active {
+            background-color: #666;
+            color: white;
+        }
+        .tablecard {
+            background-color: white;
+            font-size: 14px;
+        }
+        th, td{
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        window.onload = function(){
+            executeDataTable();
+        };
+   </script>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home">RF Historic</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="tablinks"><a href="./dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="tablinks active" onclick="executeDataTable()"><a href="./ehistoric"><i class="fa fa-history"></i> History</a></li>
+                    <li class="tablinks"><a href="./tmetrics"><i class="fa fa-flask"></i> Metrics</a></li>
+                    <li class="tablinks"><a href="./flaky"><i class="fa fa-bolt"></i> Flaky</a></li>
+                    <li class="tablinks"><a href="./search"><i class="fa fa-search"></i> Search</a></li>
+                    <li class="tablinks"><a href="./compare"><i class="fa fa-sliders"></i> Compare</a></li>
+                    <li class="tablinks"><a href="./query"><i class="fa fa-search-plus"></i> Query - &beta;</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tabcontent">
+        <div class="d-flex flex-column flex-md-row align-items-center p-1 mb-3 bg-light border-bottom shadow-sm">
+            <h3 class="my-0 mr-md-auto font-weight-normal" style="text-transform: capitalize;">{{db_name}} - Recent Executions</h3>
+        </div>
+        <hr>
+        <table class="table row-border tablecard" id="ehist">
+            <thead>
+                <tr>
+                    <th>EID</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Test Total</th>
+                    <th>Test Pass</th>
+                    <th>Test Fail</th>
+                    <th>Time (m)</th>
+                    <th>Suite Total</th>
+                    <th>Suite Pass</th>
+                    <th>Suite Fail</th>
+                    <th>
+                        <i class="fa fa-bar-chart" style="color:cadetblue;font-size:16px;" title="View Metrics Report"></i> | 
+                        <i class="fa fa-bug" style="color:#a52a2a;font-size:16px;" title="View Failures"></i> | 
+                        <i class="fa fa-trash" style="color:red;font-size:16px;" title="Delete Execution Record"></i> 
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                    <tr>
+                        <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
+                        <td> {{item[1]}}</td>
+                        <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[2]}}</td>
+                        <td style="color: brown"> {{item[3]}}</td>
+                        <td style="color: green"> {{item[4]}}</td>
+                        <td style="color: red"> {{item[5]}}</td>
+                        <td>{{item[6]}}</td>
+                        <td style="color: brown"> {{item[7]}}</td>
+                        <td style="color: green"> {{item[8]}}</td>
+                        <td style="color: red"> {{item[9]}}</td>
+                        <td>
+                            <a href="./metrics/{{item[0]}}" target="_blank">
+                                <i class="fa fa-bar-chart" style="color:cadetblue;font-size:16px;" title="View EID:{{item[0]}} Metrics Report"></i>
+                            </a>  |  
+                            <a href="./failures/{{item[0]}}" target="_blank">
+                                <i class="fa fa-bug" style="color:brown;font-size:16px;" title="View EID:{{item[0]}} Failures"></i>
+                            </a>  |  
+                            <a href="./deleconf/{{item[0]}}">
+                                <i class="fa fa-trash" style="color:red;font-size:16px;" title="Delete EID:{{item[0]}} Record"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function executeDataTable() {
+            var fileTitle = "ExecutionHistoric";
+            $('#ehist').DataTable(
+                {
+                    retrieve: true,
+                    "order": [[ 0, "desc" ]],
+                    dom: 'l<".margin" B>frtip',
+                    buttons: [
+                         {
+							extend:    'copyHtml5',
+							text:      '<i class="fa fa-files-o"></i>',
+							titleAttr: 'Copy',
+							exportOptions: {
+								columns: ':visible:not(:last-child)'
+							}
+						},
+                        {
+                            extend:    'csvHtml5',
+							text:      '<i class="fa fa-file-text-o"></i>',
+							titleAttr: 'CSV',
+                            filename: function() {
+                                return fileTitle + '-' + new Date().toLocaleString();
+                            },
+							exportOptions: {
+								columns: ':visible:not(:last-child)'
+							}
+                        },
+                        {
+                            extend:    'excelHtml5',
+							text:      '<i class="fa fa-file-excel-o"></i>',
+							titleAttr: 'Excel',
+                            filename: function() {
+                                return fileTitle + '-' + new Date().toLocaleString();
+                            },
+							exportOptions: {
+								columns: ':visible:not(:last-child)'
+							}
+                        },
+                        {
+							extend:    'print',
+							text:      '<i class="fa fa-print"></i>',
+							titleAttr: 'Print',
+							exportOptions: {
+								columns: ':visible:not(:last-child)',
+                                alignment: 'left',
+							}
+                        },
+						{
+							extend:    'colvis',
+							collectionLayout: 'fixed two-column',
+							text:      '<i class="fa fa-low-vision"></i>',
+							titleAttr: 'Hide Column',
+							exportOptions: {
+								columns: ':visible:not(:last-child)'
+							},
+							postfixButtons: [ 'colvisRestore' ]
+                        },
+                    ],
+					columnDefs: [ {
+						visible: false,
+					} ]
+			   }
+            );
+        }
+    </script>
+</body>
+
+</html>
