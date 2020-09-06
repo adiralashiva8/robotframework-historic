@@ -131,9 +131,9 @@ def dashboardRecent(db):
         
         new_tests_count = exe_info[0][1] - exe_info[1][1]
         passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
-        failed_test_dif = last_exe_data[0][1] - prev_exe_data[0][1]
+        failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
 
-        return render_template('dashboardRecent.html', last_exe_data=last_exe_data,
+        return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
          prev_exe_data=prev_exe_data,
          req_anal_data=req_anal_data,
          req_anal_perc_data=req_anal_perc_data,
