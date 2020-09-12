@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import config
+import cgi
 from .args import parse_options
 
 app = Flask (__name__,
@@ -375,9 +376,12 @@ def eid_failures(db, eid):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        textField = request.form['textField']
+        userField = request.form['user']
+        issueField = request.form['issue']
+        textField = cgi.escape(request.form['textField'])
         rowField = request.form['rowField']
-        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        comment = """<b>Issue Type: </b>""" + str(issueField) + """</br><b>Comment: </b>""" + str(textField) + """</br><b>Analyzed By: </b>""" + str(userField)
+        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get testcase results of execution id (typically last executed)
@@ -390,9 +394,12 @@ def recent_failures(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        textField = request.form['textField']
+        userField = request.form['user']
+        issueField = request.form['issue']
+        textField = cgi.escape(request.form['textField'])
         rowField = request.form['rowField']
-        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        comment = """<b>Issue Type: </b>""" + str(issueField) + """</br><b>Comment: </b>""" + str(textField) + """</br><b>Analyzed By: </b>""" + str(userField)
+        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get last row execution ID
