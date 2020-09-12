@@ -193,12 +193,12 @@
                                             </tr>
                                             <tr>
                                                 <td><i class="fa fa-bug text-muted"></i></td>
-                                                <td title="Sum of analysis comments consist text 'Application Issue'">Application Issues <i class="fa fa-question-circle-o"</i></td>
+                                                <td title="Sum of analysis comments contains text 'Application Issue'">Application Issues <i class="fa fa-question-circle-o"</i></td>
                                                 <td class="text-right"><span class="text-muted">{{app_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><i class="fa fa-code text-muted"></i></td>
-                                                <td title="Sum of analysis comments consist text 'Automation Issue'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
+                                                <td title="Sum of analysis comments contains text 'Automation Issue'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
                                                 <td class="text-right"><span class="text-muted">{{auto_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
@@ -231,7 +231,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Suite Name</th>
-                                                    <th class="text-center">Recent Failures</th>
                                                     <th class="text-center">Occurrence</th>
                                                 </tr>
                                             </thead>
@@ -240,7 +239,6 @@
                                                     <tr>
                                                         <td>{{item[0]}}</td>
                                                         <td class="text-center">{{item[1]}}</td>
-                                                        <td class="text-center">{{item[2]}}</td>
                                                     </tr>
                                                 {% endfor %}
                                             </tbody>
