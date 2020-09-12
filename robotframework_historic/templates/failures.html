@@ -91,14 +91,16 @@
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <form method="post" action="">
-                                                                            <div class="form-group">
-                                                                                <label class="form-label">User Name</label>
-                                                                                <input type="text" class="form-control" name="user" placeholder="Analyzed By">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="form-label">Issue Type</label>
-                                                                                <input type="text" class="form-control" name="issue" placeholder="Application / Automation / Other">
-                                                                            </div>
+                                                                            {% if (item[6] == None) %}
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" style="text-align:left">>User Name</label>
+                                                                                    <input type="text" class="form-control" name="user" placeholder="Analyzed By">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" style="text-align:left">Issue Type</label>
+                                                                                    <input type="text" class="form-control" name="issue" placeholder="Application / Automation / Other">
+                                                                                </div>
+                                                                            {% endif %}
                                                                             <div class="form-group">
                                                                                 <label class="form-label" style="text-align:left">Comment:</label>
                                                                                 <textarea id="textField" rows="5" type="text" name="textField" onclick="this.select();" style="min-width: 100%">{{item[6]}}</textarea>
