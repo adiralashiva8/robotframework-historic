@@ -324,9 +324,18 @@ def tmetrics(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
+        try:
+            userField = request.form['user']
+            issueField = request.form['issue']
+        except:
+            pass
         textField = request.form['textField']
         rowField = request.form['rowField']
-        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        try:
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+        end:
+            comment = str(textField)
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get last row execution ID
@@ -360,9 +369,18 @@ def eid_tmetrics(db, eid):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
+        try:
+            userField = request.form['user']
+            issueField = request.form['issue']
+        except:
+            pass
         textField = request.form['textField']
         rowField = request.form['rowField']
-        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        try:
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+        end:
+            comment = str(textField)
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get testcase results of execution id (typically last executed)
@@ -375,12 +393,18 @@ def eid_failures(db, eid):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        userField = request.form['user']
-        issueField = request.form['issue']
+        try:
+            userField = request.form['user']
+            issueField = request.form['issue']
+        except:
+            pass
         textField = request.form['textField']
         rowField = request.form['rowField']
-        comment = """<b>Issue Type: </b>""" + str(issueField) + """</br></br><b>Comment: </b>""" + str(textField) + """</br></br><b>Analyzed By: </b>""" + str(userField)
-        cursor.execute("""Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;""" % (str(comment), str(rowField)))
+        try:
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+        end:
+            comment = str(textField)
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get testcase results of execution id (typically last executed)
@@ -393,12 +417,18 @@ def recent_failures(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        userField = request.form['user']
-        issueField = request.form['issue']
+        try:
+            userField = request.form['user']
+            issueField = request.form['issue']
+        except:
+            pass
         textField = request.form['textField']
         rowField = request.form['rowField']
-        comment = """<b>Issue Type: </b>""" + str(issueField) + """</br></br><b>Comment: </b>""" + str(textField) + """</br></br><b>Analyzed By: </b>""" + str(userField)
-        cursor.execute("""Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;""" % (str(comment), str(rowField)))
+        try:
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+        end:
+            comment = str(textField)
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
 
     # Get last row execution ID

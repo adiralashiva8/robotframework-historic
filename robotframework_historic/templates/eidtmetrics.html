@@ -98,11 +98,21 @@
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <form method="post" action="">
-                                                                            <div class="mb3">
+                                                                            {% if (item[6] == None) %}
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" style="text-align:left">User Name</label>
+                                                                                    <input type="text" class="form-control" name="user" placeholder="Analyzed By">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="form-label" style="text-align:left">Issue Type</label>
+                                                                                    <input type="text" class="form-control" name="issue" placeholder="Application / Automation / Other">
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            <div class="form-group">
                                                                                 <label class="form-label" style="text-align:left">Comment:</label>
                                                                                 <textarea id="textField" rows="5" type="text" name="textField" onclick="this.select();" style="min-width: 100%">{{item[6]}}</textarea>
                                                                             </div>
-                                                                            <div class="mb3">
+                                                                            <div class="form-group">
                                                                                 <input readonly id="rowField" type="hidden" value="{{item[0]}}" name="rowField" style="width:80%;min-width: 80%"></input>
                                                                                 <button id="submit" type="submit" class="btn btn-primary ml-auto">Update</button>
                                                                             </div>
