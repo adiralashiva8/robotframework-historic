@@ -86,17 +86,20 @@ def dashboardAll(db):
         cursor.execute("SELECT ROUND((Execution_Pass/Execution_Total)*100, 2) from TB_EXECUTION;")
         exe_perc_data = cursor.fetchall()
 
-        ninty_five_pass_count = get_count_by_perc(exe_perc_data,95)
-        ninty_pass_count =  get_count_by_perc(exe_perc_data,90)
-        eighty_five_pass_count = get_count_by_perc(exe_perc_data,85)
-        eighty_pass_count = get_count_by_perc(exe_perc_data,80)
+        results = []
+        results.append(get_count_by_perc(exe_perc_data, 100, 90))
+        results.append(get_count_by_perc(exe_perc_data, 89, 80))
+        results.append(get_count_by_perc(exe_perc_data, 79, 70))
+        results.append(get_count_by_perc(exe_perc_data, 69, 60))
+        results.append(get_count_by_perc(exe_perc_data, 59, 50))
+        results.append(get_count_by_perc(exe_perc_data, 49, 40))
+        results.append(get_count_by_perc(exe_perc_data, 39, 30))
+        results.append(get_count_by_perc(exe_perc_data, 29, 20))
+        results.append(get_count_by_perc(exe_perc_data, 19, 10))
+        results.append(get_count_by_perc(exe_perc_data, 9, 0))
 
         return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
-         ninty_five_pass_count=ninty_five_pass_count,
-         ninty_pass_count=ninty_pass_count,
-         eighty_five_pass_count=eighty_five_pass_count,
-         eighty_pass_count=eighty_pass_count,
-         results_data=results_data, db_name=db)
+         results=results, results_data=results_data, db_name=db)
 
     else:
         return redirect(url_for('redirect_url'))
@@ -139,10 +142,10 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
         new_failed_tests_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % (exe_info[0][0], "Application Issue"))
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Application_Issue%%';" % exe_info[0][0])
         app_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % (exe_info[0][0], "Automation Issue"))
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Automation_Issue%%';" % exe_info[0][0])
         auto_failure_anl_count = cursor.fetchall()
 
         # required analysis percentage
@@ -525,10 +528,10 @@ def sort_tests(data_list):
             out[elem[1]] = list(elem)
     return [tuple(values) for values in out.values()]
 
-def get_count_by_perc(data_list, required_per):
+def get_count_by_perc(data_list, max, min):
     count = 0
     for item in data_list:
-        if item[0] > required_per:
+        if item[0] <= max and item[0] >= min:
             count += 1
     return count
 

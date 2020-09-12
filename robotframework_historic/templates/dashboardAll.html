@@ -126,51 +126,20 @@
                             </div>
                         </div>
                         <div class="row row-cards">
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-12">
                                 <div class="card">
-                                    <div class="card-body text-center">
-                                        <div class="text-muted">No. of executions with >95 pass%</div>
-                                        <div class="display-4 font-weight-bold mb-4">{{ninty_five_pass_count}}</div>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar bg-green" style="width: 95%"></div>
+                                    <div class="card-header">
+                                        <h3 class="card-title">Executions Pass Percentage Trend</h3>
+                                        <div class="card-options">
+                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                         </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="recentBarID" style="height: 16rem;"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <div class="text-muted">No. of executions with >90 pass%</div>
-                                        <div class="display-4 font-weight-bold mb-4">{{ninty_pass_count}}</div>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar bg-green" style="width: 90%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <div class="text-muted">No. of executions with >85 pass%</div>
-                                        <div class="display-4 font-weight-bold mb-4">{{eighty_five_pass_count}}</div>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar bg-green" style="width: 85%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <div class="text-muted">No. of executions with >80 pass%</div>
-                                        <div class="display-4 font-weight-bold mb-4">{{eighty_pass_count}}</div>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar bg-green" style="width: 80%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
+                        </div>                                           
                     </div>
                 </div>
             </div>
@@ -179,30 +148,20 @@
         <script>
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var passArray = [];
-                var failArray = [];
-                var catgArray = [];
     
-                {% for item in exe_id_filter_data %}
-                    catgArray.push({{item[0]}});
+                {% for item in results %}
                     passArray.push({{item[1]}});
-                    failArray.push({{item[2]}});
                 {% endfor %}
     
                 var options = {
                     series: [{
                         name: 'Pass',
                         data: passArray
-                        }, {
-                        name: 'Fail',
-                        data: failArray
-                    }],
+                        }
+                    ],
                     chart: {
                         type: 'bar',
                         height: 350,
-                        stacked: true,
-                        zoom: {
-                            enabled: true
-                        }
                     },
                     responsive: [{
                     breakpoint: 480,
@@ -224,85 +183,22 @@
                         enabled: true,
                     },
                 },
-                colors: ['#2ecc71','#fc6666'],
                 xaxis: {
-                    categories: catgArray,
+                    categories: ["100-90", "89-80", "79-70", "69-60", "59-50", "49-40", "39-30", "29-20", "19-10", "9-0"],
                     tickPlacement: 'on'
                 },
                 yaxis: {
                     title: {
-                        text: 'Test Cases'
+                        text: 'Count'
                     }
                 },
                 fill: {
                     opacity: 0.9
-                },
-                tooltip: {
-                    y: {
-                        formatter: function (val) {
-                        return val + " Tests"
-                        }
-                    },
-                    x: {
-                        show: false
-                    }
                 }
             };
 
             var chart = new ApexCharts(document.querySelector("#recentBarID"), options);
             chart.render();
-            });
-        </script>
-
-        <script>
-            require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
-                var dataArray = [];
-                var catgArray = [];
-                {% for item in exe_id_filter_data %}
-                    dataArray.push({{item[3]}});
-                    catgArray.push({{item[0]}});
-                {% endfor %}
-        
-                var options = {
-                    chart: {
-                        height: 350,
-                        type: "line"
-                    },
-                    stroke: {
-                        width: 2,
-                        curve: 'straight',
-                    },
-                    dataLabels: {
-                        enabled: true,
-                    },
-                    series: [
-                        {
-                            name: "Time",
-                            data: dataArray
-                        }
-                    ],
-                    xaxis: {
-                        categories: catgArray
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Duration (min)'
-                        }
-                    },
-                    tooltip: {
-                        y: {
-                            formatter: function (val) {
-                                return val + " (min)"
-                            }
-                        },
-                        x: {
-                            show: false
-                        }
-                    }
-                };
-        
-                var chart = new ApexCharts(document.querySelector("#recentLineID"), options);
-                chart.render();
             });
         </script>
 

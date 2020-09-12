@@ -187,6 +187,21 @@
                                     <table class="table card-table">
                                         <tbody>
                                             <tr>
+                                                <td><i class="fa fa-times text-muted"></i></td>
+                                                <td>New Failures</td>
+                                                <td class="text-right"><span class="text-muted">{{new_failed_tests_count[0][0]}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-bug text-muted"></i></td>
+                                                <td title="Sum of analysis comments consist text 'Application Issue'">Application Issues <i class="fa fa-question-circle-o"</i></td>
+                                                <td class="text-right"><span class="text-muted">{{app_failure_anl_count[0][0]}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-code text-muted"></i></td>
+                                                <td title="Sum of analysis comments consist text 'Automation Issue'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
+                                                <td class="text-right"><span class="text-muted">{{auto_failure_anl_count[0][0]}}</span></td>
+                                            </tr>
+                                            <tr>
                                                 <td width="1"><i class="fa fa-th-large text-muted"></i></td>
                                                 <td>Average Suite Duration</td>
                                                 <td class="text-right"><span class="text-muted">{{suite_avg_dur_data[0][0]}}m</span></td>
@@ -195,21 +210,6 @@
                                                 <td><i class="fa fa-list-alt text-muted"></i></td>
                                                 <td>Average Test Duration</td>
                                                 <td class="text-right"><span class="text-muted">{{test_avg_dur_data[0][0]}}m</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><i class="fa fa-times text-muted"></i></td>
-                                                <td>New Failures</td>
-                                                <td class="text-right"><span class="text-muted">{{new_failed_tests_count[0][0]}}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><i class="fa fa-bug text-muted"></i></td>
-                                                <td title="Count of analysis comments consist text 'Application Issue'"></td>>Application Issues<i class="fa fa-question-circle-o"</i></td>
-                                                <td class="text-right"><span class="text-muted">{{app_failure_anl_count[0][0]}}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><i class="fa fa-code text-muted"></i></td>
-                                                <td title="Count of analysis comments consist text 'Automation Issue'"></td>>Automation Issues<i class="fa fa-question-circle-o"></i></td>
-                                                <td class="text-right"><span class="text-muted">{{auto_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                         </tbody>
                                     </table>
