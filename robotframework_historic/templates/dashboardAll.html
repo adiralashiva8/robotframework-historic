@@ -125,8 +125,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row row-cards">
-                            <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Executions Pass Percentage Trend</h3>
@@ -150,7 +150,7 @@
                 var passArray = [];
     
                 {% for item in results %}
-                    passArray.push({{item[1]}});
+                    passArray.push({{item}});
                 {% endfor %}
     
                 var options = {
@@ -184,7 +184,7 @@
                     },
                 },
                 xaxis: {
-                    categories: ["100-90", "89-80", "79-70", "69-60", "59-50", "49-40", "39-30", "29-20", "19-10", "9-0"],
+                    categories: ["100-90%", "89-80%", "79-70%", "69-60%", "59-50%", "49-0%"],
                     tickPlacement: 'on'
                 },
                 yaxis: {

@@ -92,11 +92,7 @@ def dashboardAll(db):
         results.append(get_count_by_perc(exe_perc_data, 79, 70))
         results.append(get_count_by_perc(exe_perc_data, 69, 60))
         results.append(get_count_by_perc(exe_perc_data, 59, 50))
-        results.append(get_count_by_perc(exe_perc_data, 49, 40))
-        results.append(get_count_by_perc(exe_perc_data, 39, 30))
-        results.append(get_count_by_perc(exe_perc_data, 29, 20))
-        results.append(get_count_by_perc(exe_perc_data, 19, 10))
-        results.append(get_count_by_perc(exe_perc_data, 9, 0))
+        results.append(get_count_by_perc(exe_perc_data, 49, 0))
 
         return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
          results=results, results_data=results_data, db_name=db)
