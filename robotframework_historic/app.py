@@ -139,6 +139,12 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
         new_failed_tests_count = cursor.fetchall()
 
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % exe_info[0][0], "Application Issue")
+        app_failure_anl_count = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % exe_info[0][0], "Automation Issue")
+        auto_failure_anl_count = cursor.fetchall()
+
         # required analysis percentage
         if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
             req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
@@ -151,8 +157,8 @@ def dashboardRecent(db):
 
         return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
          prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
-         req_anal_data=req_anal_data,
-         req_anal_perc_data=req_anal_perc_data,
+         req_anal_data=req_anal_data, app_failure_anl_count=app_failure_anl_count,
+         req_anal_perc_data=req_anal_perc_data, auto_failure_anl_count=auto_failure_anl_count,
          new_tests_count=new_tests_count,
          passed_test_dif=passed_test_dif,
          failed_test_dif=failed_test_dif,
