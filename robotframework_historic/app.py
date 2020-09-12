@@ -139,10 +139,10 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
         new_failed_tests_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % exe_info[0][0], "Application Issue")
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % (exe_info[0][0], "Application Issue"))
         app_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % exe_info[0][0], "Automation Issue")
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE %s;" % (exe_info[0][0], "Automation Issue"))
         auto_failure_anl_count = cursor.fetchall()
 
         # required analysis percentage
