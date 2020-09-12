@@ -333,7 +333,7 @@ def tmetrics(db):
         rowField = request.form['rowField']
         try:
             comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
-        end:
+        except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
@@ -378,7 +378,7 @@ def eid_tmetrics(db, eid):
         rowField = request.form['rowField']
         try:
             comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
-        end:
+        except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
@@ -402,7 +402,7 @@ def eid_failures(db, eid):
         rowField = request.form['rowField']
         try:
             comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
-        end:
+        except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
@@ -426,7 +426,7 @@ def recent_failures(db):
         rowField = request.form['rowField']
         try:
             comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
-        end:
+        except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
         mysql.connection.commit()
