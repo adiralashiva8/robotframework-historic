@@ -132,7 +132,7 @@ def dashboardRecent(db):
         cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
         test_avg_dur_data = cursor.fetchall()
 
-        cursor.execute("SELECT Suite_Name, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC LIMIT 5;" % exe_info[1][0])
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Execution_Id=%s AND Suite_Name IN (SELECT Suite_Name from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY COUNT(Suite_Name) DESC) ORDER BY Suite_Fail DESC LIMIT 5;" % (exe_info[0][0], exe_info[-1][0]))
         common_failed_suites = cursor.fetchall()
     
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
@@ -192,7 +192,7 @@ def dashboardRecentFive(db):
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("SELECT Suite_Name, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC LIMIT 5;" % exe_info[-1][0])
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Execution_Id=%s AND Suite_Name IN (SELECT Suite_Name from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY COUNT(Suite_Name) DESC) ORDER BY Suite_Fail DESC LIMIT 5;" % (exe_info[0][0], exe_info[-1][0]))
         common_failed_suites = cursor.fetchall()
 
         # new tests
@@ -230,7 +230,7 @@ def dashboardRecentTen(db):
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("SELECT Suite_Name, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC LIMIT 5;" % exe_info[-1][0])
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Execution_Id=%s AND Suite_Name IN (SELECT Suite_Name from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY COUNT(Suite_Name) DESC) ORDER BY Suite_Fail DESC LIMIT 5;" % (exe_info[0][0], exe_info[-1][0]))
         common_failed_suites = cursor.fetchall()
 
         # new tests
@@ -268,7 +268,7 @@ def dashboardRecentThirty(db):
         cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
         exe_id_filter_data = cursor.fetchall()
 
-        cursor.execute("SELECT Suite_Name, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC LIMIT 5;" % exe_info[-1][0])
+        cursor.execute("SELECT Suite_Name, Suite_Fail from TB_SUITE WHERE Execution_Id=%s AND Suite_Name IN (SELECT Suite_Name from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY COUNT(Suite_Name) DESC) ORDER BY Suite_Fail DESC LIMIT 5;" % (exe_info[0][0], exe_info[-1][0]))
         common_failed_suites = cursor.fetchall()
 
         # new tests
