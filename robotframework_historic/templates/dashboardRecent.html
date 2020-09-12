@@ -91,12 +91,12 @@
                                         {% if (passed_test_dif >= 0) %}
                                             <div class="text-right text-green">
                                                 {{passed_test_dif}}
-                                                <i class="fe fe-chevron-up"></i>
+                                                <i class="fe fe-arrow-up"></i>
                                             </div>
                                         {% else %}
                                             <div class="text-right text-red">
-                                                {{passed_test_dif}}
-                                                <i class="fe fe-chevron-down"></i>
+                                                {{passed_test_dif|replace('-','')}}
+                                                <i class="fe fe-arrow-down"></i>
                                             </div>
                                         {% endif %}
                                         <div class="h1 m-0" style="color:#2ecc71">{{last_exe_data[0][0]}}</div>
@@ -111,12 +111,12 @@
                                         {% if (failed_test_dif >= 0) %}
                                             <div class="text-right text-green">
                                                 {{failed_test_dif}}
-                                                <i class="fe fe-chevron-down"></i>
+                                                <i class="fe fe-arrow-down"></i>
                                             </div>
                                         {% else %}
                                             <div class="text-right text-red">
-                                                {{failed_test_dif}}
-                                                <i class="fe fe-chevron-up"></i>
+                                                {{failed_test_dif|replace('-','')}}
+                                                <i class="fe fe-arrow-up"></i>
                                             </div>
                                         {% endif %}
                                         <div class="h1 m-0" style="color:#fc6666">{{last_exe_data[0][1]}}</div>
@@ -197,7 +197,7 @@
                                                 <td class="text-right"><span class="text-muted">{{test_avg_dur_data[0][0]}}m</span></td>
                                             </tr>
                                             <tr>
-                                                <td><i class="fa fa-times text-muted"></i></td>
+                                                <td><i class="fa fa-list-alt text-muted"></i></td>
                                                 <td>New Failures</td>
                                                 <td class="text-right"><span class="text-muted">{{new_failed_tests_count[0][0]}}</span></td>
                                             </tr>
