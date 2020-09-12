@@ -136,6 +136,12 @@ def dashboardRecent(db):
         cursor.execute("SELECT Suite_Name, Suite_Fail, COUNT(Suite_Name) as F from TB_SUITE WHERE Suite_Status='FAIL' AND Execution_Id >= %s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1 ORDER BY F DESC, Suite_Fail DESC LIMIT 5;" % exe_info[1][0])
         common_failed_suites = cursor.fetchall()
 
+        cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) > 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[1][0]))
+        common_failed_tests_count = cursor.fetchall()
+    
+        cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[1][0]))
+        new_failed_tests_count = cursor.fetchall()
+
         # required analysis percentage
         if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
             req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
@@ -147,7 +153,7 @@ def dashboardRecent(db):
         failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
 
         return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
-         prev_exe_data=prev_exe_data,
+         prev_exe_data=prev_exe_data, common_failed_tests_count=common_failed_tests_count, new_failed_tests_count=new_failed_tests_count,
          req_anal_data=req_anal_data,
          req_anal_perc_data=req_anal_perc_data,
          new_tests_count=new_tests_count,
@@ -379,6 +385,23 @@ def eid_failures(db, eid):
 
     # Get testcase results of execution id (typically last executed)
     cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s and Test_Status='FAIL';" % eid)
+    data = cursor.fetchall()
+    return render_template('failures.html', data=data, db_name=db)
+
+@app.route('/<db>/failures', methods=['GET', 'POST'])
+def recent_failures(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    if request.method == "POST":
+        textField = request.form['textField']
+        rowField = request.form['rowField']
+        cursor.execute("Update TB_TEST SET Test_Comment='%s' WHERE Test_Id=%s;" % (str(textField), str(rowField)))
+        mysql.connection.commit()
+
+    # Get last row execution ID
+    cursor.execute("SELECT Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+    data = cursor.fetchone()
+    cursor.execute("SELECT * from TB_TEST WHERE Execution_Id=%s and Test_Status='FAIL';" % data)
     data = cursor.fetchall()
     return render_template('failures.html', data=data, db_name=db)
 

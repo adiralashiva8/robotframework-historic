@@ -42,7 +42,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.0
+    pip install robotframework-historic==0.2.1
     ```
 
     > Case 2: Using setup.py (root)
@@ -61,7 +61,7 @@
 
  - __Step 5:__ Install robotframework-historic-parser
     ```
-    pip install robotframework-historic-parser==0.2.0
+    pip install robotframework-historic-parser==0.2.1
     ```
    > _Note:_ Above all actions are one time activities
 
