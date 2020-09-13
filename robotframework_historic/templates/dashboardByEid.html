@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-4 col-lg-3">
-                                <div class="card" onclick="window.open('./failures/{{exe_info[0][0]}}','mywindow');" style="cursor: pointer;" title="Click to view failures">
+                                <div class="card" onclick="window.open('../failures/{{exe_info[0][0]}}','mywindow');" style="cursor: pointer;" title="Click to view failures">
                                     <div class="card-status card-status-left bg-red"></div>
                                     <div class="card-body p-3 text-center">
                                         {% if (failed_test_dif >= 0) %}
@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-lg-6 col-xl-4">
                                 <div class="alert alert-primary">
-                                    Project Recent Failures <a href="./failures" class="alert-link" target="_blank" style="color:blue"><i class="fe fe-link">PermaLink</i></a>
+                                    Project Recent Failures <a href="../failures" class="alert-link" target="_blank" style="color:blue"><i class="fe fe-link">PermaLink</i></a>
                                 </div>
                                 <div class="card">
                                     <div class="card-header">
@@ -219,7 +219,7 @@
                                         </table>
                                     </div>
                                     <div class="card-footer text-muted">
-                                        * Common suites which are failed in recent and recent-1 executions
+                                        * Common suites which are failed in {{exe_info[0][0]}} and {{exe_info[0][0]}}-1 executions
                                     </div>
                                 </div>
                             </div>

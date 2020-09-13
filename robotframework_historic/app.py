@@ -116,6 +116,11 @@ def dashboardRecent(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 2;")
         exe_info = cursor.fetchall()
 
+        if len(exe_info) == 2:
+            pass
+        else:
+            exe_info = (exe_info[0], exe_info[0])
+
         cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
@@ -185,6 +190,11 @@ def eid_dashboard(db, eid):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION WHERE Execution_Id <=%s order by Execution_Id desc LIMIT 2;" % eid)
         exe_info = cursor.fetchall()
 
+        if len(exe_info) == 2:
+            pass
+        else:
+            exe_info = (exe_info[0], exe_info[0])
+
         cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
@@ -200,7 +210,7 @@ def eid_dashboard(db, eid):
         cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
         test_avg_dur_data = cursor.fetchall()
 
-        cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
+        cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id IN (%s, %s) GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0], exe_info[0][0]))
         common_failed_suites = cursor.fetchall()
     
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
