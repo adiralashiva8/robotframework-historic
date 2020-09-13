@@ -29,6 +29,7 @@ setup(
       entry_points={
           'console_scripts': [
               'rfhistoric=robotframework_historic.app:main',
+              'rfhistoricparser=robotframework_historic.runner:main',
           ]
       },
 )

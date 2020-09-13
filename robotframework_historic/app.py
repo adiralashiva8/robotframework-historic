@@ -91,8 +91,7 @@ def dashboardAll(db):
         results.append(get_count_by_perc(exe_perc_data, 89, 80))
         results.append(get_count_by_perc(exe_perc_data, 79, 70))
         results.append(get_count_by_perc(exe_perc_data, 69, 60))
-        results.append(get_count_by_perc(exe_perc_data, 59, 50))
-        results.append(get_count_by_perc(exe_perc_data, 49, 0))
+        results.append(get_count_by_perc(exe_perc_data, 59, 0))
 
         return render_template('dashboardAll.html', exe_id_avg_data=exe_id_avg_data,
          results=results, results_data=results_data, db_name=db)
@@ -155,6 +154,75 @@ def dashboardRecent(db):
         failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
 
         return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
+         prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
+         req_anal_data=req_anal_data, app_failure_anl_count=app_failure_anl_count,
+         req_anal_perc_data=req_anal_perc_data, auto_failure_anl_count=auto_failure_anl_count,
+         new_tests_count=new_tests_count,
+         passed_test_dif=passed_test_dif,
+         failed_test_dif=failed_test_dif,
+         suite_avg_dur_data=suite_avg_dur_data,
+         test_avg_dur_data=test_avg_dur_data,
+         common_failed_suites=common_failed_suites,
+         db_name=db)
+
+    else:
+        return redirect(url_for('redirect_url'))
+
+@app.route('/<db>/dashboard/<eid>', methods=['GET'])
+def eid_dashboard(db, eid):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+
+    cursor.execute("SELECT COUNT(Execution_Id) from TB_EXECUTION;")
+    results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Suite_Id) from TB_SUITE;")
+    suite_results_data = cursor.fetchall()
+    cursor.execute("SELECT COUNT(Test_Id) from TB_TEST;")
+    test_results_data = cursor.fetchall()
+
+    if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
+
+        cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION WHERE Execution_Id <=%s order by Execution_Id desc LIMIT 2;", % eid)
+        exe_info = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        last_exe_data = cursor.fetchall()
+
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
+        prev_exe_data = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
+        req_anal_data = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
+        suite_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
+        test_avg_dur_data = cursor.fetchall()
+
+        cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
+        common_failed_suites = cursor.fetchall()
+    
+        cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
+        new_failed_tests_count = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Application_Issue%%';" % exe_info[0][0])
+        app_failure_anl_count = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Automation_Issue%%';" % exe_info[0][0])
+        auto_failure_anl_count = cursor.fetchall()
+
+        # required analysis percentage
+        if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
+            req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
+        else:
+            req_anal_perc_data = 0
+        
+        new_tests_count = exe_info[0][1] - exe_info[1][1]
+        passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
+        failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
+
+        return render_template('dashboardByEid.html', last_exe_data=last_exe_data, exe_info=exe_info,
          prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
          req_anal_data=req_anal_data, app_failure_anl_count=app_failure_anl_count,
          req_anal_perc_data=req_anal_perc_data, auto_failure_anl_count=auto_failure_anl_count,

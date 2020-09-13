@@ -59,10 +59,6 @@
 
  - __Step 4:__ Create *robothistoric.TB_PROJECT* table - [guide](https://bit.ly/2Tv2tV5)
 
- - __Step 5:__ Install robotframework-historic-parser
-    ```
-    pip install robotframework-historic-parser==0.2.0
-    ```
    > _Note:_ Above all actions are one time activities
 
    __Help / Know More__
@@ -79,7 +75,7 @@
 
  - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
- - __Step 2:__ Push execution results to project - [guide](https://bit.ly/3icddmC)
+ - __Step 2:__ Push execution results to project - [guide](https://bit.ly/33piDE9)
 
  - __Step 3:__ Open robotframework-historic to view historical results
 
