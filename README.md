@@ -11,13 +11,13 @@
 
 ---
 
-## Robotframework Historic Overview
+### Robotframework Historic Overview
 
  > Sample Report (old view) [Link](https://rfhistoric.netlify.com/)
 
 ---
 
-## How it Works:
+### How it Works:
 
 - Get execution details by __parsing__ output.xml
 - Store execution results in local / remote hosted __MySQL__ database
@@ -27,14 +27,14 @@
 
 ---
 
-## Requirements
+### Requirements
 
  - Python 3.7 or above
  - MySQL DB
 
 ---
 
-## Installation
+### Installation
 
  - __Step 1:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
@@ -71,7 +71,7 @@
 
 ---
 
-## How to use in project
+### How to use in project
 
  - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
