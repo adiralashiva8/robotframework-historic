@@ -75,7 +75,7 @@
 
  - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
- - __Step 2:__ Push execution results to project - [guide](https://bit.ly/33piDE9)
+ - __Step 2:__ Push execution results to project - [guide](https://bit.ly/35sSY09)
 
  - __Step 3:__ Open robotframework-historic to view historical results
 
