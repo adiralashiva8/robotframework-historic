@@ -603,14 +603,10 @@ def comment(db):
         issue = request.form['issue']
         user = request.form['user']
         commentMsg = request.form['comment']
+        comment = """<b class="text-muted">Review By: </b>""" + str(user) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issue) + """\n</br><b class="text-muted">Comment: </b>""" + str(commentMsg)
 
         try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(user) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issue) + """\n</br><b class="text-muted">Comment: </b>""" + str(commentMsg)
-        except:
-            comment = str(commentMsg)
-
-        try:
-            cursor.execute("Update TB_TEST SET Test_Comment={} WHERE Test_Id IN (Select Test_Id FROM TB_TEST WHERE Execution_Id={} AND Test_Error LIKE '%{}%');".format(comment, eid, error))
+            cursor.execute('Update TB_TEST SET Test_Comment=\'{}\' WHERE Execution_Id={} AND Test_Error LIKE \'%{}%\';'.format(comment, eid, error))
             mysql.connection.commit()
             return render_template('comment.html', error_message="", recent_eid=recent_eid)
         except Exception as e:

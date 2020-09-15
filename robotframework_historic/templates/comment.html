@@ -93,39 +93,42 @@
                                         <h3 class="card-title">Group Comment</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                              <label class="form-label">Partial Error Message</label>
-                                              <input id="error" name="error" type="text" class="form-control" placeholder="xpath:// or StaleElementException">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                <label class="form-label">Error Message(partial)</label>
+                                                <input id="error" name="error" type="text" class="form-control" placeholder="xpath:// or StaleElementException or Keyword">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-4">
-                                            <div class="form-group">
-                                              <label class="form-label">EID</label>
-                                              <input id="eid" name="eid" type="text" class="form-control" onkeypress='validate(event)' value="{{recent_eid}}">
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">EID</label>
+                                                <input id="eid" name="eid" type="text" class="form-control" onkeypress='validate(event)' value="{{recent_eid[0]}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-4">
-                                            <div class="form-group">
-                                              <label class="form-label">Issue Type</label>
-                                              <input id="issue" name="issue" type="text" class="form-control" placeholder="Automation Issue">
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">Issue Type</label>
+                                                <input id="issue" name="issue" type="text" class="form-control" placeholder="Automation Issue">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-4">
-                                            <div class="form-group">
-                                              <label class="form-label">User Name</label>
-                                              <input id="user" name="user" type="text" class="form-control" value="Bot">
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">User Name</label>
+                                                <input id="user" name="user" type="text" class="form-control" value="Bot">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group mb-0">
-                                                <label class="form-label">Comment</label>
-                                                <textarea id="comment" name="comment" rows="5" class="form-control" placeholder="Custom Comment"></textarea>
+                                            <div class="col-md-12">
+                                                <div class="form-group mb-0">
+                                                    <label class="form-label">Comment</label>
+                                                    <textarea id="comment" name="comment" rows="5" class="form-control" placeholder="Custom Comment"></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">
                                         <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">Update Comments</button>
+                                    </div>
                                     </div>
                                 </form>                                     
                             </div>                       
@@ -142,7 +145,7 @@
             var user = document.getElementById("user");
             var comment = document.getElementById("comment");
     
-            textField.onkeyup = function () {
+            comment.onkeyup = function () {
                 if (error.value == "" & issue.value == "" & user.value == "" & comment.value == "" & eid.value == "") {
                     submitButton.disabled = true;
                 } else {
