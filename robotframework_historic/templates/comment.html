@@ -13,7 +13,7 @@
         <meta name="HandheldFriendly" content="True" />
         <meta name="MobileOptimized" content="320" />
         <link href="https://img.icons8.com/cotton/64/000000/time-machine.png" rel="shortcut icon" type="image/x-icon"/>
-        <title>RF Historic - Compare</title>
+        <title>RF Historic - Group Comments</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext" />
         <script src="/assets/js/require.min.js"></script>
@@ -69,10 +69,10 @@
                                         <a href="./search" class="nav-link"><i class="fa fa-search" style="color: CHOCOLATE;"></i> Search</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./compare" class="nav-link active"><i class="fa fa-sliders" style="color: teal;"></i> Compare</a>
+                                        <a href="./compare" class="nav-link"><i class="fa fa-sliders" style="color: teal;"></i> Compare</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./comment" class="nav-link"><i class="fa fa-commenting-o" style="color: pink;"></i> Comment</a>
+                                        <a href="./comment" class="nav-link active"><i class="fa fa-commenting-o" style="color: pink;"></i> Comment</a>
                                     </li>
                                 </ul>
                             </div>
@@ -80,87 +80,55 @@
                     </div>
                 </div>
                 <div class="my-3 my-md-5">
-                    <div class="col-12">
-                        <form class="form-inline" method="post" action="">
-                            <div class="row row-sm align-items-center mb-3">
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">#</span>
-                                        <input type="text" class="form-control" placeholder="EID" id="eid_one" name="eid_one" onkeypress='validate(event)'>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                {% if (error_message != "") %}
+                                    <div class="alert alert-icon alert-danger" role="alert">
+                                        <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
                                     </div>
-                                </div>
-                                <div class="col-auto">—</div>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <span class="input-group-text">#</span>
-                                        <input type="text" class="form-control" placeholder="EID" id="eid_two" name="eid_two" onkeypress='validate(event)'>
+                                {% endif %}                                
+                                <form method="post" class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Group Comment</h3>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-primary btn-block" id="submit" type="submit" disabled="disabled">Compare</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="table-responsive">
-                                <table class="table card-table datatable">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="text-align:center">Test Case</th>
-                                            <th colspan="3" style="text-align:center" title="Click to view {{fb}} execution info"><a href="./tmetrics/{{fb}}" target="_blank">EID {{fb}}</a></th>
-                                            <th colspan="3" style="text-align:center" title="Click to view {{sb}} execution info"><a href="./tmetrics/{{sb}}" target="_blank">EID {{sb}}</a></th>
-                                        </tr>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Time (m)</th>
-                                            <th>Error</th>
-                                            <th>Status</th>
-                                            <th>Time (m)</th>
-                                            <th>Error</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in data %}
-                                            <tr>
-                                                <td style="text-align:left;word-wrap: break-word;max-width: 250px; white-space: normal;"> {{item[1]}}</td>
-
-                                                {% if (item[2] == "PASS") %}
-                                                    <td style="color: green">PASS</i></td>
-                                                {% elif (item[2] == "FAIL") %}
-                                                    <td style="color: red">FAIL</i></td>
-                                                {% else %}
-                                                    <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                                                {% endif %}
-
-                                                <td style="text-align:left;"> {{item[3]}}</td>
-                                                <td style="text-align:left;word-wrap: break-word;max-width: 250px; white-space: normal;"> {{item[4]}}</td>
-
-                                                {% if (item[5] == "PASS") %}
-                                                    <td style="color: green">PASS</i></td>
-                                                {% elif (item[5] == "FAIL") %}
-                                                    <td style="color: red">FAIL</i></td>
-                                                {% else %}
-                                                    <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
-                                                {% endif %}
-
-                                                <td style="text-align:left;"> {{item[6]}}</td>
-                                                <td style="text-align:left;word-wrap: break-word;max-width: 250px; white-space: normal;"> {{item[7]}}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                <script>
-                                    require(["datatables", "jquery"], function (datatable, $) {
-                                        $(".datatable").DataTable({
-                                            stateSave: true,
-                                            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                                            order: [[0, "asc"]],
-                                        });
-                                    });
-                                </script>
-                            </div>
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label class="form-label">Partial Error Message</label>
+                                              <input id="error" name="error" type="text" class="form-control" placeholder="xpath:// or StaleElementException">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4">
+                                            <div class="form-group">
+                                              <label class="form-label">EID</label>
+                                              <input id="eid" name="eid" type="text" class="form-control" onkeypress='validate(event)' value="{{recent_eid}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4">
+                                            <div class="form-group">
+                                              <label class="form-label">Issue Type</label>
+                                              <input id="issue" name="issue" type="text" class="form-control" placeholder="Automation Issue">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4">
+                                            <div class="form-group">
+                                              <label class="form-label">User Name</label>
+                                              <input id="user" name="user" type="text" class="form-control" value="Bot">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-0">
+                                                <label class="form-label">Comment</label>
+                                                <textarea id="comment" name="comment" rows="5" class="form-control" placeholder="Custom Comment"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">Update Comments</button>
+                                    </div>
+                                </form>                                     
+                            </div>                       
                         </div>
                     </div>
                 </div>
@@ -168,11 +136,14 @@
         </div>
         <script>
             var submitButton = document.getElementById("submit");
-            var textField = document.getElementById("eid_one");
-            var textField_two = document.getElementById("eid_two");
+            var error = document.getElementById("error");
+            var issue = document.getElementById("issue");
+            var eid = document.getElementById("eid");
+            var user = document.getElementById("user");
+            var comment = document.getElementById("comment");
     
             textField.onkeyup = function () {
-                if (textField.value == "" & textField_two.value == "") {
+                if (error.value == "" & issue.value == "" & user.value == "" & comment.value == "" & eid.value == "") {
                     submitButton.disabled = true;
                 } else {
                     submitButton.disabled = false;

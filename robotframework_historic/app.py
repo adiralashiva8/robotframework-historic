@@ -415,7 +415,7 @@ def tmetrics(db):
         textField = request.form['textField']
         rowField = request.form['rowField']
         try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
         except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
@@ -460,7 +460,7 @@ def eid_tmetrics(db, eid):
         textField = request.form['textField']
         rowField = request.form['rowField']
         try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
         except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
@@ -484,7 +484,7 @@ def eid_failures(db, eid):
         textField = request.form['textField']
         rowField = request.form['rowField']
         try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
         except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
@@ -508,7 +508,7 @@ def recent_failures(db):
         textField = request.form['textField']
         rowField = request.form['rowField']
         try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """</br><b class="text-muted">Comment: </b>""" + str(textField)
+            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
         except:
             comment = str(textField)
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
@@ -589,6 +589,35 @@ def query(db):
             return render_template('query.html', db_name=db, error_message=str(e))
     else:
         return render_template('query.html', db_name=db, error_message="")
+
+@app.route('/<db>/comment', methods=['GET', 'POST'])
+def comment(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    cursor.execute("SELECT Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
+    recent_eid = cursor.fetchone()
+
+    if request.method == "POST":
+        error = request.form['error']
+        eid = request.form['eid']
+        issue = request.form['issue']
+        user = request.form['user']
+        commentMsg = request.form['comment']
+
+        try:
+            comment = """<b class="text-muted">Review By: </b>""" + str(user) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issue) + """\n</br><b class="text-muted">Comment: </b>""" + str(commentMsg)
+        except:
+            comment = str(commentMsg)
+
+        try:
+            cursor.execute("Update TB_TEST SET Test_Comment={} WHERE Test_Id IN (Select Test_Id FROM TB_TEST WHERE Execution_Id={} AND Test_Error LIKE '%{}%');".format(comment, eid, error))
+            mysql.connection.commit()
+            return render_template('comment.html', error_message="", recent_eid=recent_eid)
+        except Exception as e:
+            print(str(e))
+            return render_template('comment.html', error_message=str(e), recent_eid=recent_eid)
+    else:
+        return render_template('comment.html', error_message="", recent_eid=recent_eid)
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
