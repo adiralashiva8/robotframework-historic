@@ -139,6 +139,7 @@
                                                                             <div class="form-group">
                                                                                 <label class="form-label" style="text-align:left">Comment:</label>
                                                                                 <textarea id="textField" rows="5" type="text" name="textField" style="min-width: 100%">{{item[6]}}</textarea>
+                                                                                <div style="color:red">Avoid using single quote(') in fields or use \ for escaping (Ex: \')</div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <input readonly id="rowField" type="hidden" value="{{item[0]}}" name="rowField" style="width:80%;min-width: 80%"></input>
@@ -162,7 +163,7 @@
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[2, "asc"]],
                                             "aoColumnDefs": [ {
-                                                "aTargets": [ 5 ],
+                                                "aTargets": [ 4, 5 ],
                                                 "mRender": function ( data, type, full ) {
                                                     return $("<div/>").html(data).text(); 
                                                 }

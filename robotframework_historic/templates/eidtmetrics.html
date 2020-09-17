@@ -38,19 +38,6 @@
     <body class="">
         <div class="page">
             <div class="flex-fill">
-                <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-lg order-lg-first">
-                                <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
-                                    <li class="nav-item">
-                                        <a href="/home" class="nav-link"><i class="fe fe-home" style="color: teal;"></i> Home</a>
-                                    </li>                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="my-3 my-md-5">
                     <div class="col-12">
                         <div class="card">
@@ -111,6 +98,7 @@
                                                                             <div class="form-group">
                                                                                 <label class="form-label" style="text-align:left">Comment:</label>
                                                                                 <textarea id="textField" rows="5" type="text" name="textField" style="min-width: 100%">{{item[6]}}</textarea>
+                                                                                <div style="color:red">Avoid using single quote(') in fields or use \ for escaping (Ex: \')</div>
                                                                             </div>
                                                                             <div class="form-group">
                                                                                 <input readonly id="rowField" type="hidden" value="{{item[0]}}" name="rowField" style="width:80%;min-width: 80%"></input>
@@ -134,7 +122,7 @@
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[2, "asc"]],
                                             "aoColumnDefs": [ {
-                                                "aTargets": [ 5 ],
+                                                "aTargets": [ 4, 5 ],
                                                 "mRender": function ( data, type, full ) {
                                                     return $("<div/>").html(data).text(); 
                                                 }
