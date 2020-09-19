@@ -43,7 +43,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.2
+    pip install robotframework-historic==0.2.3
     ```
 
     > Case 2: Using setup.py (root)
@@ -63,7 +63,7 @@
     rfhistoricsetup
     ```
 
-    > Case 2: 
+    > Case 2: Manual steps
       - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
       - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
 
