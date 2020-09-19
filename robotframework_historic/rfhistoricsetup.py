@@ -9,7 +9,6 @@ def rfhistoric_setup(opts):
 
     # create new user
     obj = mydb.cursor()
-
     print("INFO: Creating superuser with local access")
     try:
         obj.execute("CREATE USER IF NOT EXISTS 'superuser'@'localhost' IDENTIFIED BY 'passw0rd';")
@@ -39,8 +38,9 @@ def rfhistoric_setup(opts):
     print("INFO: Creating TB_PROJECT table")
     rfdb = connect_to_mysql_db(opts.host, opts.username, opts.password, "robothistoric")
     try:
-        rfdb.execute("CREATE TABLE IF NOT EXISTS TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
-        rfdb.commit
+        rfobj = rfdb.cursor()
+        rfobj.execute("CREATE TABLE IF NOT EXISTS TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
+        rfobj.commit
     except Exception as e:
         print(str(e))
 
