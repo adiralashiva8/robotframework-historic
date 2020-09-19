@@ -7,7 +7,7 @@ from robot.api import ExecutionResult
 def parse_options():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    general = parser.add_argument_group("General")
+    general = parser.add_argument_group("Parser")
 
     general.add_argument(
         '-s', '--host',
