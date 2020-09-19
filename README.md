@@ -35,6 +35,7 @@
 ---
 
 ### Installation
+  > Following setps are one time activity
 
  - __Step 1:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
@@ -55,11 +56,17 @@
     pip install git+https://github.com/adiralashiva8/robotframework-historic
     ```
 
- - __Step 3:__ Create *rfhistoric* default user with permissions - [guide](https://bit.ly/2PIOTfI)
+ - __Step 3:__ Create *rfhistoric* default user & *robothistoric.TB_PROJECT* table
 
- - __Step 4:__ Create *robothistoric.TB_PROJECT* table - [guide](https://bit.ly/2Tv2tV5)
+    > Case 1: Through command line
+    ```
+    rfhistoricsetup
+    ```
 
-   > _Note:_ Above all actions are one time activities
+    > Case 2: 
+      - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
+      - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
+
 
    __Help / Know More__
 
@@ -67,6 +74,7 @@
    ```
    rfhistoric --help
    rfhistoricparser --help
+   rfhistoricsetup --help
    ```
 
 ---
