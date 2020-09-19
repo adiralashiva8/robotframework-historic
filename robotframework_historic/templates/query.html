@@ -72,7 +72,7 @@
                                         <a href="./compare" class="nav-link"><i class="fa fa-sliders" style="color: teal;"></i> Compare</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)" class="nav-link active" data-toggle="dropdown"> <i class="fa fa-thumb-back" style="color: CADETBLUE;"></i> Other<i class="fe fe-chevron-down"></i></a>
+                                        <a href="javascript:void(0)" class="nav-link active" data-toggle="dropdown"> <i class="fa fa-thumb-tack" style="color: CADETBLUE;"></i> Other<i class="fe fe-chevron-down"></i></a>
                                         <div class="dropdown-menu dropdown-menu-arrow">
                                             <a href="./comment" class="dropdown-item" style="color:blue">Group Comment</a>
                                             <a href="./query" class="dropdown-item" style="color:blue">Query - &beta;</a>
@@ -84,31 +84,22 @@
                     </div>
                 </div>
                 <div class="my-3 my-md-5">
-                    <div class="row">
-                        <div class="col-12">
-                            {% if (error_message != "") %}
-                                <div class="alert alert-icon alert-danger" role="alert">
-                                    <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
+                    <div class="col-12">
+                        {% if (error_message != "") %}
+                            <div class="alert alert-icon alert-danger" role="alert">
+                                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
+                            </div>
+                        {% endif %}                                
+                        <form method="post">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="textField" name="query" type="search" class="form-control header-search" placeholder="Select * from tb_execution order by execution_id desc limit 1;">
+                                    <span class="input-icon-addon">
+                                        <i class="fe fe-search"></i>
+                                    </span>
                                 </div>
-                            {% endif %}                                
-                            <form method="post" class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Query</h3>
-                                    <div class="card-options">
-                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input id="textField" name="query" type="search" class="form-control header-search" placeholder="Select * from tb_execution order by execution_id desc limit 1;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>                                  
-                        </div>                       
+                            </div>
+                        </form>                      
                     </div>
                     <div class="col-12">
                         <div class="card">
