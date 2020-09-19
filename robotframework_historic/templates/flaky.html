@@ -72,7 +72,11 @@
                                         <a href="./compare" class="nav-link"><i class="fa fa-sliders" style="color: teal;"></i> Compare</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="./comment" class="nav-link"><i class="fa fa-commenting-o" style="color: pink;"></i> Comment</a>
+                                        <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"> <i class="fa fa-thumb-back" style="color: CADETBLUE;"></i> Other<i class="fe fe-chevron-down"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-arrow">
+                                            <a href="./comment" class="dropdown-item" style="color:blue">Group Comment</a>
+                                            <a href="./query" class="dropdown-item" style="color:blue">Query - &beta;</a>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -95,17 +99,25 @@
                                     <tbody>
                                         {% for item in data %}
                                             <tr>
-                                                <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;">{{item[1]}}</td>
-                                                {% set count = namespace(value=1) %}
+                                                <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;">{{item[0]}}</td>
+                                                {% set result = namespace(value=1) %}
+                                                {% set buildIndex = namespace(value=1) %}
+                                                {% set buildLoop = namespace(value=1) %}
                                                 {% for build in builds %}
-                                                    {% set count.value = count.value + 1 %}
-                                                    {% if (item[count.value] == "PASS") %}
-                                                        <td style="color: green">PASS</i></td>
-                                                    {% elif (item[count.value] == "FAIL") %}
-                                                        <td style="color: red">FAIL</i></td>
+                                                    {% if (item[buildIndex.value] == build[buildLoop.value]) %}
+                                                        {% if (item[result.value] == "PASS") %}
+                                                            <td style="color: green">PASS</i></td>
+                                                        {% elif (item[result.value] == "FAIL") %}
+                                                            <td style="color: red">FAIL</i></td>
+                                                        {% else %}
+                                                            <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
+                                                        {% endif %}
+                                                        {% set buildIndex.value = buildIndex.value + 1 %}
+                                                        {% set result.value = result.value + 1 %}
                                                     {% else %}
                                                         <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                     {% endif %}
+                                                    {% set buildLoop = buildLoop.value + 1 %}
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}

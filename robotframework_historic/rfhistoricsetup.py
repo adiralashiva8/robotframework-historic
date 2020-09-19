@@ -5,11 +5,7 @@ from robot.api import ExecutionResult, ResultVisitor
 import datetime
 from datetime import timedelta
 
-def rfhistoric_parser(opts):
-
-    if opts.ignoreresult == "True":
-        print("Ignoring execution results...")
-        return
+def rfhistoric_setup(opts):
 
     path = os.path.abspath(os.path.expanduser(opts.path))
 

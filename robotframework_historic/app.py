@@ -544,7 +544,7 @@ def flaky(db):
     last_five = cursor.fetchall()
     cursor.execute("SELECT Execution_Id from TB_EXECUTION ORDER BY Execution_Id DESC LIMIT 5;")
     last_five_ids = cursor.fetchall()
-    sql_query = "SELECT Execution_Id, Test_Name, Test_Status from TB_TEST WHERE Execution_Id >= %s ORDER BY Execution_Id DESC;" % (str(last_five[0][0]))
+    sql_query = "SELECT Test_Name, Execution_Id, Test_Status from TB_TEST WHERE Execution_Id >= %s ORDER BY Execution_Id DESC;" % (str(last_five[0][0]))
     cursor.execute(sql_query)
     data = cursor.fetchall()
     # print("==== Before Sorted Data ===")
@@ -622,9 +622,9 @@ def sort_tests(data_list):
     out = {}
     for elem in data_list:
         try:
-            out[elem[1]].extend(elem[2:])
+            out[elem[0]].extend(elem[1:])
         except KeyError:
-            out[elem[1]] = list(elem)
+            out[elem[0]] = list(elem)
     return [tuple(values) for values in out.values()]
 
 def get_count_by_perc(data_list, max, min):

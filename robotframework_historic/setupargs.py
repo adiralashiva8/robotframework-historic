@@ -1,6 +1,6 @@
 import os
 import argparse
-from .rfhistoricparser import generate_report
+from .rfhistoricsetup import rfhistoric_setup
 from robot.api import ExecutionResult
 
 
@@ -76,4 +76,4 @@ def parse_options():
 
 def main():
     args = parse_options()
-    generate_report(args)
+    rfhistoric_setup(args)
