@@ -90,16 +90,17 @@
                                 <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
                             </div>
                         {% endif %}                                
-                        <form method="post">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <input id="textField" name="query" type="search" class="form-control header-search" placeholder="Select * from tb_execution order by execution_id desc limit 1;">
-                                    <span class="input-icon-addon">
-                                        <i class="fe fe-search"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>                      
+                        <form method="post" class="card">
+                            <input id="textField" name="query" type="search" class="form-control header-search" placeholder="Select * from tb_execution order by execution_id desc limit 1;">
+                            <span class="input-icon-addon">
+                                <i class="fe fe-search"></i>
+                            </span>                                
+                        </form>  
+                        <div class="alert alert-icon alert-info" role="alert">
+                            Supports query operation on: TB_EXECUTION, TB_SUITE & TB_TEST tables <a href="https://bit.ly/3eRJ9uo" target="_blank">More Info!</a>
+                        </div>                 
+                    </div>
+                    <div class="col-12">
                     </div>
                     <div class="col-12">
                         <div class="card">

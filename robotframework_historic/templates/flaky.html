@@ -100,9 +100,9 @@
                                         {% for item in data %}
                                             <tr>
                                                 <td style="word-wrap: break-word;max-width: 550px; white-space: normal; text-align: left;">{{item[0]}}</td>
-                                                {% set result = namespace(value=1) %}
+                                                {% set result = namespace(value=2) %}
                                                 {% set buildIndex = namespace(value=1) %}
-                                                {% set buildLoop = namespace(value=1) %}
+                                                {% set buildLoop = namespace(value=0) %}
                                                 {% for build in builds %}
                                                     {% if (item[buildIndex.value] == build[buildLoop.value]) %}
                                                         {% if (item[result.value] == "PASS") %}
@@ -112,8 +112,8 @@
                                                         {% else %}
                                                             <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                         {% endif %}
-                                                        {% set buildIndex.value = buildIndex.value + 1 %}
-                                                        {% set result.value = result.value + 1 %}
+                                                        {% set buildIndex.value = buildIndex.value + 2 %}
+                                                        {% set result.value = result.value + 2 %}
                                                     {% else %}
                                                         <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                     {% endif %}
