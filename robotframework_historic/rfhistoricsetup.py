@@ -39,7 +39,7 @@ def rfhistoric_setup(opts):
     print("INFO: Creating TB_PROJECT table")
     rfdb = connect_to_mysql_db(opts.host, opts.username, opts.password, "robothistoric")
     try:
-        rfdb.execute("Create table TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
+        rfdb.execute("CREATE TABLE IF NOT EXISTS TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
         rfdb.commit
     except Exception:
         print(Exception)
