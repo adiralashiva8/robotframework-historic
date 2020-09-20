@@ -536,7 +536,7 @@ def search(db):
                 return render_template('search.html', db_name=db, error_message="Search text should not be empty")
         except Exception as e:
             print(str(e))
-            return render_template('search.html', db_name=db, error_message="Could not perform search. Avoid single quote in search or use escaping character. Ex: \'")
+            return render_template('search.html', db_name=db, error_message="Could not perform search. Avoid single quote in search or use escaping character")
     else:
         return render_template('search.html', db_name=db, error_message="")
 
