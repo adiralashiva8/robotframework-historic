@@ -11,8 +11,6 @@
 
 ---
 
-### Robotframework Historic Overview
-
  > Sample Report (old view) [Link](https://rfhistoric.netlify.com/)
 
 ---
@@ -56,7 +54,7 @@
     pip install git+https://github.com/adiralashiva8/robotframework-historic
     ```
 
-   #### Help / Know More
+   > Help / Know More
    ```
    rfhistoric --help
    rfhistoricparser --help
@@ -71,8 +69,10 @@
     ```
 
     > Case 2: Manual steps
-      - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
-      - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
+    ```
+      a) Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
+      b) Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
+    ```
 
 ---
 
