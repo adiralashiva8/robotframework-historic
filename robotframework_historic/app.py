@@ -571,10 +571,13 @@ def compare(db):
         # fetch second eid test results
         cursor.execute("SELECT Test_Name, Execution_Id, Test_Status, Test_Time, Test_Error from TB_TEST WHERE Execution_Id=%s;" % eid_two )
         second_data = cursor.fetchall()
-        # combine both tuples
-        data = first_data + second_data
-        sorted_data = sort_tests(data)
-        return render_template('compare.html', data=sorted_data, db_name=db, fb = first_data, sb = second_data, eid_one = eid_one, eid_two = eid_two)
+        if first_data and second_data:
+            # combine both tuples
+            data = first_data + second_data
+            sorted_data = sort_tests(data)
+            return render_template('compare.html', data=sorted_data, db_name=db, fb = first_data, sb = second_data, eid_one = eid_one, eid_two = eid_two)
+        else:
+            return render_template('compare.html', db_name=db)    
     else:
         return render_template('compare.html', db_name=db)
 
