@@ -43,7 +43,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.3
+    pip install robotframework-historic==0.2.4
     ```
 
     > Case 2: Using setup.py (root)
@@ -56,6 +56,13 @@
     pip install git+https://github.com/adiralashiva8/robotframework-historic
     ```
 
+   #### Help / Know More
+   ```
+   rfhistoric --help
+   rfhistoricparser --help
+   rfhistoricsetup --help
+   ```
+
  - __Step 3:__ Create *rfhistoric* default user & *robothistoric.TB_PROJECT* table
 
     > Case 1: Through command line
@@ -66,16 +73,6 @@
     > Case 2: Manual steps
       - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
       - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
-
-
-   __Help / Know More__
-
-   To know more on available command refer help
-   ```
-   rfhistoric --help
-   rfhistoricparser --help
-   rfhistoricsetup --help
-   ```
 
 ---
 
