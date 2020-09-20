@@ -575,11 +575,11 @@ def compare(db):
             # combine both tuples
             data = first_data + second_data
             sorted_data = sort_tests(data)
-            return render_template('compare.html', data=sorted_data, db_name=db, fb = first_data, sb = second_data, eid_one = eid_one, eid_two = eid_two)
+            return render_template('compare.html', data=sorted_data, db_name=db, fb = first_data, sb = second_data, eid_one = eid_one, eid_two = eid_two, error_message="")
         else:
-            return render_template('compare.html', db_name=db)    
+            return render_template('compare.html', db_name=db, error_message="EID not found, try with existing EID")    
     else:
-        return render_template('compare.html', db_name=db)
+        return render_template('compare.html', db_name=db, error_message="")
 
 @app.route('/<db>/query', methods=['GET', 'POST'])
 def query(db):

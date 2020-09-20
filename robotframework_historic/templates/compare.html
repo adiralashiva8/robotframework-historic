@@ -85,6 +85,11 @@
                 </div>
                 <div class="my-3 my-md-5">
                     <div class="col-12">
+                        {% if (error_message != "") %}
+                            <div class="alert alert-icon alert-danger" role="alert">
+                                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
+                            </div>
+                        {% endif %}
                         <form class="form-inline" method="post" action="">
                             <div class="row row-sm align-items-center mb-3">
                                 <div class="col">
