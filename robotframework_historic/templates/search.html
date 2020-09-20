@@ -85,7 +85,12 @@
                     </div>
                 </div>
                 <div class="my-3 my-md-5">
-                    <div class="col-12">                                
+                    <div class="col-12">   
+                        {% if (error_message != "") %}
+                            <div class="alert alert-icon alert-danger" role="alert">
+                                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
+                            </div>
+                        {% endif %}                             
                         <form method="post" class="card">
                             <input id="textField" name="search" type="search" class="form-control header-search" placeholder="Search by TestCase or Status or EID">
                             <span class="input-icon-addon">
@@ -135,7 +140,6 @@
                                 <script>
                                     require(["datatables", "jquery"], function (datatable, $) {
                                         $(".datatable").DataTable({
-                                            stateSave: true,
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[0, "desc"]],
                                             "aoColumnDefs": [ {

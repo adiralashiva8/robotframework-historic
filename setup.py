@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
       name='robotframework-historic',
-      version="0.2.3",
+      version="0.2.4",
       description='Custom report to display robotframework historical execution records',
       long_description='Robotframework Historic is custom report to display historical execution records using MySQL + Flask',
       classifiers=[

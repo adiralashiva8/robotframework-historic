@@ -527,14 +527,18 @@ def search(db):
         search = request.form['search']
         cursor = mysql.connection.cursor()
         use_db(cursor, db)
-        if search:
+        try:
+            if search:
             cursor.execute("SELECT * from TB_TEST WHERE Test_Name LIKE '%{name}%' OR Test_Status LIKE '%{name}%' OR Execution_Id LIKE '%{name}%' ORDER BY Execution_Id DESC LIMIT 500;".format(name=search))
             data = cursor.fetchall()
-            return render_template('search.html', data=data, db_name=db)
+            return render_template('search.html', data=data, db_name=db, error_message="")
         else:
-            return render_template('search.html', db_name=db)    
+            return render_template('search.html', db_name=db, error_message="Encountered empty search text")
+        except Exception as e:
+            print(str(e))
+            return render_template('search.html', db_name=db, error_message=str(e))
     else:
-        return render_template('search.html', db_name=db)
+        return render_template('search.html', db_name=db, error_message="")
 
 @app.route('/<db>/flaky', methods=['GET'])
 def flaky(db):
@@ -562,10 +566,10 @@ def compare(db):
         cursor = mysql.connection.cursor()
         use_db(cursor, db)
         # fetch first eid tets results
-        cursor.execute("SELECT Execution_Id, Test_Name, Test_Status, Test_Time, Test_Error from TB_TEST WHERE Execution_Id=%s;" % eid_one )
+        cursor.execute("SELECT Test_Name, Execution_Id, Test_Status, Test_Time, Test_Error from TB_TEST WHERE Execution_Id=%s;" % eid_one )
         first_data = cursor.fetchall()
         # fetch second eid test results
-        cursor.execute("SELECT Execution_Id, Test_Name, Test_Status, Test_Time, Test_Error from TB_TEST WHERE Execution_Id=%s;" % eid_two )
+        cursor.execute("SELECT Test_Name, Execution_Id, Test_Status, Test_Time, Test_Error from TB_TEST WHERE Execution_Id=%s;" % eid_two )
         second_data = cursor.fetchall()
         # combine both tuples
         data = first_data + second_data
