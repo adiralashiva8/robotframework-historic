@@ -532,11 +532,11 @@ def search(db):
                 cursor.execute("SELECT * from TB_TEST WHERE Test_Name LIKE '%{name}%' OR Test_Status LIKE '%{name}%' OR Execution_Id LIKE '%{name}%' ORDER BY Execution_Id DESC LIMIT 500;".format(name=search))
                 data = cursor.fetchall()
                 return render_template('search.html', data=data, db_name=db, error_message="")
-        else:
-            return render_template('search.html', db_name=db, error_message="Encountered empty search text")
+            else:
+                return render_template('search.html', db_name=db, error_message="Search text should not be empty")
         except Exception as e:
             print(str(e))
-            return render_template('search.html', db_name=db, error_message=str(e))
+            return render_template('search.html', db_name=db, error_message="Could not perform search. Avoid single quote in search or use escaping character. Ex: \'")
     else:
         return render_template('search.html', db_name=db, error_message="")
 
@@ -574,7 +574,7 @@ def compare(db):
         # combine both tuples
         data = first_data + second_data
         sorted_data = sort_tests(data)
-        return render_template('compare.html', data=sorted_data, db_name=db, fb = eid_one, sb = eid_two)
+        return render_template('compare.html', data=sorted_data, db_name=db, fb = first_data, sb = second_data, eid_one = eid_one, eid_two = eid_two)
     else:
         return render_template('compare.html', db_name=db)
 
