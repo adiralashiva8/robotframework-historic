@@ -18,7 +18,7 @@
 
 - Get execution details by __parsing__ output.xml
 - Store execution results in local / remote hosted __MySQL__ database
-- Generate html report using __Flask__
+- Generate html report from database using __Flask__
 
   > <img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview">
 
@@ -32,7 +32,7 @@
 ---
 
 ### Installation
-  > Following setps are one time activity
+  > Following steps are one time activity
 
  - __Step 1:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
 
