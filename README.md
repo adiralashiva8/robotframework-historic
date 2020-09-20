@@ -9,7 +9,6 @@
 ![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)
 [![HitCount](http://hits.dwyl.io/adiralashiva8/robotframework-historic.svg)](http://hits.dwyl.io/adiralashiva8/robotframework-historic)
 
----
 
  > Sample Report (old view) [Link](https://rfhistoric.netlify.com/)
 
@@ -69,10 +68,8 @@
     ```
 
     > Case 2: Manual steps
-    ```
-      a) Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
-      b) Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
-    ```
+      - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
+      - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
 
 ---
 
