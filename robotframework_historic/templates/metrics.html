@@ -245,9 +245,9 @@
                 window.onload = function () {
                     executeDataTable('#sm', 5);
                     executeDataTable('#tm', 2);
-                    createPieChart({{exe_data[0][8]}}, {{exe_data[0][9]}}, 'suiteChartID', 'Suite Status:');
+                    createPieChart({{exe_data[0][8]}}, {{exe_data[0][9]}}, {{exe_data[0][11]}}, 'suiteChartID', 'Suite Status:');
                     createBarGraph('#sm', 0, 5, 10, 'suiteBarID', 'Elapsed Time (m) ', 'Suite');
-                    createPieChart({{exe_data[0][4]}}, {{exe_data[0][5]}}, 'testChartID', 'Tests Status:');
+                    createPieChart({{exe_data[0][4]}}, {{exe_data[0][5]}}, {{exe_data[0][10]}}, 'testChartID', 'Tests Status:');
                     createBarGraph('#tm', 0, 2, 10, 'testsBarID', 'Elapsed Time (m) ', 'Test');
                 };
             </script>
@@ -263,6 +263,7 @@
                         <th>Total</th>
                         <th>Pass</th>
                         <th>Fail</th>
+                        <th>Skip</th>
                         <th>Time (m)</th>
                     </tr>
                 </thead>
@@ -271,14 +272,17 @@
                     <tr>
                         <td style="word-wrap: break-word;max-width: 250px; white-space: normal;text-align:left;"> {{item[2]}}</td>
                         {% if (item[3] == "PASS") %}
-                            <td style="color: green;"> {{item[3]}}</td>
+                            <td style="color: green"> {{item[3]}}</td>
+                        {% elif (item[3] == "FAIL") %}
+                            <td style="color: red"> {{item[3]}}</td>
                         {% else %}
-                            <td style="color: red;"> {{item[3]}}</td>
+                            <td style="color: orange"> {{item[3]}}</td>
                         {% endif %}
                         <td>{{item[4]}}</td>
-                        <td>{{item[5]}}</td">
-                        <td>{{item[6]}}</td">
-                        <td>{{item[7]}}</td">
+                        <td style="color: green;">{{item[5]}}</td>
+                        <td style="color: red;">{{item[6]}}</td>
+                        <td style="color: orange;">{{item[8]}}</td>
+                        <td>{{item[7]}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -305,9 +309,11 @@
                     <tr>
                         <td style="word-wrap: break-word;max-width: 250px; white-space: normal;text-align:left;">{{item[2]}}</td>
                         {% if (item[3] == "PASS") %}
-                            <td style="color: green;"> {{item[3]}}</td>
+                            <td style="color: green"> {{item[3]}}</td>
+                        {% elif (item[3] == "FAIL") %}
+                            <td style="color: red"> {{item[3]}}</td>
                         {% else %}
-                            <td style="color: red;"> {{item[3]}}</td>
+                            <td style="color: orange"> {{item[3]}}</td>
                         {% endif %}
                         <td>{{item[4]}}</td>
                         <td style="word-wrap: break-word;max-width: 250px; white-space: normal;text-align:left;">{{item[5]}}</td>
@@ -323,17 +329,17 @@
     </div>
 
 <script>
-    function createPieChart(passed_count,failed_count,ChartID,ChartName){
+    function createPieChart(passed_count,failed_count,skipped_count,ChartID,ChartName){
         var status = [];
         status.push(['Status', 'Percentage']);
-        status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)]);
+        status.push(['PASS',parseInt(passed_count)],['FAIL',parseInt(failed_count)],['SKIP',parseInt(skipped_count)]);
         var data = google.visualization.arrayToDataTable(status);
 
         var options = {
         pieHole: 0.6,
         legend: 'none',
         chartArea: {width: "95%",height: "90%"},
-        colors: ['#2ecc71', '#fc6666'],
+        colors: ['#2ecc71', '#fc6666', 'orange'],
         };
 
         var chart = new google.visualization.PieChart(document.getElementById(ChartID));
