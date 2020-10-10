@@ -32,6 +32,7 @@ setup(
               'rfhistoric=robotframework_historic.app:main',
               'rfhistoricparser=robotframework_historic.parserargs:main',
               'rfhistoricsetup=robotframework_historic.setupargs:main',
+              'rfhistoricupdate=robotframework_historic.updateargs:main',
           ]
       },
 )

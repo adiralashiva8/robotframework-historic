@@ -68,6 +68,9 @@ def connect_to_mysql_db(host, user, pwd, db):
     except Exception as e:
         print(e)
 
+def use_db(cursor, db_name):
+    cursor.execute("USE %s;" % db_name)
+
 def commit_and_close_db(db):
     db.commit()
     db.close()
