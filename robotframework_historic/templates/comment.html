@@ -157,13 +157,15 @@
         <script>
             var submitButton = document.getElementById("submit");
             var error = document.getElementById("error");
-            var issue = document.getElementById("issue");
             var eid = document.getElementById("eid");
-            var user = document.getElementById("user");
+            var issue = document.getElementById("issue");
+            var reviewby = document.getElementById("reviewby");
+            var assignto = document.getElementById("assignto");
+            var eta = document.getElementById("eta");
             var comment = document.getElementById("comment");
     
             comment.onkeyup = function () {
-                if (error.value == "" & issue.value == "" & user.value == "" & comment.value == "" & eid.value == "") {
+                if (error.value == "" & issue.value == "" & reviewby.value == "" & assignto.value == "" & eta.value == "" & comment.value == "" & eid.value == "") {
                     submitButton.disabled = true;
                 } else {
                     submitButton.disabled = false;

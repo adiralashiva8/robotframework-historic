@@ -606,22 +606,6 @@ def comment(db):
     if request.method == "POST":
         error = request.form['error']
         eid = request.form['eid']
-        issue = request.form['issue']
-        user = request.form['user']
-        commentMsg = request.form['comment']
-        comment = """<b class="text-muted">Review By: </b>""" + str(user) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issue) + """\n</br><b class="text-muted">Comment: </b>""" + str(commentMsg)
-
-        try:
-            cursor.execute('Update TB_TEST SET Test_Comment=\'{}\' WHERE Execution_Id={} AND Test_Error LIKE \'%{}%\';'.format(comment, eid, error))
-            mysql.connection.commit()
-            return render_template('comment.html', error_message="", recent_eid=recent_eid)
-        except Exception as e:
-            print(str(e))
-            return render_template('comment.html', error_message=str(e), recent_eid=recent_eid)
-
-    if request.method == "POST":
-        error = request.form['error']
-        eid = request.form['eid']
         issue_type = request.form['issue']
         review_by = request.form['reviewby']
         assign_to = request.form['assignto']
