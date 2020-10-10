@@ -40,7 +40,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.4
+    pip install robotframework-historic==0.2.5
     ```
 
     > Case 2: Using setup.py (root)
@@ -58,6 +58,7 @@
    rfhistoric --help
    rfhistoricparser --help
    rfhistoricsetup --help
+   rfhistoricupdate --help
    ```
 
  - __Step 3:__ Create *rfhistoric* default user & *robothistoric.TB_PROJECT* table
@@ -70,6 +71,14 @@
     > Case 2: Manual steps
       - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
       - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
+
+  - __Step 4:__ Execute following command to update database columns
+
+  > Only for existing users with >0.2.5v
+
+    ```
+    rfhistoricupdate
+    ```
 
 ---
 

@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-4 col-lg-2">
-                                <div class="card" style="cursor: pointer;">
+                                <div class="card">
                                     <div class="card-body p-3 text-center">
                                         {% if (skipped_test_dif >= 0) %}
                                             <div class="text-right text-green">
@@ -171,17 +171,17 @@
                                         <tbody>
                                             <tr>
                                                 <td><i class="fa fa-bug text-muted"></i></td>
-                                                <td title="Sum of analysis comments contains text 'Application Issue'">Application Issues <i class="fa fa-question-circle-o"</i></td>
+                                                <td title="Sum of Issue Type contains text 'Application'">Application Issues <i class="fa fa-question-circle-o"</i></td>
                                                 <td class="text-right"><span class="text-muted">{{app_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><i class="fa fa-code text-muted"></i></td>
-                                                <td title="Sum of analysis comments contains text 'Automation Issue'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
+                                                <td title="Sum of Issue Type contains text 'Automation'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
                                                 <td class="text-right"><span class="text-muted">{{auto_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
                                                 <td><i class="fa fa-random text-muted"></i></td>
-                                                <td title="Sum of analysis comments contains text 'Other Issue'">Other Issues <i class="fa fa-question-circle-o"></i></td>
+                                                <td title="Sum of Issue Type contains text 'Other'">Other Issues <i class="fa fa-question-circle-o"></i></td>
                                                 <td class="text-right"><span class="text-muted">{{other_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
