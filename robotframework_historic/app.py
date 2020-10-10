@@ -142,13 +142,13 @@ def dashboardRecent(db):
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
         new_failed_tests_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Application_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Application%%';" % exe_info[0][0])
         app_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Automation_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Automation%%';" % exe_info[0][0])
         auto_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Other_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Other%%';" % exe_info[0][0])
         other_failure_anl_count = cursor.fetchall()
 
         # required analysis percentage
@@ -221,13 +221,13 @@ def eid_dashboard(db, eid):
         cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
         new_failed_tests_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Application_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Application%%';" % exe_info[0][0])
         app_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Automation_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Automation%%';" % exe_info[0][0])
         auto_failure_anl_count = cursor.fetchall()
 
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Comment LIKE '%%Other_Issue%%';" % exe_info[0][0])
+        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Other%%';" % exe_info[0][0])
         other_failure_anl_count = cursor.fetchall()
 
         # required analysis percentage
@@ -423,12 +423,6 @@ def tmetrics(db):
         eta = request.form['eta']
         comment = request.form['comment']
         rowid = request.form['rowid']
-
-        # try:
-        #     comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
-        # except:
-        #     comment = str(textField)
-
         cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowid)))
         mysql.connection.commit()
 
@@ -463,18 +457,13 @@ def eid_tmetrics(db, eid):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        try:
-            userField = request.form['user']
-            issueField = request.form['issue']
-        except:
-            pass
-        textField = request.form['textField']
-        rowField = request.form['rowField']
-        try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
-        except:
-            comment = str(textField)
-        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
+        issue_type = request.form['issue']
+        review_by = request.form['reviewby']
+        assign_to = request.form['assignto']
+        eta = request.form['eta']
+        comment = request.form['comment']
+        rowid = request.form['rowid']
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowid)))
         mysql.connection.commit()
 
     # Get testcase results of execution id (typically last executed)
@@ -487,18 +476,13 @@ def eid_failures(db, eid):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        try:
-            userField = request.form['user']
-            issueField = request.form['issue']
-        except:
-            pass
-        textField = request.form['textField']
-        rowField = request.form['rowField']
-        try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
-        except:
-            comment = str(textField)
-        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
+        issue_type = request.form['issue']
+        review_by = request.form['reviewby']
+        assign_to = request.form['assignto']
+        eta = request.form['eta']
+        comment = request.form['comment']
+        rowid = request.form['rowid']
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowid)))
         mysql.connection.commit()
 
     # Get testcase results of execution id (typically last executed)
@@ -511,18 +495,13 @@ def recent_failures(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        try:
-            userField = request.form['user']
-            issueField = request.form['issue']
-        except:
-            pass
-        textField = request.form['textField']
-        rowField = request.form['rowField']
-        try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
-        except:
-            comment = str(textField)
-        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
+        issue_type = request.form['issue']
+        review_by = request.form['reviewby']
+        assign_to = request.form['assignto']
+        eta = request.form['eta']
+        comment = request.form['comment']
+        rowid = request.form['rowid']
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowid)))
         mysql.connection.commit()
 
     # Get last row execution ID
@@ -639,6 +618,24 @@ def comment(db):
         except Exception as e:
             print(str(e))
             return render_template('comment.html', error_message=str(e), recent_eid=recent_eid)
+
+    if request.method == "POST":
+        error = request.form['error']
+        eid = request.form['eid']
+        issue_type = request.form['issue']
+        review_by = request.form['reviewby']
+        assign_to = request.form['assignto']
+        eta = request.form['eta']
+        comment = request.form['comment']
+
+        try:
+            cursor.execute('Update TB_TEST SET Test_Comment=\'{}\', Test_Assigned_To=\'{}\', Test_ETA=\'{}\', Test_Review_By=\'{}\', Test_Issue_Type=\'{}\', Test_Updated=now() WHERE Execution_Id={} AND Test_Error LIKE \'%{}%\''.format(str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(eid), str(error)))
+            mysql.connection.commit()
+            return render_template('comment.html', error_message="", recent_eid=recent_eid)
+        except Exception as e:
+            print(str(e))
+            return render_template('comment.html', error_message=str(e), recent_eid=recent_eid)
+    
     else:
         return render_template('comment.html', error_message="", recent_eid=recent_eid)
 

@@ -100,26 +100,38 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                <label class="form-label">Error Message(partial)<span class="form-required">*</span></label>
-                                                <input id="error" name="error" type="text" class="form-control" placeholder="xpath:// or StaleElementException or Keyword">
+                                                    <label class="form-label">Error Message(partial)<span class="form-required">*</span></label>
+                                                    <input id="error" name="error" type="text" class="form-control" placeholder="StaleElementException or Keyword not found">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
-                                                <label class="form-label">EID<span class="form-required">*</span></label>
-                                                <input id="eid" name="eid" type="text" class="form-control" onkeypress='validate(event)' value="{{recent_eid[0]}}">
+                                                    <label class="form-label">EID<span class="form-required">*</span></label>
+                                                    <input id="eid" name="eid" type="text" class="form-control" onkeypress='validate(event)' value="{{recent_eid[0]}}">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
-                                                <label class="form-label">Issue Type<span class="form-required">*</span></label>
-                                                <input id="issue" name="issue" type="text" class="form-control" placeholder="Automation Issue">
+                                                    <label class="form-label">Issue Type<span class="form-required">*</span></label>
+                                                    <input id="issue" name="issue" type="text" class="form-control" placeholder="Automation Issue">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
-                                                <label class="form-label">User Name<span class="form-required">*</span></label>
-                                                <input id="user" name="user" type="text" class="form-control" placeholder="Bot">
+                                                    <label class="form-label">Review By<span class="form-required">*</span></label>
+                                                    <input id="reviewby" name="reviewby" type="text" class="form-control" placeholder="User A">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Assign To<span class="form-required">*</span></label>
+                                                    <input id="assignto" name="assignto" type="text" class="form-control" placeholder="User B">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">ETA<span class="form-required">*</span></label>
+                                                    <input id="eta" name="eta" type="text" class="form-control" placeholder="Tomorrow">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

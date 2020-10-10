@@ -132,8 +132,15 @@
                                             <td style="word-wrap: break-word; max-width: 250px; white-space: normal; text-align: left;">
                                                 {{item[5]}}
                                             </td>
-                                            <td style="word-wrap: break-word; max-width: 250px; white-space: normal; text-align: left;">
-                                                {% if (item[3] == "FAIL" and item[6] != None) %} {{item[6]}} {% endif %}
+                                            <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
+                                                {% if (item[3] == "FAIL" and item[6] != None) %}
+                                                    <b class="text-muted">Updated On: </b>{{item[12]}}<br/>
+                                                    <b class="text-muted">Review By: </b>{{item[9]}}<br/>
+                                                    <b class="text-muted">Issue Type: </b>{{item[10]}}<br/>
+                                                    <b class="text-muted">Assigned To: </b>{{item[7]}}<br/>
+                                                    <b class="text-muted">ETA: </b>{{item[8]}}<br/>
+                                                    <b class="text-muted">Comment: </b>{{item[6]}}<br/>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -145,7 +152,7 @@
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[0, "desc"]],
                                             "aoColumnDefs": [ {
-                                                "aTargets": [ 4, 5 ],
+                                                "aTargets": [ 4 ],
                                                 "mRender": function ( data, type, full ) {
                                                     return $("<div/>").html(data).text(); 
                                                 }
