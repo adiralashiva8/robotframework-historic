@@ -93,12 +93,12 @@
                                             <th class="w-1">EID</th>
                                             <th>Date</th>
                                             <th>Description</th>
-                                            <th>Total Tests</th>
+                                            <th>Tests</th>
                                             <th>Pass</th>
                                             <th>Fail</th>
                                             <th>Skip</th>
                                             <th>Time</th>
-                                            <th>Total Suites</th>
+                                            <th>Suites</th>
                                             <th>Pass</th>
                                             <th>Fail</th>
                                             <th>Skip</th>
@@ -111,15 +111,15 @@
                                             <td title="Click to view {{item[0]}} execution info"><a href="./tmetrics/{{item[0]}}" target="_blank">{{item[0]}}</a></td>
                                             <td>{{item[1]}}</td>
                                             <td style="word-wrap: break-word; max-width: 250px; white-space: normal; text-align: left;">{{item[2]}}</td>
-                                            <td style="color: brown;">{{item[3]}}</td>
+                                            <td>{{item[3]}}</td>
                                             <td style="color: green;">{{item[4]}}</td>
                                             <td style="color: red;">{{item[5]}}</td>
-                                            <td style="color: yellow;">{{item[6]}}</td>
+                                            <td style="color: brown;">{{item[6]}}</td>
+                                            <td>{{item[10]}}</td>
                                             <td>{{item[7]}}</td>
-                                            <td style="color: brown;">{{item[8]}}</td>
-                                            <td style="color: green;">{{item[9]}}</td>
-                                            <td style="color: red;">{{item[10]}}</td>
-                                            <td style="color: yellow;">{{item[11]}}</td>
+                                            <td style="color: green;">{{item[8]}}</td>
+                                            <td style="color: red;">{{item[9]}}</td>
+                                            <td style="color: brown;">{{item[11]}}</td>
 
                                             <td class="text-right">
                                                 <span class="dropdown ml-1">
@@ -140,7 +140,6 @@
                                     require(["datatables", "jquery"], function (datatable, $) {
                                         $(".datatable").DataTable({
                                             stateSave: true,
-                                            "scrollX": true,
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[0, "desc"]],
                                         });

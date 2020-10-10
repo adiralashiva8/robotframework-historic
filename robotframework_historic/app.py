@@ -80,7 +80,7 @@ def dashboardAll(db):
 
     if results_data[0][0] > 0 and suite_results_data[0][0] > 0 and test_results_data[0][0] > 0:
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION;")
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2), ROUND(AVG(Execution_Skip),0) from TB_EXECUTION;")
         exe_id_avg_data = cursor.fetchall()
 
         cursor.execute("SELECT ROUND((Execution_Pass/Execution_Total)*100, 2) from TB_EXECUTION;")
@@ -284,7 +284,7 @@ def dashboardRecentFive(db):
         new_tests = exe_info[0][1] - exe_info[-1][1]
 
         return render_template('dashboardRecentFive.html', exe_id_avg_data=exe_id_avg_data,
-         exe_id_filter_data=exe_id_filter_data,
+         exe_id_filter_data=exe_id_filter_data, results_data=results_data,
          common_failed_suites=common_failed_suites,
          new_tests=new_tests,
          db_name=db)
@@ -309,10 +309,10 @@ def dashboardRecentTen(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2), ROUND(AVG(Execution_Skip),0) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time, Execution_Skip from TB_EXECUTION order by Execution_Id desc LIMIT 10;")
         exe_id_filter_data = cursor.fetchall()
 
         cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
@@ -322,7 +322,7 @@ def dashboardRecentTen(db):
         new_tests = exe_info[0][1] - exe_info[-1][1]
 
         return render_template('dashboardRecentTen.html', exe_id_avg_data=exe_id_avg_data,
-         exe_id_filter_data=exe_id_filter_data,
+         exe_id_filter_data=exe_id_filter_data, results_data=results_data,
          common_failed_suites=common_failed_suites,
          new_tests=new_tests,
          db_name=db)
@@ -347,10 +347,10 @@ def dashboardRecentThirty(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2), ROUND(AVG(Execution_Skip),0) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time, Execution_Skip from TB_EXECUTION order by Execution_Id desc LIMIT 30;")
         exe_id_filter_data = cursor.fetchall()
 
         cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
@@ -360,7 +360,7 @@ def dashboardRecentThirty(db):
         new_tests = exe_info[0][1] - exe_info[-1][1]
 
         return render_template('dashboardRecentThirty.html', exe_id_avg_data=exe_id_avg_data,
-         exe_id_filter_data=exe_id_filter_data,
+         exe_id_filter_data=exe_id_filter_data, results_data=results_data,
          common_failed_suites=common_failed_suites,
          new_tests=new_tests,
          db_name=db)
