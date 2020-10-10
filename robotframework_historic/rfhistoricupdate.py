@@ -12,26 +12,27 @@ def rfhistoric_update(opts):
         use_db(rfobj, str(item[0]))
         try:
             print("INFO: Updating TB_EXECUTION table of DB " + str(item[0]))
-            rfobj.execute("ALTER TABLE TB_EXECUTION ADD COLUMN Execution_Skip INT, ADD COLUMN Execution_SSkip INT;")
+            execut_query(rfobj, "ALTER TABLE TB_EXECUTION ADD COLUMN Execution_Skip INT NOT NULL DEFAULT(0);")
+            execut_query(rfobj, "ALTER TABLE TB_EXECUTION ADD COLUMN Execution_SSkip INT NOT NULL DEFAULT(0);")
         except Exception as e:
-            # print(str(e))
-            pass
+            print(str(e))
 
         try:
             print("INFO: Updating TB_SUITE table of DB " + str(item[0]))
-            rfobj.execute("ALTER TABLE TB_SUITE ADD COLUMN Suite_Skip INT;")
+            execut_query(rfobj, "ALTER TABLE TB_SUITE ADD COLUMN Suite_Skip INT NOT NULL DEFAULT(0);")
         except Exception as e:
-            # print(str(e))
-            pass
+            print(str(e))
 
         try:
             print("INFO: Updating TB_TEST table of DB " + str(item[0]))
-            rfobj.execute("ALTER TABLE TB_TEST ADD COLUMN Test_Assigned_To TEXT, ADD COLUMN Test_ETA TEXT, ADD COLUMN Test_Review_By TEXT, ADD COLUMN Test_Issue_Type TEXT;")
+            execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Assigned_To TEXT;")
+            execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_ETA TEXT;")
+            execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Review_By TEXT;")
+            execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Issue_Type TEXT;")
         except Exception as e:
-            # print(str(e))
-            pass
+            print(str(e))
 
-    commit_and_close_db(mydb)
+    commit_and_close_db(rfdb)
 
 def connect_to_mysql(host, user, pwd):
     try:
@@ -62,3 +63,9 @@ def use_db(cursor, db_name):
 def commit_and_close_db(db):
     db.commit()
     db.close()
+
+def execut_query(rfobj, query):
+    try:
+        rfobj.execute(query)
+    except Exception as e:
+        print(str(e))

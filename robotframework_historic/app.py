@@ -121,10 +121,10 @@ def dashboardRecent(db):
         else:
             exe_info = (exe_info[0], exe_info[0])
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
         prev_exe_data = cursor.fetchall()
 
         cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
@@ -157,6 +157,7 @@ def dashboardRecent(db):
         new_tests_count = exe_info[0][1] - exe_info[1][1]
         passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
         failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
+        skipped_test_dif = prev_exe_data[0][4] - last_exe_data[0][4]
 
         return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
          prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
@@ -165,6 +166,7 @@ def dashboardRecent(db):
          new_tests_count=new_tests_count,
          passed_test_dif=passed_test_dif,
          failed_test_dif=failed_test_dif,
+         skipped_test_dif=skipped_test_dif,
          suite_avg_dur_data=suite_avg_dur_data,
          test_avg_dur_data=test_avg_dur_data,
          common_failed_suites=common_failed_suites,
@@ -195,10 +197,10 @@ def eid_dashboard(db, eid):
         else:
             exe_info = (exe_info[0], exe_info[0])
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
         last_exe_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
+        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
         prev_exe_data = cursor.fetchall()
 
         cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
@@ -231,6 +233,7 @@ def eid_dashboard(db, eid):
         new_tests_count = exe_info[0][1] - exe_info[1][1]
         passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
         failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
+        skipped_test_dif = prev_exe_data[0][4] - last_exe_data[0][4]
 
         return render_template('dashboardByEid.html', last_exe_data=last_exe_data, exe_info=exe_info,
          prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
@@ -239,6 +242,7 @@ def eid_dashboard(db, eid):
          new_tests_count=new_tests_count,
          passed_test_dif=passed_test_dif,
          failed_test_dif=failed_test_dif,
+         skipped_test_dif=skipped_test_dif,
          suite_avg_dur_data=suite_avg_dur_data,
          test_avg_dur_data=test_avg_dur_data,
          common_failed_suites=common_failed_suites,

@@ -48,18 +48,22 @@ def rfhistoric_parser(opts):
     stotal = test_stats.total_suite
     spass = test_stats.passed_suite
     sfail = test_stats.failed_suite
+    # TODO: Update skipped when functionality implemented
+    sskipped = 0
 
     stats = result.statistics
     total = stats.total.all.total
     passed = stats.total.all.passed
     failed = stats.total.all.failed
+    # TODO: Update skipped when functionality implemented
+    skipped = 0
 
     elapsedtime = datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = get_time_in_min(elapsedtime.strftime("%X"))
     elapsedtime = float("{0:.2f}".format(elapsedtime))
 
     # insert test results info into db
-    result_id = insert_into_execution_table(mydb, rootdb, opts.executionname, total, passed, failed, elapsedtime, stotal, spass, sfail, opts.projectname)
+    result_id = insert_into_execution_table(mydb, rootdb, opts.executionname, total, passed, failed, elapsedtime, stotal, spass, sfail, skipped, sskipped, opts.projectname)
 
     print("INFO: Capturing suite results")
     result.visit(SuiteResults(mydb, result_id, opts.fullsuitename))
@@ -74,6 +78,7 @@ class SuiteStats(ResultVisitor):
     total_suite = 0
     passed_suite = 0
     failed_suite = 0
+    skipped_suite = 0
 
     def start_suite(self, suite):
         suite_test_list = suite.tests
@@ -107,7 +112,9 @@ class SuiteResults(ResultVisitor):
    
             stats = suite.statistics
             time = float("{0:.2f}".format(suite.elapsedtime / float(60000)))
-            insert_into_suite_table(self.db, self.id, str(suite_name), str(suite.status), int(stats.all.total), int(stats.all.passed), int(stats.all.failed), float(time))
+            # TODO: Update skipped when functionality implemented
+            suite_skipped = 0
+            insert_into_suite_table(self.db, self.id, str(suite_name), str(suite.status), int(stats.all.total), int(stats.all.passed), int(stats.all.failed), float(time), int(suite_skipped))
 
 class TestMetrics(ResultVisitor):
 
@@ -145,11 +152,11 @@ def connect_to_mysql_db(host, user, pwd, db):
     except Exception as e:
         print(e)
 
-def insert_into_execution_table(con, ocon, name, total, passed, failed, ctime, stotal, spass, sfail, projectname):
+def insert_into_execution_table(con, ocon, name, total, passed, failed, ctime, stotal, spass, sfail, skipped, sskipped, projectname):
     cursorObj = con.cursor()
     rootCursorObj = ocon.cursor()
-    sql = "INSERT INTO TB_EXECUTION (Execution_Id, Execution_Date, Execution_Desc, Execution_Total, Execution_Pass, Execution_Fail, Execution_Time, Execution_STotal, Execution_SPass, Execution_SFail) VALUES (%s, now(), %s, %s, %s, %s, %s, %s, %s, %s);"
-    val = (0, name, total, passed, failed, ctime, stotal, spass, sfail)
+    sql = "INSERT INTO TB_EXECUTION (Execution_Id, Execution_Date, Execution_Desc, Execution_Total, Execution_Pass, Execution_Fail, Execution_Time, Execution_STotal, Execution_SPass, Execution_SFail, Execution_Skip, Execution_SSkip) VALUES (%s, now(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    val = (0, name, total, passed, failed, ctime, stotal, spass, sfail, skipped, sskipped)
     cursorObj.execute(sql, val)
     con.commit()
     cursorObj.execute("SELECT Execution_Id, Execution_Pass, Execution_Total FROM TB_EXECUTION ORDER BY Execution_Id DESC LIMIT 1;")
@@ -161,10 +168,10 @@ def insert_into_execution_table(con, ocon, name, total, passed, failed, ctime, s
     ocon.commit()
     return str(rows[0])
 
-def insert_into_suite_table(con, eid, name, status, total, passed, failed, duration):
+def insert_into_suite_table(con, eid, name, status, total, passed, failed, duration, skipped):
     cursorObj = con.cursor()
-    sql = "INSERT INTO TB_SUITE (Suite_Id, Execution_Id, Suite_Name, Suite_Status, Suite_Total, Suite_Pass, Suite_Fail, Suite_Time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    val = (0, eid, name, status, total, passed, failed, duration)
+    sql = "INSERT INTO TB_SUITE (Suite_Id, Execution_Id, Suite_Name, Suite_Status, Suite_Total, Suite_Pass, Suite_Fail, Suite_Time, Suite_Skip) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (0, eid, name, status, total, passed, failed, duration, skipped)
     cursorObj.execute(sql, val)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()

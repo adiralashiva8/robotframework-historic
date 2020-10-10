@@ -43,7 +43,7 @@
                             </h1>
                         </div>
                         <div class="row row-cards">
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
                                     <div class="card-status card-status-left bg-green"></div>
                                     <div class="card-body p-3 text-center">
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card" onclick="window.open('../failures/{{exe_info[0][0]}}','mywindow');" style="cursor: pointer;" title="Click to view failures">
                                     <div class="card-status card-status-left bg-red"></div>
                                     <div class="card-body p-3 text-center">
@@ -83,7 +83,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-6 col-sm-4 col-lg-2">
+                                <div class="card" style="cursor: pointer;">
+                                    <div class="card-status card-status-left bg-warning"></div>
+                                    <div class="card-body p-3 text-center">
+                                        {% if (skipped_test_dif >= 0) %}
+                                            <div class="text-right text-green">
+                                                {{skipped_test_dif}}
+                                                <i class="fe fe-arrow-down"></i>
+                                            </div>
+                                        {% else %}
+                                            <div class="text-right text-red">
+                                                {{skipped_test_dif|replace('-','')}}
+                                                <i class="fe fe-arrow-up"></i>
+                                            </div>
+                                        {% endif %}
+                                        <div class="h1 m-0" style="color:#e3f72e">{{last_exe_data[0][4]}}</div>
+                                        <div class="text-muted mb-4">Skipped Tests</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
                                     <div class="card-status card-status-left bg-teal"></div>
                                     <div class="card-body p-3 text-center">
@@ -93,7 +113,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
                                     <div class="card-status card-status-left bg-orange"></div>
                                     <div class="card-body p-3 text-center">
@@ -265,9 +285,9 @@
             require(['svg', 'ApexCharts'], function(svg, ApexCharts) {
                 var options = {
                     {% for item in last_exe_data %}
-                        series: [{{ item[0]}}, {{ item[1]}}],
+                        series: [{{ item[0]}}, {{ item[1]}}, {{ item[4]}}],
                     {% endfor %}
-                    labels: ["Pass", "Fail"],
+                    labels: ["Pass", "Fail", "Skip"],
                     chart: {
                         type: 'donut',
                     },
@@ -282,7 +302,7 @@
                             fontWeight: 'normal',
                         },
                     },
-                    colors: ['#2ecc71', '#fc6666'],
+                    colors: ['#2ecc71', '#fc6666', '#e3f72e'],
                     responsive: [{
                         breakpoint: 480,
                     }]
