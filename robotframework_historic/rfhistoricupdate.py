@@ -8,24 +8,28 @@ def rfhistoric_update(opts):
     rfobj.execute("SELECT Project_Name FROM TB_PROJECT;");
     results_data = rfobj.fetchall()
 
-    suite_schema = """DROP PROCEDURE IF EXISTS `?`;
-    DELIMITER //
-    CREATE PROCEDURE `?`()
-    BEGIN
-    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION BEGIN END;
-    ALTER TABLE `TB_EXECUTION` ADD COLUMN `Execution_Skip` INT, ADD COLUMN `Execution_SSkip` INT, ;
-    END //
-    DELIMITER ;
-    CALL `?`();
-    DROP PROCEDURE `?`;"""
-
     for item in results_data:
         use_db(rfobj, str(item[0]))
         try:
             print("INFO: Updating TB_EXECUTION table of DB " + str(item[0]))
-            rfobj.execute(suite_schema)
+            rfobj.execute("ALTER TABLE TB_EXECUTION ADD COLUMN Execution_Skip INT, ADD COLUMN Execution_SSkip INT;")
         except Exception as e:
-            print(str(e))
+            # print(str(e))
+            pass
+
+        try:
+            print("INFO: Updating TB_SUITE table of DB " + str(item[0]))
+            rfobj.execute("ALTER TABLE TB_SUITE ADD COLUMN Suite_Skip INT;")
+        except Exception as e:
+            # print(str(e))
+            pass
+
+        try:
+            print("INFO: Updating TB_TEST table of DB " + str(item[0]))
+            rfobj.execute("ALTER TABLE TB_TEST ADD COLUMN Test_Assigned_To TEXT, ADD COLUMN Test_ETA TEXT, ADD COLUMN Test_Review_By TEXT, ADD COLUMN Test_Issue_Type TEXT;")
+        except Exception as e:
+            # print(str(e))
+            pass
 
     commit_and_close_db(mydb)
 
