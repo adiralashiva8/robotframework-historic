@@ -90,7 +90,11 @@
                                     </div>
                                     <div class="card-footer">
                                         <a type="button" href="{{item[1]}}/deldbconf" class="btn btn-light float-left btn-sm"><i class="fa fa-trash-o"></i> Delete</a>
-                                        <a type="button" href="{{item[1]}}/dashboardRecent" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
+                                        {% if item[9] == "True" %}
+                                            <a type="button" href="{{item[1]}}/dashboardRecent" class="btn btn-light float-right btn-sm"><i class="fa fa-play"></i> View</a>
+                                        {% else %}
+                                            <a type="button" href="{{item[1]}}/updatedb" class="btn btn-light float-right btn-sm" title="Click to update table columns"><i class="fa fa-wrench"></i> Update Columns</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
