@@ -429,7 +429,7 @@ def tmetrics(db):
         # except:
         #     comment = str(textField)
 
-        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowField)))
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowid)))
         mysql.connection.commit()
 
     # Get last row execution ID

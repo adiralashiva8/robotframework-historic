@@ -114,13 +114,15 @@
                                                 <td> {{item[4]}}</td>
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[5]}}</td>
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
-                                                    {% if (item[3] == "FAIL") %}
-                                                        <b class="text-muted">Updated On: </b>{{item[12]}}</br>
-                                                        <b class="text-muted">Review By: </b>{{item[9]}}</br>
-                                                        <b class="text-muted">Issue Type: </b>{{item[10]}}</br>
-                                                        <b class="text-muted">Assigned To: </b>{{item[7]}}</br>
-                                                        <b class="text-muted">ETA: </b>{{item[8]}}</br>
-                                                        <b class="text-muted">Comment: </b>{{item[6]}}</br>
+                                                    {% if (item[3] == "FAIL" and item[6] != None) %}
+                                                        <ul style="list-style-type:none">
+                                                            <li><b class="text-muted">Updated On: </b>{{item[12]}}</li>
+                                                            <li><b class="text-muted">Review By: </b>{{item[9]}}</li>
+                                                            <li><b class="text-muted">Issue Type: </b>{{item[10]}}</li>
+                                                            <li><b class="text-muted">Assigned To: </b>{{item[7]}}</li>
+                                                            <li><b class="text-muted">ETA: </b>{{item[8]}}</li>
+                                                            <li><b class="text-muted">Comment: </b>{{item[6]}}</li>
+                                                        </ul>
                                                     {% endif %}
                                                 </td>
                                                 <td>
@@ -165,13 +167,13 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group mb-0">
                                                                                         <label class="form-label" style="text-align:left">Comment<span class="form-required">*</span></label>
-                                                                                        <textarea id="comment" name="comment" rows="5" class="form-control" value="{{item[6]}}"></textarea>
+                                                                                        <textarea id="comment" name="comment" rows="5" class="form-control">{{item[6]}}</textarea>
                                                                                         <div style="text-align:left" class="text-muted">Avoid using single quote(') in fields or use \ for escaping (Ex: \')</div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="card-footer text-right">
-                                                                                <input readonly id="rowid" name="rowid" type="text" class="form-control" value="{{item[0]}}">
+                                                                                <input readonly type="hidden" id="rowid" name="rowid" type="text" class="form-control" value="{{item[0]}}">
                                                                                 <button id="submit" type="submit" class="btn btn-primary ml-auto">Update</button>
                                                                             </div>
                                                                         </form>
