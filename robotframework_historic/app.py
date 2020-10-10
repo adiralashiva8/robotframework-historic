@@ -531,6 +531,15 @@ def recent_failures(db):
     data = cursor.fetchall()
     return render_template('failures.html', data=data, db_name=db)
 
+@app.route('/<db>/ttags/<eid>', methods=['GET', 'POST'])
+def eid_ttags(db, eid):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    # Get testcase results of execution id (typically last executed)
+    cursor.execute("SELECT Execution_Id, Test_Name, Test_Status, Test_Tag from TB_TEST WHERE Execution_Id=%s" % eid)
+    data = cursor.fetchall()
+    return render_template('ttags.html', data=data, db_name=db)
+
 @app.route('/<db>/search', methods=['GET', 'POST'])
 def search(db):
     if request.method == "POST":
