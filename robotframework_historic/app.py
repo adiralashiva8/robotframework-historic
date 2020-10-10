@@ -59,7 +59,7 @@ def add_db():
             # create new database for project
             cursor.execute("Create DATABASE %s;" % db_name)
             # update created database info in robothistoric.TB_PROJECT table
-            cursor.execute("INSERT INTO robothistoric.TB_PROJECT ( Project_Id, Project_Name, Project_Desc, Project_Image, Created_Date, Last_Updated, Total_Executions, Recent_Pass_Perc, Overall_Pass_Perc, Latest) VALUES (0, '%s', '%s', '%s', NOW(), NOW(), 0, 0, 0, True);" % (db_name, db_desc, db_image))
+            cursor.execute("INSERT INTO robothistoric.TB_PROJECT ( Project_Id, Project_Name, Project_Desc, Project_Image, Created_Date, Last_Updated, Total_Executions, Recent_Pass_Perc, Overall_Pass_Perc, Latest) VALUES (0, '%s', '%s', '%s', NOW(), NOW(), 0, 0, 0, 1);" % (db_name, db_desc, db_image))
             # create tables in created database
             use_db(cursor, db_name)
             cursor.execute("Create table TB_EXECUTION ( Execution_Id INT NOT NULL auto_increment primary key, Execution_Date DATETIME, Execution_Desc TEXT, Execution_Total INT, Execution_Pass INT, Execution_Fail INT, Execution_Time FLOAT, Execution_STotal INT, Execution_SPass INT, Execution_SFail INT);")
