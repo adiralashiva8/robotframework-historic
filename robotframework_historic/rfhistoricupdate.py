@@ -30,6 +30,7 @@ def rfhistoric_update(opts):
             execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Review_By TEXT;")
             execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Issue_Type TEXT;")
             execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Tag TEXT;")
+            execut_query(rfobj, "ALTER TABLE TB_TEST ADD COLUMN Test_Updated DATETIME;")
         except Exception as e:
             print(str(e))
 

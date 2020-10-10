@@ -56,7 +56,7 @@ def add_db():
             use_db(cursor, db_name)
             cursor.execute("Create table TB_EXECUTION ( Execution_Id INT NOT NULL auto_increment primary key, Execution_Date DATETIME, Execution_Desc TEXT, Execution_Total INT, Execution_Pass INT, Execution_Fail INT, Execution_Time FLOAT, Execution_STotal INT, Execution_SPass INT, Execution_SFail INT, Execution_Skip INT, Execution_SSkip INT);")
             cursor.execute("Create table TB_SUITE ( Suite_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Suite_Name TEXT, Suite_Status CHAR(4), Suite_Total INT, Suite_Pass INT, Suite_Fail INT, Suite_Time FLOAT, Suite_Skip INT);")
-            cursor.execute("Create table TB_TEST ( Test_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Test_Name TEXT, Test_Status CHAR(4), Test_Time FLOAT, Test_Error TEXT, Test_Comment TEXT, Test_Assigned_To TEXT, Test_ETA TEXT, Test_Review_By TEXT, Test_Issue_Type TEXT, Test_Tag TEXT);")
+            cursor.execute("Create table TB_TEST ( Test_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Test_Name TEXT, Test_Status CHAR(4), Test_Time FLOAT, Test_Error TEXT, Test_Comment TEXT, Test_Assigned_To TEXT, Test_ETA TEXT, Test_Review_By TEXT, Test_Issue_Type TEXT, Test_Tag TEXT, Test_Updated DATETIME);")
             mysql.connection.commit()
         except Exception as e:
             print(str(e))
@@ -417,18 +417,19 @@ def tmetrics(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
-        try:
-            userField = request.form['user']
-            issueField = request.form['issue']
-        except:
-            pass
-        textField = request.form['textField']
-        rowField = request.form['rowField']
-        try:
-            comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
-        except:
-            comment = str(textField)
-        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\' WHERE Test_Id=%s;' % (str(comment), str(rowField)))
+        issue_type = request.form['issue']
+        review_by = request.form['reviewby']
+        assign_to = request.form['assignto']
+        eta = request.form['eta']
+        comment = request.form['comment']
+        rowid = request.form['rowid']
+
+        # try:
+        #     comment = """<b class="text-muted">Review By: </b>""" + str(userField) + """\n</br><b class="text-muted">Issue Type: </b>""" + str(issueField) + """\n</br><b class="text-muted">Comment: </b>""" + str(textField)
+        # except:
+        #     comment = str(textField)
+
+        cursor.execute('Update TB_TEST SET Test_Comment=\'%s\', Test_Assigned_To=\'%s\', Test_ETA=\'%s\', Test_Review_By=\'%s\', Test_Issue_Type=\'%s\', Test_Updated=now() WHERE Test_Id=%s;' % (str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(rowField)))
         mysql.connection.commit()
 
     # Get last row execution ID
