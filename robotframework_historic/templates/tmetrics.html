@@ -114,41 +114,58 @@
                                                 <td> {{item[4]}}</td>
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[5]}}</td>
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
-                                                    {% if (item[3] != "PASS" and item[6] != None) %}
+                                                    {% if (item[3] == "FAIL" and item[6] != None) %}
                                                         {{item[6]}}
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    {% if (item[3] != "PASS" ) %}
-                                                        <a href="#" data-toggle="modal" data-target="#updateComment{{item[0]}}" class="btn" title="Update Comment"><i class="fa fa-pencil"></i></a>
+                                                    {% if (item[3] == "FAIL" ) %}
+                                                        <a href="#" data-toggle="modal" data-target="#updateComment{{item[0]}}" class="btn" title="Add/Edit Comment"><i class="fa fa-pencil"></i></a>
 
                                                         <div id="updateComment{{item[0]}}" class="modal fade" role="dialog" style="color:black;">
                                                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                                                 <!-- Modal content-->
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                    <h5 class="modal-title" style="text-align:left">{{item[2]}}</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                                                        <h5 class="modal-title" style="text-align:left">{{item[2]}}</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <form method="post" action="">
-                                                                            {% if (item[6] == None) %}
-                                                                                <div class="form-group">
-                                                                                    <label class="form-label" style="text-align:left">User Name</label>
-                                                                                    <input type="text" class="form-control" name="user" placeholder="Reviewed By">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6 col-md-3">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label">Test ID<span class="form-required">*</span></label>
+                                                                                        <input readonly id="rowField" name="rowField" type="text" class="form-control" value="{{item[0]}}">
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <label class="form-label" style="text-align:left">Issue Type</label>
-                                                                                    <input type="text" class="form-control" name="issue" placeholder="Application Issue / Automation Issue / Other Issue">
+                                                                                <div class="col-sm-6 col-md-3">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label">Issue Type<span class="form-required">*</span></label>
+                                                                                        <input id="issue" name="issue" type="text" class="form-control" value="{{item[10]}}">
+                                                                                    </div>
                                                                                 </div>
-                                                                            {% endif %}
-                                                                            <div class="form-group">
-                                                                                <label class="form-label" style="text-align:left">Comment:</label>
-                                                                                <textarea id="textField" rows="7" type="text" name="textField" style="min-width: 100%">{{item[6]}}</textarea>
-                                                                                <div style="text-align:left" class="text-muted">Avoid using single quote(') in fields or use \ for escaping (Ex: \')</div>
+                                                                                <div class="col-sm-6 col-md-3">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label">Review By<span class="form-required">*</span></label>
+                                                                                        <input id="user" name="user" type="text" class="form-control" value="{{item[9]}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-6 col-md-3">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label">Assign To<span class="form-required">*</span></label>
+                                                                                        <input id="eid" name="eid" type="text" class="form-control" value="{{item[7]}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group mb-0">
+                                                                                        <label class="form-label">Comment<span class="form-required">*</span></label>
+                                                                                        <textarea id="textField" name="textField" rows="5" class="form-control" value="{{item[6]}}"></textarea>
+                                                                                        <div style="text-align:left" class="text-muted">Avoid using single quote(') in fields or use \ for escaping (Ex: \')</div>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                             <div class="card-footer text-right">
-                                                                                <input readonly id="rowField" type="hidden" value="{{item[0]}}" name="rowField" style="width:80%;min-width: 80%"></input>
                                                                                 <button id="submit" type="submit" class="btn btn-primary ml-auto">Update</button>
                                                                             </div>
                                                                         </form>
