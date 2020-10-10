@@ -73,13 +73,7 @@
                                         $(".datatable").DataTable({
                                             stateSave: true,
                                             "order": [[ 1, "asc" ]],
-                                            "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]],
-                                            "aoColumnDefs": [ {
-                                                "aTargets": [ 3, 4 ],
-                                                "mRender": function ( data, type, full ) {
-                                                    return $("<div/>").html(data).text(); 
-                                                }
-                                            } ]
+                                            "lengthMenu": [[-1, 10, 25, 50, 100], ["All", 10, 25, 50, 100]]
                                         });
                                     });
                                 </script>

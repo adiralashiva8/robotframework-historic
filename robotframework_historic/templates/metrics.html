@@ -104,8 +104,8 @@
     <div class="sidenav">
         <a> <img class="wrimagecard" src="{{project_image}}" style="height:20vh;max-width:98%;"/> </a>
         <a class="tablink" href="#" id="defaultOpen" onclick="openPage('dashboard', this, '#fc6666')"><i class="fa fa-dashboard" style="color:CORNFLOWERBLUE"></i> Dashboard</a>
-        <a class="tablink" href="#" onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',5)"><i class="fa fa-th-large" style="color:CADETBLUE"></i> Suite Metrics</a>
-        <a class="tablink" href="#" onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',3)"><i class="fa fa-list-alt" style="color:PALEVIOLETRED"></i> Test Metrics</a>
+        <a class="tablink" href="#" onclick="openPage('suiteMetrics', this, '#fc6666'); executeDataTable('#sm',6)"><i class="fa fa-th-large" style="color:CADETBLUE"></i> Suite Metrics</a>
+        <a class="tablink" href="#" onclick="openPage('testMetrics', this, '#fc6666'); executeDataTable('#tm',2)"><i class="fa fa-list-alt" style="color:PALEVIOLETRED"></i> Test Metrics</a>
     </div>
 
     <div class="main col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -144,11 +144,15 @@
                                         <tbody>
                                             <tr align="center" style="height:70%;font-size:25px" valign="middle">
                                                 <td style="width: 33%; color:brown">{{exe_data[0][7]}}</td>
+                                                <td style="width: 33%; color:orange">{{exe_data[0][11]}}</td>
                                                 <td style="width: 33%; color:#fc6666">{{exe_data[0][9]}}</td>
                                             </tr>
                                             <tr align="center" style="height:30%" valign="top">
                                                 <td style="width: 33%">
                                                     <span style="color: #999999;font-size:10px">Total</span>
+                                                </td>
+                                                <td style="width: 33%">
+                                                    <span style="color: #999999;font-size:10px">Skip</span>
                                                 </td>
                                                 <td style="width: 33%">
                                                     <span style="color: #999999;font-size:10px">Fail</span>
@@ -187,11 +191,15 @@
                                         <tbody>
                                             <tr align="center" style="height:70%;font-size:25px" valign="middle">
                                                 <td style="width: 33%; color:brown">{{exe_data[0][3]}}</td>
+                                                <td style="width: 33%; color:orange">{{exe_data[0][10]}}</td>
                                                 <td style="width: 33%; color:#fc6666">{{exe_data[0][5]}}</td>
                                             </tr>
                                             <tr align="center" style="height:30%" valign="top">
                                                 <td style="width: 33%">
                                                     <span style="color: #999999;font-size:10px">Total</span>
+                                                </td>
+                                                <td style="width: 33%">
+                                                    <span style="color: #999999;font-size:10px">Skip</span>
                                                 </td>
                                                 <td style="width: 33%">
                                                     <span style="color: #999999;font-size:10px">Fail</span>
@@ -243,7 +251,7 @@
             </div>
             <script>
                 window.onload = function () {
-                    executeDataTable('#sm', 5);
+                    executeDataTable('#sm', 6);
                     executeDataTable('#tm', 2);
                     createPieChart({{exe_data[0][8]}}, {{exe_data[0][9]}}, {{exe_data[0][11]}}, 'suiteChartID', 'Suite Status:');
                     createBarGraph('#sm', 0, 5, 10, 'suiteBarID', 'Elapsed Time (m) ', 'Suite');
