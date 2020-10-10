@@ -45,7 +45,6 @@
                         <div class="row row-cards">
                             <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
-                                    <div class="card-status card-status-left bg-green"></div>
                                     <div class="card-body p-3 text-center">
                                         {% if (passed_test_dif >= 0) %}
                                             <div class="text-right text-green">
@@ -65,7 +64,6 @@
                             </div>
                             <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card" onclick="window.open('../failures/{{exe_info[0][0]}}','mywindow');" style="cursor: pointer;" title="Click to view failures">
-                                    <div class="card-status card-status-left bg-red"></div>
                                     <div class="card-body p-3 text-center">
                                         {% if (failed_test_dif >= 0) %}
                                             <div class="text-right text-green">
@@ -85,7 +83,6 @@
                             </div>
                             <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card" style="cursor: pointer;">
-                                    <div class="card-status card-status-left bg-warning"></div>
                                     <div class="card-body p-3 text-center">
                                         {% if (skipped_test_dif >= 0) %}
                                             <div class="text-right text-green">
@@ -98,14 +95,13 @@
                                                 <i class="fe fe-arrow-up"></i>
                                             </div>
                                         {% endif %}
-                                        <div class="h1 m-0" style="color:#e3f72e">{{last_exe_data[0][4]}}</div>
+                                        <div class="h1 m-0" style="color:#f1c40f">{{last_exe_data[0][4]}}</div>
                                         <div class="text-muted mb-4">Skipped Tests</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
-                                    <div class="card-status card-status-left bg-teal"></div>
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
                                         <div class="h1 m-0" style="color:cadetblue">{{last_exe_data[0][3]}}</div>
@@ -115,11 +111,19 @@
                             </div>
                             <div class="col-6 col-sm-4 col-lg-2">
                                 <div class="card">
-                                    <div class="card-status card-status-left bg-orange"></div>
                                     <div class="card-body p-3 text-center">
                                         <div class="text-right" style="color:white">.</div>
                                         <div class="h1 m-0">{{new_tests_count}}</div>
                                         <div class="text-muted mb-4">New Tests</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-4 col-lg-2">
+                                <div class="card">
+                                    <div class="card-body p-3 text-center">
+                                        <div class="text-right" style="color:white">.</div>
+                                        <div class="h1 m-0">{{new_failed_tests_count[0][0]}}</div>
+                                        <div class="text-muted mb-4">New Failures</div>
                                     </div>
                                 </div>
                             </div>
@@ -166,11 +170,6 @@
                                     <table class="table card-table">
                                         <tbody>
                                             <tr>
-                                                <td><i class="fa fa-times text-muted"></i></td>
-                                                <td>New Failures</td>
-                                                <td class="text-right"><span class="text-muted">{{new_failed_tests_count[0][0]}}</span></td>
-                                            </tr>
-                                            <tr>
                                                 <td><i class="fa fa-bug text-muted"></i></td>
                                                 <td title="Sum of analysis comments contains text 'Application Issue'">Application Issues <i class="fa fa-question-circle-o"</i></td>
                                                 <td class="text-right"><span class="text-muted">{{app_failure_anl_count[0][0]}}</span></td>
@@ -179,6 +178,11 @@
                                                 <td><i class="fa fa-code text-muted"></i></td>
                                                 <td title="Sum of analysis comments contains text 'Automation Issue'">Automation Issues <i class="fa fa-question-circle-o"></i></td>
                                                 <td class="text-right"><span class="text-muted">{{auto_failure_anl_count[0][0]}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-random text-muted"></i></td>
+                                                <td title="Sum of analysis comments contains text 'Other Issue'">Other Issues <i class="fa fa-question-circle-o"></i></td>
+                                                <td class="text-right"><span class="text-muted">{{other_failure_anl_count[0][0]}}</span></td>
                                             </tr>
                                             <tr>
                                                 <td width="1"><i class="fa fa-th-large text-muted"></i></td>
@@ -302,7 +306,7 @@
                             fontWeight: 'normal',
                         },
                     },
-                    colors: ['#2ecc71', '#fc6666', '#e3f72e'],
+                    colors: ['#2ecc71', '#fc6666', '#f1c40f'],
                     responsive: [{
                         breakpoint: 480,
                     }]

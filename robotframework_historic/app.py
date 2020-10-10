@@ -56,7 +56,7 @@ def add_db():
             use_db(cursor, db_name)
             cursor.execute("Create table TB_EXECUTION ( Execution_Id INT NOT NULL auto_increment primary key, Execution_Date DATETIME, Execution_Desc TEXT, Execution_Total INT, Execution_Pass INT, Execution_Fail INT, Execution_Time FLOAT, Execution_STotal INT, Execution_SPass INT, Execution_SFail INT, Execution_Skip INT, Execution_SSkip INT);")
             cursor.execute("Create table TB_SUITE ( Suite_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Suite_Name TEXT, Suite_Status CHAR(4), Suite_Total INT, Suite_Pass INT, Suite_Fail INT, Suite_Time FLOAT, Suite_Skip INT);")
-            cursor.execute("Create table TB_TEST ( Test_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Test_Name TEXT, Test_Status CHAR(4), Test_Time FLOAT, Test_Error TEXT, Test_Comment TEXT, Test_Assigned_To TEXT, Test_ETA TEXT, Test_Review_By TEXT, Test_Issue_Type TEXT);")
+            cursor.execute("Create table TB_TEST ( Test_Id INT NOT NULL auto_increment primary key, Execution_Id INT, Test_Name TEXT, Test_Status CHAR(4), Test_Time FLOAT, Test_Error TEXT, Test_Comment TEXT, Test_Assigned_To TEXT, Test_ETA TEXT, Test_Review_By TEXT, Test_Issue_Type TEXT, Test_Tag TEXT);")
             mysql.connection.commit()
         except Exception as e:
             print(str(e))
@@ -271,10 +271,10 @@ def dashboardRecentFive(db):
         cursor.execute("SELECT Execution_Id, Execution_Total from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_info = cursor.fetchall()
 
-        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
+        cursor.execute("SELECT ROUND(AVG(Execution_Pass),0), ROUND(AVG(Execution_Fail),0), ROUND(AVG(Execution_Time),2), ROUND(AVG(Execution_Skip),0) from TB_EXECUTION WHERE Execution_Id >= %s;" % exe_info[-1][0])
         exe_id_avg_data = cursor.fetchall()
 
-        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
+        cursor.execute("SELECT Execution_Id, Execution_Pass, Execution_Fail, Execution_Time, Execution_Skip from TB_EXECUTION order by Execution_Id desc LIMIT 5;")
         exe_id_filter_data = cursor.fetchall()
 
         cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))

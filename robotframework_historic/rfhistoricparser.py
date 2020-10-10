@@ -132,7 +132,7 @@ class TestMetrics(ResultVisitor):
 
         time = float("{0:.2f}".format(test.elapsedtime / float(60000)))
         error = str(test.message)
-        insert_into_test_table(self.db, self.id, str(name), str(test.status), time, error)
+        insert_into_test_table(self.db, self.id, str(name), str(test.status), time, error, str(test.tags))
 
 def get_time_in_min(time_str):
     h, m, s = time_str.split(':')
@@ -176,10 +176,10 @@ def insert_into_suite_table(con, eid, name, status, total, passed, failed, durat
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()
 
-def insert_into_test_table(con, eid, test, status, duration, msg):
+def insert_into_test_table(con, eid, test, status, duration, msg, tags):
     cursorObj = con.cursor()
-    sql = "INSERT INTO TB_TEST (Test_Id, Execution_Id, Test_Name, Test_Status, Test_Time, Test_Error) VALUES (%s, %s, %s, %s, %s, %s)"
-    val = (0, eid, test, status, duration, msg)
+    sql = "INSERT INTO TB_TEST (Test_Id, Execution_Id, Test_Name, Test_Status, Test_Time, Test_Error, Test_Tag) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    val = (0, eid, test, status, duration, msg, tags)
     cursorObj.execute(sql, val)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()

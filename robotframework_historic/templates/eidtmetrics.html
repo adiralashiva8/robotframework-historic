@@ -119,6 +119,7 @@
                                     require(["datatables", "jquery"], function (datatable, $) {
                                         $(".datatable").DataTable({
                                             stateSave: true,
+                                            "scrollX": true,
                                             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                                             order: [[2, "asc"]],
                                             "aoColumnDefs": [ {
