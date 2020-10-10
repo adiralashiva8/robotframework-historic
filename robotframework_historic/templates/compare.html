@@ -136,9 +136,11 @@
                                                 <td style="text-align:left;word-wrap: break-word;max-width: 250px; white-space: normal;"> {{item[0]}}</td>
                                                 {% if (item[1] == fb[0][1]) %}
                                                     {% if (item[2] == "PASS") %}
-                                                        <td style="color: green">PASS</i></td>
+                                                        <td style="color: green">PASS</td>
                                                     {% elif (item[2] == "FAIL") %}
-                                                        <td style="color: red">FAIL</i></td>
+                                                        <td style="color: red">FAIL</td>
+                                                    {% elif (item[2] == "SKIP") %}
+                                                        <td style="color: orange">SKIP</td>
                                                     {% else %}
                                                         <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                     {% endif %}
@@ -152,9 +154,11 @@
 
                                                 {% if (item[1] == sb[0][1]) %}
                                                     {% if (item[2] == "PASS") %}
-                                                        <td style="color: green">PASS</i></td>
+                                                        <td style="color: green">PASS</td>
                                                     {% elif (item[2] == "FAIL") %}
-                                                        <td style="color: red">FAIL</i></td>
+                                                        <td style="color: red">FAIL</td>
+                                                    {% elif (item[2] == "SKIP") %}
+                                                        <td style="color: orange">SKIP</td>
                                                     {% else %}
                                                         <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                     {% endif %}
@@ -162,9 +166,11 @@
                                                     <td style="text-align:left;word-wrap: break-word;max-width: 250px; white-space: normal;"> {{item[4]}}</td>
                                                 {% elif (item[5] == sb[0][1]) %}
                                                     {% if (item[6] == "PASS") %}
-                                                        <td style="color: green">PASS</i></td>
+                                                        <td style="color: green">PASS</td>
                                                     {% elif (item[6] == "FAIL") %}
-                                                        <td style="color: red">FAIL</i></td>
+                                                        <td style="color: red">FAIL</td>
+                                                    {% elif (item[6] == "SKIP") %}
+                                                        <td style="color: orange">SKIP</td>
                                                     {% else %}
                                                         <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                     {% endif %}

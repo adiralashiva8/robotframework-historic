@@ -50,7 +50,8 @@
                                             <th>Status</th>
                                             <th>Time (m)</th>
                                             <th>Error</th>
-                                            <th>Comment</th>
+                                            <th>Info</th>
+                                            <th>Tags</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -61,18 +62,21 @@
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[2]}}</td>
                                                 {% if (item[3] == "PASS") %}
                                                     <td style="color: green"> {{item[3]}}</td>
-                                                {% else %}
+                                                {% elif (item[3] == "FAIL") %}
                                                     <td style="color: red"> {{item[3]}}</td>
+                                                {% else %}
+                                                    <td style="color: orange"> {{item[3]}}</td>
                                                 {% endif %}
                                                 <td> {{item[4]}}</td>
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;"> {{item[5]}}</td">
                                                 <td style="word-wrap: break-word;max-width: 250px; white-space: normal; text-align: left;">
-                                                    {% if (item[3] != "PASS" and item[6] != None) %}
+                                                    {% if (item[3] == "FAIL" and item[6] != None) %}
                                                         {{item[6]}}
                                                     {% endif %}
                                                 </td>
+                                                <td> {{item[11]}}</td>
                                                 <td>
-                                                    {% if (item[3] != "PASS" ) %}
+                                                    {% if (item[3] == "FAIL" ) %}
                                                         <a href="#" data-toggle="modal" data-target="#updateComment{{item[0]}}" class="btn" title="Update Comment"><i class="fa fa-pencil"></i></a>
 
                                                         <div id="updateComment{{item[0]}}" class="modal fade" role="dialog" style="color:black;">

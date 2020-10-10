@@ -106,9 +106,11 @@
                                                 {% for build in builds %}
                                                     {% if (item[buildIndex.value] == build[buildLoop.value]) %}
                                                         {% if (item[result.value] == "PASS") %}
-                                                            <td style="color: green">PASS</i></td>
+                                                            <td style="color: green">PASS</td>
                                                         {% elif (item[result.value] == "FAIL") %}
-                                                            <td style="color: red">FAIL</i></td>
+                                                            <td style="color: red">FAIL</td>
+                                                        {% elif (item[result.value] == "SKIP") %}
+                                                            <td style="color: orange">SKIP</td>
                                                         {% else %}
                                                             <td style="color: rgba(240, 188, 18, 0.664)">N/A</td>
                                                         {% endif %}
