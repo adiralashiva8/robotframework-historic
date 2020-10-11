@@ -72,9 +72,7 @@
       - Create *rfhistoric* default [guide](https://bit.ly/2PIOTfI)
       - Create *robothistoric.TB_PROJECT* table [guide](https://bit.ly/2Tv2tV5)
 
-  - __Step 4:__ Execute following command to update database columns
-
-  > Only for existing users with >0.2.5v
+  - __Step 4:__ Update database columns (only for existing users with <0.2.5v)
 
     ```
     rfhistoricupdate
