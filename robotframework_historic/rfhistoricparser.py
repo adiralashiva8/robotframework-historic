@@ -49,21 +49,27 @@ def rfhistoric_parser(opts):
     spass = test_stats.passed_suite
     sfail = test_stats.failed_suite
     # TODO: Update skipped when functionality implemented
-    sskipped = 0
+    try:
+        sskip = test_stats.skipped_suite
+    except:
+        sskip = 0
 
     stats = result.statistics
     total = stats.total.all.total
     passed = stats.total.all.passed
     failed = stats.total.all.failed
     # TODO: Update skipped when functionality implemented
-    skipped = 0
+    try:
+        skipped = stats.total.all.skipped
+    except:
+        skipped = 0
 
     elapsedtime = datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = get_time_in_min(elapsedtime.strftime("%X"))
     elapsedtime = float("{0:.2f}".format(elapsedtime))
 
     # insert test results info into db
-    result_id = insert_into_execution_table(mydb, rootdb, opts.executionname, total, passed, failed, elapsedtime, stotal, spass, sfail, skipped, sskipped, opts.projectname)
+    result_id = insert_into_execution_table(mydb, rootdb, opts.executionname, total, passed, failed, elapsedtime, stotal, spass, sfail, skipped, sskip, opts.projectname)
 
     print("INFO: Capturing suite results")
     result.visit(SuiteResults(mydb, result_id, opts.fullsuitename))
@@ -89,8 +95,10 @@ class SuiteStats(ResultVisitor):
 
             if suite.status == "PASS":
                 self.passed_suite += 1
-            else:
+            elif suite.status == "FAIL":
                 self.failed_suite += 1
+            else:
+                self.skipped_suite += 1
 
 class SuiteResults(ResultVisitor):
 
@@ -113,7 +121,10 @@ class SuiteResults(ResultVisitor):
             stats = suite.statistics
             time = float("{0:.2f}".format(suite.elapsedtime / float(60000)))
             # TODO: Update skipped when functionality implemented
-            suite_skipped = 0
+            try:
+                suite_skipped = stats.all.skipped
+            except:
+                suite_skipped = 0
             insert_into_suite_table(self.db, self.id, str(suite_name), str(suite.status), int(stats.all.total), int(stats.all.passed), int(stats.all.failed), float(time), int(suite_skipped))
 
 class TestMetrics(ResultVisitor):

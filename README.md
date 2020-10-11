@@ -40,7 +40,7 @@
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.5
+    pip install robotframework-historic==0.2.6
     ```
 
     > Case 2: Using setup.py (root)

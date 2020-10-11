@@ -18,6 +18,10 @@ def index():
 def redirect_url():
     return render_template('redirect.html')
 
+@app.route('/updatedb')
+def updatedb_url():
+    return render_template('updatedb.html')
+
 @app.route('/home', methods=['GET'])
 def home():
     cursor = mysql.connection.cursor()
@@ -160,20 +164,24 @@ def dashboardRecent(db):
         new_tests_count = exe_info[0][1] - exe_info[1][1]
         passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
         failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
-        skipped_test_dif = prev_exe_data[0][4] - last_exe_data[0][4]
+        # handle db columns not exist issue
+        try:
+            skipped_test_dif = prev_exe_data[0][4] - last_exe_data[0][4]
 
-        return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
-         prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
-         req_anal_data=req_anal_data, app_failure_anl_count=app_failure_anl_count,
-         req_anal_perc_data=req_anal_perc_data, auto_failure_anl_count=auto_failure_anl_count,
-         new_tests_count=new_tests_count,other_failure_anl_count=other_failure_anl_count,
-         passed_test_dif=passed_test_dif,
-         failed_test_dif=failed_test_dif,
-         skipped_test_dif=skipped_test_dif,
-         suite_avg_dur_data=suite_avg_dur_data,
-         test_avg_dur_data=test_avg_dur_data,
-         common_failed_suites=common_failed_suites,
-         db_name=db)
+            return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
+            prev_exe_data=prev_exe_data, new_failed_tests_count=new_failed_tests_count,
+            req_anal_data=req_anal_data, app_failure_anl_count=app_failure_anl_count,
+            req_anal_perc_data=req_anal_perc_data, auto_failure_anl_count=auto_failure_anl_count,
+            new_tests_count=new_tests_count,other_failure_anl_count=other_failure_anl_count,
+            passed_test_dif=passed_test_dif,
+            failed_test_dif=failed_test_dif,
+            skipped_test_dif=skipped_test_dif,
+            suite_avg_dur_data=suite_avg_dur_data,
+            test_avg_dur_data=test_avg_dur_data,
+            common_failed_suites=common_failed_suites,
+            db_name=db)
+        except:
+            return redirect(url_for('redirect_url'))
 
     else:
         return redirect(url_for('redirect_url'))
