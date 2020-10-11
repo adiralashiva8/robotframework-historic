@@ -125,47 +125,47 @@ def dashboardRecent(db):
         else:
             exe_info = (exe_info[0], exe_info[0])
 
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
-        last_exe_data = cursor.fetchall()
-
-        cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
-        prev_exe_data = cursor.fetchall()
-
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
-        req_anal_data = cursor.fetchall()
-
-        cursor.execute("SELECT ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
-        suite_avg_dur_data = cursor.fetchall()
-
-        cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
-        test_avg_dur_data = cursor.fetchall()
-
-        cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
-        common_failed_suites = cursor.fetchall()
-    
-        cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
-        new_failed_tests_count = cursor.fetchall()
-
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Application%%';" % exe_info[0][0])
-        app_failure_anl_count = cursor.fetchall()
-
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Automation%%';" % exe_info[0][0])
-        auto_failure_anl_count = cursor.fetchall()
-
-        cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Other%%';" % exe_info[0][0])
-        other_failure_anl_count = cursor.fetchall()
-
-        # required analysis percentage
-        if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
-            req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
-        else:
-            req_anal_perc_data = 0
-        
-        new_tests_count = exe_info[0][1] - exe_info[1][1]
-        passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
-        failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
         # handle db columns not exist issue
         try:
+            cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[0][0])
+            last_exe_data = cursor.fetchall()
+
+            cursor.execute("SELECT Execution_Pass, Execution_Fail, Execution_Total, Execution_Time, Execution_Skip from TB_EXECUTION WHERE Execution_Id=%s;" % exe_info[1][0])
+            prev_exe_data = cursor.fetchall()
+
+            cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Status = 'FAIL' AND Test_Comment IS NULL;" % exe_info[0][0])
+            req_anal_data = cursor.fetchall()
+
+            cursor.execute("SELECT ROUND(AVG(Suite_Time),2) from TB_SUITE WHERE Execution_Id=%s;" % exe_info[0][0])
+            suite_avg_dur_data = cursor.fetchall()
+
+            cursor.execute("SELECT ROUND(AVG(Test_Time),2) from TB_TEST WHERE Execution_Id=%s;" % exe_info[0][0])
+            test_avg_dur_data = cursor.fetchall()
+
+            cursor.execute("SELECT b.Suite_Name, a.Suite_Fail, b.Occurence from TB_SUITE a INNER JOIN (Select Suite_Name, Count(Suite_Name) as Occurence From TB_SUITE WHERE Suite_Status = 'FAIL' AND Execution_Id>=%s GROUP BY Suite_Name HAVING COUNT(Suite_Name) > 1) b ON a.Suite_Name = b.Suite_Name WHERE Suite_Status='FAIL' AND Execution_Id=%s ORDER BY b.Occurence DESC, a.Suite_Fail DESC LIMIT 5;" % (exe_info[-1][0], exe_info[0][0]))
+            common_failed_suites = cursor.fetchall()
+        
+            cursor.execute("SELECT COUNT(*) From (SELECT Test_Name, Execution_Id From TB_TEST WHERE Test_Status='FAIL' AND Execution_Id >= %s GROUP BY Test_Name HAVING COUNT(Test_Name) = 1) AS T WHERE Execution_Id=%s" % (exe_info[1][0],exe_info[0][0]))
+            new_failed_tests_count = cursor.fetchall()
+
+            cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Application%%';" % exe_info[0][0])
+            app_failure_anl_count = cursor.fetchall()
+
+            cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Automation%%';" % exe_info[0][0])
+            auto_failure_anl_count = cursor.fetchall()
+
+            cursor.execute("SELECT COUNT(*) from TB_TEST WHERE Execution_Id=%s AND Test_Issue_Type LIKE '%%Other%%';" % exe_info[0][0])
+            other_failure_anl_count = cursor.fetchall()
+
+            # required analysis percentage
+            if last_exe_data[0][1] > 0 and last_exe_data[0][1] != req_anal_data[0][0]:
+                req_anal_perc_data = round( ((last_exe_data[0][1] - req_anal_data[0][0]) / last_exe_data[0][1])*100  ,2)
+            else:
+                req_anal_perc_data = 0
+            
+            new_tests_count = exe_info[0][1] - exe_info[1][1]
+            passed_test_dif = last_exe_data[0][0] - prev_exe_data[0][0]
+            failed_test_dif = prev_exe_data[0][1] - last_exe_data[0][1]
             skipped_test_dif = prev_exe_data[0][4] - last_exe_data[0][4]
 
             return render_template('dashboardRecent.html', last_exe_data=last_exe_data, exe_info=exe_info,
@@ -181,7 +181,7 @@ def dashboardRecent(db):
             common_failed_suites=common_failed_suites,
             db_name=db)
         except:
-            return redirect(url_for('redirect_url'))
+            return redirect(url_for('updatedb_url'))
 
     else:
         return redirect(url_for('redirect_url'))
