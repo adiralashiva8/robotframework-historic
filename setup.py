@@ -24,8 +24,7 @@ setup(
           'robotframework',
           'config',
           'flask',
-          'flask-mysqldb',
-          'mysql-connector-python'
+          'flask-mysqldb'
       ],
       entry_points={
           'console_scripts': [
