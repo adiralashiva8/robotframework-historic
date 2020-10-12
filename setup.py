@@ -25,7 +25,6 @@ setup(
           'config',
           'flask',
           'flask-mysqldb',
-          'mysql-connector-python'
       ],
       entry_points={
           'console_scripts': [
