@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_mysqldb import MySQL
 import config
+import os
+from os.path import expanduser
+from flask import Flask, render_template, request, redirect, url_for
+from werkzeug import secure_filename
+from flask_mysqldb import MySQL
 from .args import parse_options
 
 app = Flask (__name__,
@@ -610,7 +613,6 @@ def comment(db):
     use_db(cursor, db)
     cursor.execute("SELECT Execution_Id from TB_EXECUTION order by Execution_Id desc LIMIT 1;")
     recent_eid = cursor.fetchone()
-
     if request.method == "POST":
         error = request.form['error']
         eid = request.form['eid']
@@ -619,7 +621,6 @@ def comment(db):
         assign_to = request.form['assignto']
         eta = request.form['eta']
         comment = request.form['comment']
-
         try:
             cursor.execute('Update TB_TEST SET Test_Comment=\'{}\', Test_Assigned_To=\'{}\', Test_ETA=\'{}\', Test_Review_By=\'{}\', Test_Issue_Type=\'{}\', Test_Updated=now() WHERE Execution_Id={} AND Test_Error LIKE \'%{}%\''.format(str(comment), str(assign_to), str(eta), str(review_by), str(issue_type), str(eid), str(error)))
             mysql.connection.commit()
@@ -627,9 +628,38 @@ def comment(db):
         except Exception as e:
             print(str(e))
             return render_template('comment.html', error_message=str(e), recent_eid=recent_eid)
-    
     else:
         return render_template('comment.html', error_message="", recent_eid=recent_eid)
+
+@app.route('/<db>/upload/<eid>', methods=['GET', 'POST'])
+def upload_file(db, eid):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    if request.method == "POST":
+        file = request.files['file']
+        if file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], db, eid, filename))
+            flash('Upload Successfull!')
+    return redirect(url_for('upload_file'))
+
+@app.route('/<db>/viewuploads', methods=['GET'])
+def view_uploads(db):
+    path = os.path.join(app.config['UPLOAD_FOLDER'], db)
+    tree = dict(name=os.path.basename(path), children=[])
+    try: lst = os.listdir(path)
+    except OSError:
+        pass #ignore errors
+    else:
+        for name in lst:
+            fn = os.path.join(path, name)
+            if os.path.isdir(fn):
+                tree['children'].append(make_tree(fn))
+            else:
+                with open(fn) as f:
+                    contents = f.read()
+                tree['children'].append(dict(name=name, contents=contents))
+    return render_template('viewuploads.html', tree=tree)
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
@@ -650,10 +680,16 @@ def get_count_by_perc(data_list, max, min):
             count += 1
     return count
 
+def get_upload_file_path():
+    home = expanduser("~")
+    return os.path.join(dir_name, rfhistoric)
+
 def main():
     args = parse_options()
     app.config['MYSQL_HOST'] = args.sqlhost
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
+    UPLOAD_FOLDER = get_upload_file_path()
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(host=args.apphost)
