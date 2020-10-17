@@ -639,13 +639,13 @@ def upload_file(db, eid):
         file = request.files['file']
         if file.filename != '':
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], db, eid, filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
             flash('Upload Successfull!')
     return redirect(url_for('upload_file'))
 
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
-    path = os.path.join(app.config['UPLOAD_FOLDER'], db)
+    path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
     tree = dict(name=os.path.basename(path), children=[])
     try: lst = os.listdir(path)
     except OSError:
@@ -682,7 +682,7 @@ def get_count_by_perc(data_list, max, min):
 
 def get_upload_file_path():
     home = expanduser("~")
-    return os.path.join(home, rfhistoric)
+    return os.path.join(home, 'rfhistoric')
 
 def main():
     args = parse_options()
