@@ -640,7 +640,7 @@ def upload_file(db, eid):
         if file.filename != '':
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
-            flash('Upload Successfull!')
+            # flash('Upload Successfull!')
     return redirect(url_for('upload_file'))
 
 @app.route('/<db>/viewuploads', methods=['GET'])
