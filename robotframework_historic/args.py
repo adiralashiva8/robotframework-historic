@@ -33,5 +33,12 @@ def parse_options():
         help="Flask app host address"
     )
 
+    general.add_argument(
+        '-l', '--uploadpath',
+        dest='uploadpath',
+        default='HOME',
+        dhelp="File location to store uploads (default: user home directory)"
+    )
+
     args = parser.parse_args()
     return args

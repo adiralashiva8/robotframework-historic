@@ -3,14 +3,14 @@
         <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{error_message}}
     </div>
 {% endif %} 
-{%- for item in tree.children recursive %}
+{%- for item in tree %}
      <div class="well well-sm">
         <li>
-            {{ item.name }}
-            <pre>{{ item.contents }}</pre>
+            {{ item }}
+            <!-- <pre>{{ item.contents }}</pre>
             {%- if item.children -%}
                 <ul>{{ loop(item.children) }}</ul>
-            {%- endif %}
+            {%- endif %} -->
         </li>
     </div>
 {%- endfor %}

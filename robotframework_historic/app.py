@@ -638,30 +638,31 @@ def upload_file(db, eid):
     if request.method == "POST":
         file = request.files['file']
         filename = secure_filename(file.filename)
-        print(filename)
-        path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
-        print(path)
-        file.save(path)
+        project_path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'EID'+str(eid))
+        if not os.path.exists(path):
+            os.makedirs(path)
+        file.save(os.path.join(path, filename))
     return render_template('upload.html', db=db, eid=eid)
 
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
     path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
     tree = dict(name=os.path.basename(path), children=[])
-    try: lst = os.listdir(path)
+    try: 
+        lst = os.listdir(path)
     except OSError:
         error = "No files found at: %s" %path
         return render_template('viewuploads.html', tree='', db=db, error_message=error)
     else:
         for name in lst:
             fn = os.path.join(path, name)
-            if os.path.isdir(fn):
-                tree['children'].append(make_tree(fn))
-            else:
-                with open(fn) as f:
-                    contents = f.read()
-                tree['children'].append(dict(name=name, contents=contents))
-    return render_template('viewuploads.html', tree=tree, db=db, error_message='')
+            # if os.path.isdir(fn):
+            #     tree['children'].append(make_tree(fn))
+            # else:
+            #     with open(fn) as f:
+            #         contents = f.read()
+            #     tree['children'].append(dict(name=name, contents=contents))
+    return render_template('viewuploads.html', tree=fn, db=db, error_message='')
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
@@ -683,7 +684,10 @@ def get_count_by_perc(data_list, max, min):
     return count
 
 def get_upload_file_path():
-    home = expanduser("~")
+    if args.uploadpath == "HOME":
+        home = expanduser("~")
+    else:
+        home = args.uploadpath
     rfhistoric_path = os.path.join(home, 'rfhistoric')
     if not os.path.exists(rfhistoric_path):
         os.mkdir(rfhistoric_path)
