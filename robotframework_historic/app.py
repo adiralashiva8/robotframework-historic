@@ -682,7 +682,7 @@ def get_count_by_perc(data_list, max, min):
 
 def get_upload_file_path():
     home = expanduser("~")
-    return os.path.join(dir_name, rfhistoric)
+    return os.path.join(home, rfhistoric)
 
 def main():
     args = parse_options()
