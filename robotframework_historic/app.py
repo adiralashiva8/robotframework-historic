@@ -637,23 +637,21 @@ def upload_file(db, eid):
     use_db(cursor, db)
     if request.method == "POST":
         file = request.files['file']
-        if file.filename != '':
-            filename = secure_filename(file.filename)
-            path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
-            print("Upload File Path:")
-            print(path)
-            file.save(path)
+        filename = secure_filename(file.filename)
+        print(filename)
+        path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
+        print(path)
+        file.save(path)
     return render_template('upload.html', db=db, eid=eid)
 
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
     path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
-    print("Files Path:")
-    print(path)
     tree = dict(name=os.path.basename(path), children=[])
     try: lst = os.listdir(path)
     except OSError:
-        pass #ignore errors
+        error = "No files found at: %s" %path
+        return render_template('viewuploads.html', tree='', db=db, error_message=error)
     else:
         for name in lst:
             fn = os.path.join(path, name)
@@ -663,7 +661,7 @@ def view_uploads(db):
                 with open(fn) as f:
                     contents = f.read()
                 tree['children'].append(dict(name=name, contents=contents))
-    return render_template('viewuploads.html', tree=tree, db=db)
+    return render_template('viewuploads.html', tree=tree, db=db, error_message='')
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
@@ -686,7 +684,10 @@ def get_count_by_perc(data_list, max, min):
 
 def get_upload_file_path():
     home = expanduser("~")
-    return os.path.join(home, 'rfhistoric')
+    rfhistoric_path = os.path.join(home, 'rfhistoric')
+    if not os.path.exists(rfhistoric_path):
+        os.mkdir(rfhistoric_path)
+    return rfhistoric_path
 
 def main():
     args = parse_options()
@@ -696,6 +697,4 @@ def main():
     app.config['auth_plugin'] = 'mysql_native_password'
     UPLOAD_FOLDER = get_upload_file_path()
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    print("Upload File Path Set to:")
-    print(UPLOAD_FOLDER)
     app.run(host=args.apphost)
