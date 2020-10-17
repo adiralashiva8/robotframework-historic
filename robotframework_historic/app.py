@@ -639,13 +639,17 @@ def upload_file(db, eid):
         file = request.files['file']
         if file.filename != '':
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
-            # flash('Upload Successfull!')
-    return redirect(url_for('upload_file'))
+            path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), str(eid), str(filename))
+            print("Upload File Path:")
+            print(path)
+            file.save(path)
+    return render_template('upload.html', db=db, eid=eid)
 
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
     path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
+    print("Files Path:")
+    print(path)
     tree = dict(name=os.path.basename(path), children=[])
     try: lst = os.listdir(path)
     except OSError:
@@ -659,7 +663,7 @@ def view_uploads(db):
                 with open(fn) as f:
                     contents = f.read()
                 tree['children'].append(dict(name=name, contents=contents))
-    return render_template('viewuploads.html', tree=tree)
+    return render_template('viewuploads.html', tree=tree, db=db)
 
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
@@ -692,4 +696,6 @@ def main():
     app.config['auth_plugin'] = 'mysql_native_password'
     UPLOAD_FOLDER = get_upload_file_path()
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    print("Upload File Path Set to:")
+    print(UPLOAD_FOLDER)
     app.run(host=args.apphost)
