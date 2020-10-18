@@ -638,11 +638,13 @@ def upload_file(db, eid):
     if request.method == "POST":
         file = request.files['file']
         filename = secure_filename(file.filename)
-        project_path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'EID'+str(eid))
+        path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'EID'+str(eid))
         if not os.path.exists(path):
             os.makedirs(path)
         file.save(os.path.join(path, filename))
-    return render_template('upload.html', db=db, eid=eid)
+        return render_template('upload.html', db=db, eid=eid, message='File uploaded to: %s' %path)
+    else:
+        return render_template('upload.html', db=db, eid=eid, message='')
 
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
@@ -656,9 +658,6 @@ def view_uploads(db):
     for root, directories, files in os.walk(path, topdown=False):
         for name in files:
             result_list.append(os.path.join(root, name))
-        # for name in directories:
-        #     result_list.append(os.path.join(root, name))
-
     return render_template('viewuploads.html', tree=result_list, db=db, error_message='')
 
 @app.route('/<db>/uexecution', methods=['GET', 'POST'])
@@ -668,11 +667,11 @@ def new_execution(db):
     if request.method == "POST":
         file = request.files['file']
         filename = secure_filename(file.filename)
-        project_path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
-        if not os.path.exists(project_path):
-            os.makedirs(project_path)
-        file.save(os.path.join(project_path, filename))
-        
+        path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        file.save(os.path.join(path, filename))
+        # TODO: logic to parse xml
         return render_template('uexecution.html', db=db, message='Parsing .xml file, it may take few minutes to reflect result in UI')
     else:
         return render_template('uexecution.html', db=db, message='')

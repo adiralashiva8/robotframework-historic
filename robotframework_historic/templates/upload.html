@@ -41,7 +41,12 @@
                 <div class="my-3 my-md-5">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12">                               
+                            <div class="col-12">    
+                                {% if (message != "") %}
+                                    <div class="alert alert-icon alert-success" role="alert">
+                                        <i class="fe fe-check mr-2" aria-hidden="true"></i> {{message}}
+                                    </div>
+                                {% endif %}                          
                                 <form method="post" class="card" enctype = "multipart/form-data">
                                     <div class="card-header">
                                         <h3 class="card-title">Upload File</h3>
@@ -62,6 +67,7 @@
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
+                                                    <label class="form-label" style="color:white">Upload</label>
                                                     <button type="submit" id="submit" class="btn btn-primary">Upload File</button>
                                                 </div>
                                             </div>

@@ -43,30 +43,31 @@
                         <div class="row">
                             <div class="col-12">   
                                 {% if (message != "") %}
-                                    <div class="alert alert-icon alert-danger" role="alert">
-                                        <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{message}}
+                                    <div class="alert alert-icon alert-success" role="alert">
+                                        <i class="fe fe-check mr-2" aria-hidden="true"></i> {{message}}
                                     </div>
-                                {% endif %}                             
+                                {% endif %}                        
                                 <form method="post" class="card" enctype = "multipart/form-data">
                                     <div class="card-header">
-                                        <h3 class="card-title">New Execution Upload</h3>
+                                        <h3 class="card-title">Upload New Execution</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label">Suite Full Name<span class="form-required">*</span></label>
+                                                    <label class="form-label">Include suite fullname<span class="form-required">*</span></label>
                                                     <input id="sfname" name="sfname" type="text" class="form-control" placeholder="True or False">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label">Output.xml File</label>
+                                                    <label class="form-label">Output.xml file</label>
                                                     <input type="file" name="file">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-4">
                                                 <div class="form-group">
+                                                    <label class="form-label" style="color:white">Upload</label>
                                                     <button type="submit" id="submit" class="btn btn-primary">Upload</button>
                                                 </div>
                                             </div>
