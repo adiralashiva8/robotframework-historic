@@ -647,22 +647,19 @@ def upload_file(db, eid):
 @app.route('/<db>/viewuploads', methods=['GET'])
 def view_uploads(db):
     path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
-    tree = dict(name=os.path.basename(path), children=[])
+    result_list = []
     try: 
         files = os.listdir(path)
     except OSError:
         error = "No files found at: %s" %path
         return render_template('viewuploads.html', tree='', db=db, error_message=error)
-    # else:
-    #     for file in files:
-    #         file
-            # if os.path.isdir(fn):
-            #     tree['children'].append(make_tree(fn))
-            # else:
-            #     with open(fn) as f:
-            #         contents = f.read()
-            #     tree['children'].append(dict(name=name, contents=contents))
-    return render_template('viewuploads.html', tree=files, db=db, error_message='')
+    for root, directories, files in os.walk(path, topdown=False):
+        for name in files:
+            result_list.append(os.path.join(root, name))
+        for name in directories:
+            result_list.append(os.path.join(root, name))
+
+    return render_template('viewuploads.html', tree=result_list, db=db, error_message='')
 
 @app.route('/<db>/uexecution', methods=['GET', 'POST'])
 def new_execution(db):

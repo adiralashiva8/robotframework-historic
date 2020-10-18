@@ -6,11 +6,7 @@
 {%- for item in tree %}
      <div class="well well-sm">
         <li>
-            {{ item }}
-            <!-- <pre>{{ item.contents }}</pre>
-            {%- if item.children -%}
-                <ul>{{ loop(item.children) }}</ul>
-            {%- endif %} -->
+            <a>{{item}}</a>
         </li>
     </div>
 {%- endfor %}
