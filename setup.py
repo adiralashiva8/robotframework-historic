@@ -25,7 +25,7 @@ setup(
           'config',
           'flask',
           'flask-mysqldb',
-          'Werkzeug==0.16.0'
+          'Werkzeug'
       ],
       entry_points={
           'console_scripts': [
