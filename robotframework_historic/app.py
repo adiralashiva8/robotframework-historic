@@ -649,20 +649,20 @@ def view_uploads(db):
     path = os.path.join(app.config['UPLOAD_FOLDER'], str(db))
     tree = dict(name=os.path.basename(path), children=[])
     try: 
-        lst = os.listdir(path)
+        files = os.listdir(path)
     except OSError:
         error = "No files found at: %s" %path
         return render_template('viewuploads.html', tree='', db=db, error_message=error)
-    else:
-        for name in lst:
-            fn = os.path.join(path, name)
+    # else:
+    #     for file in files:
+    #         file
             # if os.path.isdir(fn):
             #     tree['children'].append(make_tree(fn))
             # else:
             #     with open(fn) as f:
             #         contents = f.read()
             #     tree['children'].append(dict(name=name, contents=contents))
-    return render_template('viewuploads.html', tree=fn, db=db, error_message='')
+    return render_template('viewuploads.html', tree=files, db=db, error_message='')
 
 @app.route('/<db>/uexecution', methods=['GET', 'POST'])
 def new_execution(db):
@@ -698,7 +698,7 @@ def get_count_by_perc(data_list, max, min):
             count += 1
     return count
 
-def get_upload_file_path():
+def get_upload_file_path(args):
     if args.uploadpath == "HOME":
         home = expanduser("~")
     else:
@@ -714,6 +714,6 @@ def main():
     app.config['MYSQL_USER'] = args.username
     app.config['MYSQL_PASSWORD'] = args.password
     app.config['auth_plugin'] = 'mysql_native_password'
-    UPLOAD_FOLDER = get_upload_file_path()
+    UPLOAD_FOLDER = get_upload_file_path(args)
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(host=args.apphost)
