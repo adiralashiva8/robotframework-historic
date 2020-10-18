@@ -37,7 +37,7 @@ def parse_options():
         '-l', '--uploadpath',
         dest='uploadpath',
         default='HOME',
-        dhelp="File location to store uploads (default: user home directory)"
+        help="File location to store uploads (default: user home directory)"
     )
 
     args = parser.parse_args()

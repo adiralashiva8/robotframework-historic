@@ -664,6 +664,21 @@ def view_uploads(db):
             #     tree['children'].append(dict(name=name, contents=contents))
     return render_template('viewuploads.html', tree=fn, db=db, error_message='')
 
+@app.route('/<db>/uexecution', methods=['GET', 'POST'])
+def new_execution(db):
+    cursor = mysql.connection.cursor()
+    use_db(cursor, db)
+    if request.method == "POST":
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        project_path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        file.save(os.path.join(path, filename))
+        return render_template('uexecution.html', db=db, message='Parsing .xml file, it may take few minutes to reflect result in UI')
+    else:
+        return render_template('uexecution.html', db=db, message='')
+
 def use_db(cursor, db_name):
     cursor.execute("USE %s;" % db_name)
 
