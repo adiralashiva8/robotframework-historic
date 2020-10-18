@@ -665,13 +665,21 @@ def new_execution(db):
     cursor = mysql.connection.cursor()
     use_db(cursor, db)
     if request.method == "POST":
+        sfname = request.form['sfname']
         file = request.files['file']
         filename = secure_filename(file.filename)
         path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
         if not os.path.exists(path):
             os.makedirs(path)
         file.save(os.path.join(path, filename))
-        # TODO: logic to parse xml
+        # parse file
+        command = "rfhistoricparser -i %s -o %s -f %s -n %s -e 'Upload from web'" %(str(path), str(filename), str(sfname), str(db))
+        os.system('cmd /c "%s"' %command)
+        try:
+            os.remove(os.path.join(path, filename))
+        except:
+            pass
+        # remove file
         return render_template('uexecution.html', db=db, message='Parsing .xml file, it may take few minutes to reflect result in UI')
     else:
         return render_template('uexecution.html', db=db, message='')
