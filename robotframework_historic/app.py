@@ -668,19 +668,14 @@ def new_execution(db):
         sfname = request.form['sfname']
         file = request.files['file']
         filename = secure_filename(file.filename)
-        path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
-        if not os.path.exists(path):
-            os.makedirs(path)
-        file.save(os.path.join(path, filename))
-        # parse file
-        command = "rfhistoricparser -i %s -o %s -f %s -n %s -e 'Upload from web'" %(str(path), str(filename), str(sfname), str(db))
+        file.save(filename)
+        command = "rfhistoricparser -o %s -f %s -n %s -e %s" %(str(filename), str(sfname), str(db), "Upload_from_Web")
         os.system('cmd /c "%s"' %command)
         try:
-            os.remove(os.path.join(path, filename))
+            os.remove(filename)
         except:
             pass
-        # remove file
-        return render_template('uexecution.html', db=db, message='Parsing .xml file, it may take few minutes to reflect result in UI')
+        return render_template('uexecution.html', db=db, message='Parsing .xml file completed. Check console logs if results not reflected in UI')
     else:
         return render_template('uexecution.html', db=db, message='')
 
