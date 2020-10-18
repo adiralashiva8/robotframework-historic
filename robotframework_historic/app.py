@@ -656,8 +656,8 @@ def view_uploads(db):
     for root, directories, files in os.walk(path, topdown=False):
         for name in files:
             result_list.append(os.path.join(root, name))
-        for name in directories:
-            result_list.append(os.path.join(root, name))
+        # for name in directories:
+        #     result_list.append(os.path.join(root, name))
 
     return render_template('viewuploads.html', tree=result_list, db=db, error_message='')
 
