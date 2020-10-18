@@ -669,9 +669,10 @@ def new_execution(db):
         file = request.files['file']
         filename = secure_filename(file.filename)
         project_path = os.path.join(app.config['UPLOAD_FOLDER'], str(db), 'output')
-        if not os.path.exists(path):
-            os.makedirs(path)
-        file.save(os.path.join(path, filename))
+        if not os.path.exists(project_path):
+            os.makedirs(project_path)
+        file.save(os.path.join(project_path, filename))
+        
         return render_template('uexecution.html', db=db, message='Parsing .xml file, it may take few minutes to reflect result in UI')
     else:
         return render_template('uexecution.html', db=db, message='')
