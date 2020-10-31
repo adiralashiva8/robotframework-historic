@@ -45,22 +45,28 @@ def rfhistoric_parser(opts):
     test_stats = SuiteStats()
     result.visit(test_stats)
 
-    stotal = test_stats.total_suite
-    spass = test_stats.passed_suite
-    sfail = test_stats.failed_suite
-    # TODO: Update skipped when functionality implemented
     try:
-        sskip = test_stats.skipped_suite
+        test_stats_obj = test_stats.all
+    except:
+        test_stats_obj = test_stats
+    stotal = test_stats_obj.total_suite
+    spass = test_stats_obj.passed_suite
+    sfail = test_stats_obj.failed_suite
+    try:
+        sskip = test_stats_obj.skipped_suite
     except:
         sskip = 0
 
     stats = result.statistics
-    total = stats.total.all.total
-    passed = stats.total.all.passed
-    failed = stats.total.all.failed
-    # TODO: Update skipped when functionality implemented
     try:
-        skipped = stats.total.all.skipped
+        stats_obj = stats.total.all
+    except:
+        stats_obj = stats.total
+    total = stats_obj.total
+    passed = stats_obj.passed
+    failed = stats_obj.failed
+    try:
+        skipped = stats_obj.skipped
     except:
         skipped = 0
 
@@ -118,14 +124,17 @@ class SuiteResults(ResultVisitor):
             else:
                 suite_name = suite
    
-            stats = suite.statistics
+            try:
+                stats = suite.statistics.all
+            except:
+                stats = suite.statistics
             time = float("{0:.2f}".format(suite.elapsedtime / float(60000)))
             # TODO: Update skipped when functionality implemented
             try:
-                suite_skipped = stats.all.skipped
+                suite_skipped = stats.skipped
             except:
                 suite_skipped = 0
-            insert_into_suite_table(self.db, self.id, str(suite_name), str(suite.status), int(stats.all.total), int(stats.all.passed), int(stats.all.failed), float(time), int(suite_skipped))
+            insert_into_suite_table(self.db, self.id, str(suite_name), str(suite.status), int(stats.total), int(stats.passed), int(stats.failed), float(time), int(suite_skipped))
 
 class TestMetrics(ResultVisitor):
 
