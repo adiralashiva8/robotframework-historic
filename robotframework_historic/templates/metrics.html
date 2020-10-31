@@ -324,7 +324,7 @@
                             <td style="color: orange"> {{item[3]}}</td>
                         {% endif %}
                         <td>{{item[4]}}</td>
-                        <td style="word-wrap: break-word;max-width: 250px; white-space: normal;text-align:left;">{{item[5]}}</td>
+                        <td style="word-wrap: break-word;max-width: 250px; white-space:pre-wrap;text-align:left;">{{item[5]}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -443,7 +443,7 @@
                 "order": [[ Number(sortCol), "desc" ]],
                 dom: 'l<".margin" B>frtip',
                 "aoColumnDefs": [ {
-                    "aTargets": [ -1, -2 ],
+                    "aTargets": [ -1 ],
                     "mRender": function ( data, type, full ) {
                         return $("<div/>").html(data).text(); 
                     }
