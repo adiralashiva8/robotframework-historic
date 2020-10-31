@@ -442,6 +442,12 @@
                 retrieve: true,
                 "order": [[ Number(sortCol), "desc" ]],
                 dom: 'l<".margin" B>frtip',
+                "aoColumnDefs": [ {
+                    "aTargets": [ -1, -2 ],
+                    "mRender": function ( data, type, full ) {
+                        return $("<div/>").html(data).text(); 
+                    }
+                } ],
                 buttons: [
                     {
                         extend:    'copyHtml5',
