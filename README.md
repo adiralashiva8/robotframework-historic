@@ -57,6 +57,7 @@
    ```
    rfhistoric --help
    rfhistoricparser --help
+   rfhistoricreparser --help
    rfhistoricsetup --help
    rfhistoricupdate --help
    ```
