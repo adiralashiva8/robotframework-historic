@@ -129,9 +129,8 @@ def update_execution_table(con, ocon, projectname, eid):
 
 def update_test_table(con, eid, test, status, duration, msg):
     cursorObj = con.cursor()
-    sql = "UPDATE TB_TEST SET Test_Status='%s', Test_Time='%s', Test_Error='%s' WHERE Test_Name='%s' AND Execution_Id=%s) VALUES (%s, %s, %s, %s, %s)"
-    val = (status, duration, msg, test, eid)
-    cursorObj.execute(sql, val)
+    sql = "UPDATE TB_TEST SET Test_Status='%s', Test_Time='%s', Test_Error='%s' WHERE Test_Name='%s' AND Execution_Id=%s" % (status, duration, msg, test, eid)
+    cursorObj.execute(sql)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()
 
