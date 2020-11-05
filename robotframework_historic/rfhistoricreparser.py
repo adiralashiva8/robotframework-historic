@@ -51,7 +51,7 @@ def rfhistoric_reparser(opts):
     print("INFO: Updating test results")
     result.visit(TestMetrics(mydb, result_id, opts.fullsuitename))
     print("INFO: Updating execution table")
-    update_execution_table(mydb, rootdb, opts.executionname, opts.projectname, result_id)
+    update_execution_table(mydb, rootdb, opts.projectname, result_id)
     print("INFO: Updating execution results")
     commit_and_close_db(mydb)
 
@@ -71,7 +71,7 @@ class TestMetrics(ResultVisitor):
 
         time = float("{0:.2f}".format(test.elapsedtime / float(60000)))
         error = str(test.message)
-        update_test_table(self.db, self.id, str(name), str(test.status), time, error, str(test.tags))
+        update_test_table(self.db, self.id, str(name), str(test.status), time, error)
 
 def get_time_in_min(time_str):
     h, m, s = time_str.split(':')
@@ -97,7 +97,7 @@ def get_latest_execution_id(con):
     rows = cursorObj.fetchone()
     return rows[0]
 
-def update_execution_table(con, ocon, name, projectname, eid):
+def update_execution_table(con, ocon, projectname, eid):
     cursorObj = con.cursor()
     rootCursorObj = ocon.cursor()
     # get pass, fail, skip test cases count by eid
@@ -127,10 +127,10 @@ def update_execution_table(con, ocon, name, projectname, eid):
     ocon.commit()
     return str(rows[0])
 
-def update_test_table(con, eid, test, status, duration, msg, tags):
+def update_test_table(con, eid, test, status, duration, msg):
     cursorObj = con.cursor()
-    sql = "UPDATE TB_TEST SET Test_Status = %s, Test_Time = %s, Test_Error = %s, Test_Tag =%s WHERE Test_Name='%s' AND Execution_Id=%s) VALUES (%s, %s, %s, %s, %s, %s)"
-    val = (status, duration, msg, tags, test, eid)
+    sql = "UPDATE TB_TEST SET Test_Status='%s', Test_Time='%s', Test_Error='%s' WHERE Test_Name='%s' AND Execution_Id=%s) VALUES (%s, %s, %s, %s, %s)"
+    val = (status, duration, msg, test, eid)
     cursorObj.execute(sql, val)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()
