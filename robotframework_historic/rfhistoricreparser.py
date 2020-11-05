@@ -69,9 +69,9 @@ class TestMetrics(ResultVisitor):
         else:
             name = str(test.parent) + " - " + str(test)
 
-        # time = float("{0:.2f}".format(test.elapsedtime / float(60000)))
+        time = float("{0:.2f}".format(test.elapsedtime / float(60000)))
         error = str(test.message)
-        update_test_table(self.db, self.id, str(name), str(test.status), error)
+        update_test_table(self.db, self.id, str(name), str(test.status), time, error)
 
 def get_time_in_min(time_str):
     h, m, s = time_str.split(':')
@@ -127,9 +127,9 @@ def update_execution_table(con, ocon, projectname, eid):
     ocon.commit()
     return str(rows[0])
 
-def update_test_table(con, eid, test, status, msg):
+def update_test_table(con, eid, test, status, duration, msg):
     cursorObj = con.cursor()
-    sql = "UPDATE TB_TEST SET Test_Status='%s', Test_Error='%s' WHERE Test_Name='%s' AND Execution_Id=%s" % (status, msg, test, eid)
+    sql = "UPDATE TB_TEST SET Test_Status='%s', Test_Time='%s', Test_Error='%s' WHERE Test_Name='%s' AND Execution_Id=%s" % (str(status), str(duration), str(msg), str(test), eid)
     cursorObj.execute(sql)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()
