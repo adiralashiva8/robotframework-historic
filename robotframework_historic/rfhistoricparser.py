@@ -1,5 +1,5 @@
 import os
-import mysql.connector
+from .dal.adaptors.mysql_adaptor import MySqlDb
 import logging
 from robot.api import ExecutionResult, ResultVisitor
 import datetime
@@ -39,8 +39,16 @@ def rfhistoric_parser(opts):
     print("Capturing execution results, This may take few minutes...")
 
     # connect to database
-    mydb = connect_to_mysql_db(opts.host, opts.username, opts.password, opts.projectname)
-    rootdb = connect_to_mysql_db(opts.host, opts.username, opts.password, 'robothistoric')
+    mysql_server_config ={
+        "host": opts.host,
+        "username": opts.username,
+        "password": opts.password
+    }
+    mydb = MySqlDb(**mysql_server_config, database=opts.projectname)
+    mydb.connect()
+
+    rootdb = MySqlDb(**mysql_server_config, database='robothistoric')
+    rootdb.connect()
 
     test_stats = SuiteStats()
     result.visit(test_stats)
@@ -83,7 +91,7 @@ def rfhistoric_parser(opts):
     result.visit(TestMetrics(mydb, result_id, opts.fullsuitename))
 
     print("INFO: Writing execution results")
-    commit_and_close_db(mydb)
+    mydb.commit_close()
 
 # other useful methods
 class SuiteStats(ResultVisitor):
@@ -160,21 +168,10 @@ def get_time_in_min(time_str):
     crtime = float("{0:.2f}".format(ctime/60))
     return crtime
 
-def connect_to_mysql_db(host, user, pwd, db):
-    try:
-        mydb = mysql.connector.connect(
-            host=host,
-            user=user,
-            passwd=pwd,
-            database=db
-        )
-        return mydb
-    except Exception as e:
-        print(e)
 
 def insert_into_execution_table(con, ocon, name, total, passed, failed, ctime, stotal, spass, sfail, skipped, sskipped, projectname):
-    cursorObj = con.cursor()
-    rootCursorObj = ocon.cursor()
+    cursorObj = con.cursor
+    rootCursorObj = ocon.cursor
     sql = "INSERT INTO TB_EXECUTION (Execution_Id, Execution_Date, Execution_Desc, Execution_Total, Execution_Pass, Execution_Fail, Execution_Time, Execution_STotal, Execution_SPass, Execution_SFail, Execution_Skip, Execution_SSkip) VALUES (%s, now(), %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
     val = (0, name, total, passed, failed, ctime, stotal, spass, sfail, skipped, sskipped)
     cursorObj.execute(sql, val)
@@ -189,7 +186,7 @@ def insert_into_execution_table(con, ocon, name, total, passed, failed, ctime, s
     return str(rows[0])
 
 def insert_into_suite_table(con, eid, name, status, total, passed, failed, duration, skipped):
-    cursorObj = con.cursor()
+    cursorObj = con.cursor
     sql = "INSERT INTO TB_SUITE (Suite_Id, Execution_Id, Suite_Name, Suite_Status, Suite_Total, Suite_Pass, Suite_Fail, Suite_Time, Suite_Skip) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (0, eid, name, status, total, passed, failed, duration, skipped)
     cursorObj.execute(sql, val)
@@ -197,7 +194,7 @@ def insert_into_suite_table(con, eid, name, status, total, passed, failed, durat
     # con.commit()
 
 def insert_into_test_table(con, eid, test, status, duration, msg, tags):
-    cursorObj = con.cursor()
+    cursorObj = con.cursor
     sql = "INSERT INTO TB_TEST (Test_Id, Execution_Id, Test_Name, Test_Status, Test_Time, Test_Error, Test_Tag) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     val = (0, eid, test, status, duration, msg, tags)
     cursorObj.execute(sql, val)
@@ -205,7 +202,7 @@ def insert_into_test_table(con, eid, test, status, duration, msg, tags):
     # con.commit()
 
 def commit_and_close_db(db):
-    # cursorObj = db.cursor()
+    # cursorObj = db.cursor
     db.commit()
     # cursorObj.close()
     # db.close()

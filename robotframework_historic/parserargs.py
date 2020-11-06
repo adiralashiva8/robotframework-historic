@@ -1,6 +1,6 @@
 import os
 import argparse
-from .rfhistoricparser import rfhistoric_parser
+from robotframework_historic.rfhistoricparser import rfhistoric_parser
 from robot.api import ExecutionResult
 
 

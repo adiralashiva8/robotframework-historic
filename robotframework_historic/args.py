@@ -30,7 +30,7 @@ def parse_options():
         '-a', '--apphost',
         dest='apphost',
         default='0.0.0.0',
-        help="Flask app host address"
+        help="Fast API host address"
     )
 
     args = parser.parse_args()

@@ -1,6 +1,6 @@
 import os
 import argparse
-from .rfhistoricupdate import rfhistoric_update
+from robotframework_historic.rfhistoricupdate import rfhistoric_update
 from robot.api import ExecutionResult
 
 
@@ -20,14 +20,14 @@ def parse_options():
         '-u', '--username',
         dest='username',
         default='superuser',
-        help="MySQL root username"
+        help="MySQL username"
     )
 
     general.add_argument(
         '-p', '--password',
         dest='password',
         default='passw0rd',
-        help="MySQL root password"
+        help="MySQL password"
     )
 
     args = parser.parse_args()
