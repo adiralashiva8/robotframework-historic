@@ -14,26 +14,26 @@ cursor = _mysql.cursor
 
 templates = Jinja2Templates(directory=pkg_resources.resource_filename(__name__, 'templates'))
 
-@router.get('/')
+@router.get('/', include_in_schema=False)
 def index(request: Request):
     return RedirectResponse(url='/home', status_code=status.HTTP_303_SEE_OTHER)
 
-@router.get('/redirect')
+@router.get('/redirect', include_in_schema=False)
 def redirect_url(request: Request):
     return templates.TemplateResponse("redirect.html", {"request": request})
 
 
-@router.get('/updatedb')
-def updatedb_url(request: Request):
-    return templates.TemplateResponse("updatedb.html", {"request": request})
-
-
-@router.get('/home', tags=['Default'])
+@router.get('/home', include_in_schema=False)
 def home(request: Request):
     _mysql.use_db("robothistoric")
     cursor.execute("SELECT * FROM TB_PROJECT;")
     data = cursor.fetchall()
     return templates.TemplateResponse("home.html", {"request": request, "data": data})
+
+
+@router.get('/updatedb', tags=['ProjectSetup'])
+def updatedb_url(request: Request):
+    return templates.TemplateResponse("updatedb.html", {"request": request})
 
 
 @router.get('/{db}/deldbconf', tags=['ProjectSetup'])

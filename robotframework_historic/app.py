@@ -14,7 +14,12 @@ config.store('mysql_config', {
     "auth_plugin": 'mysql_native_password'
 })
 
-app = FastAPI()
+app = FastAPI(
+    title='Robotframework-historic API',
+    description='Robotframework-historic - custom html report for robotframework execution results',
+    version='0.2.10'
+)
+
 app.mount("/static", StaticFiles(directory=pkg_resources.resource_filename(__name__, 'templates')), name="templates")
 # import all the routes
 routes = importlib.import_module('robotframework_historic.routes')
