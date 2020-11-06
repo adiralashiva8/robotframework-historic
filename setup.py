@@ -33,6 +33,7 @@ setup(
           'console_scripts': [
               'rfhistoric=robotframework_historic.app:main',
               'rfhistoricparser=robotframework_historic.parserargs:main',
+              'rfhistoricreparser=robotframework_historic.reparserargs:main',
               'rfhistoricsetup=robotframework_historic.setupargs:main',
               'rfhistoricupdate=robotframework_historic.updateargs:main',
           ]
