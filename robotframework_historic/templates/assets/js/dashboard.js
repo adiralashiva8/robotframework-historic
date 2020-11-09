@@ -5,12 +5,12 @@ shim: {
 'core': ['bootstrap', 'jquery'],
 },
 paths: {
-'core': 'assets/js/core',
-'jquery': 'assets/js/vendors/jquery-3.2.1.min',
-'bootstrap': 'assets/js/vendors/bootstrap.bundle.min',
-'selectize': 'assets/js/vendors/selectize.min',
-'tablesorter': 'assets/js/vendors/jquery.tablesorter.min',
-'circle-progress': 'assets/js/vendors/circle-progress.min',
+'core': 'static/assets/js/core',
+'jquery': 'static/assets/js/vendors/jquery-3.2.1.min',
+'bootstrap': 'static/assets/js/vendors/bootstrap.bundle.min',
+'selectize': 'static/assets/js/vendors/selectize.min',
+'tablesorter': 'static/assets/js/vendors/jquery.tablesorter.min',
+'circle-progress': 'static/assets/js/vendors/circle-progress.min',
 }
 });
 window.tabler = {

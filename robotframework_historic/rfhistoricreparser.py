@@ -1,5 +1,5 @@
 import os
-import mysql.connector
+from .dal.adaptors.mysql_adaptor import MySqlDb
 import logging
 from robot.api import ExecutionResult, ResultVisitor
 import datetime
@@ -39,8 +39,16 @@ def rfhistoric_reparser(opts):
     print("Capturing execution results, This may take few minutes...")
 
     # connect to database
-    mydb = connect_to_mysql_db(opts.host, opts.username, opts.password, opts.projectname)
-    rootdb = connect_to_mysql_db(opts.host, opts.username, opts.password, 'robothistoric')
+    mysql_server_config ={
+        "host": opts.host,
+        "username": opts.username,
+        "password": opts.password
+    }
+    mydb = MySqlDb(**mysql_server_config, database=opts.projectname)
+    mydb.connect()
+
+    rootdb = MySqlDb(**mysql_server_config, database='robothistoric')
+    rootdb.connect()
 
     # get latest execution id
     if opts.executionid == "latest":
@@ -50,10 +58,12 @@ def rfhistoric_reparser(opts):
 
     print("INFO: Updating test results")
     result.visit(TestMetrics(mydb, result_id, opts.fullsuitename))
+
     print("INFO: Updating execution table")
     update_execution_table(mydb, rootdb, opts.projectname, result_id)
+
     print("INFO: Updating execution results")
-    commit_and_close_db(mydb)
+    mydb.commit_close()
 
 class TestMetrics(ResultVisitor):
 
@@ -79,27 +89,15 @@ def get_time_in_min(time_str):
     crtime = float("{0:.2f}".format(ctime/60))
     return crtime
 
-def connect_to_mysql_db(host, user, pwd, db):
-    try:
-        mydb = mysql.connector.connect(
-            host=host,
-            user=user,
-            passwd=pwd,
-            database=db
-        )
-        return mydb
-    except Exception as e:
-        print(e)
-    
 def get_latest_execution_id(con):
-    cursorObj = con.cursor()
+    cursorObj = con.cursor
     cursorObj.execute("SELECT Execution_Id FROM TB_EXECUTION ORDER BY Execution_Id DESC LIMIT 1;")
     rows = cursorObj.fetchone()
     return rows[0]
 
 def update_execution_table(con, ocon, projectname, eid):
-    cursorObj = con.cursor()
-    rootCursorObj = ocon.cursor()
+    cursorObj = con.cursor
+    rootCursorObj = ocon.cursor
     # get pass, fail, skip test cases count by eid
     cursorObj.execute("SELECT COUNT(*) FROM TB_TEST WHERE Execution_Id=%s AND Test_Status='PASS';" % (eid))
     execution_rows = cursorObj.fetchone()
@@ -128,14 +126,14 @@ def update_execution_table(con, ocon, projectname, eid):
     return str(rows[0])
 
 def update_test_table(con, eid, test, status, duration, msg):
-    cursorObj = con.cursor()
+    cursorObj = con.cursor
     sql = """UPDATE TB_TEST SET Test_Status='%s', Test_Time='%s' WHERE Test_Name="%s" AND Execution_Id=%s""" % (str(status), str(duration), str(test), eid)
     cursorObj.execute(sql)
     # Skip commit to avoid load on db (commit once execution is done as part of close)
     # con.commit()
 
 def commit_and_close_db(db):
-    # cursorObj = db.cursor()
+    # cursorObj = db.cursor
     db.commit()
     # cursorObj.close()
     # db.close()

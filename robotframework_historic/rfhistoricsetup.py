@@ -1,14 +1,19 @@
-import mysql.connector
+from .dal.adaptors.mysql_adaptor import MySqlDb
 import logging
 
 def rfhistoric_setup(opts):
 
+    mysql_server_config = {
+        "host": opts.host,
+        "username": opts.username,
+        "password": opts.password
+    }
     # connect to database
     print("INFO: Connecting to dB")
-    mydb = connect_to_mysql(opts.host, opts.username, opts.password)
-
+    mydb = MySqlDb(**mysql_server_config)
+    mydb.connect()
     # create new user
-    obj = mydb.cursor()
+    obj = mydb.cursor
     print("INFO: Creating superuser with local access")
     try:
         obj.execute("CREATE USER IF NOT EXISTS 'superuser'@'localhost' IDENTIFIED BY 'passw0rd';")
@@ -36,41 +41,10 @@ def rfhistoric_setup(opts):
         print(str(e))
 
     print("INFO: Creating TB_PROJECT table")
-    rfdb = connect_to_mysql_db(opts.host, opts.username, opts.password, "robothistoric")
+    mydb.use_db("robothistoric")
     try:
-        rfobj = rfdb.cursor()
-        rfobj.execute("CREATE TABLE IF NOT EXISTS TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
+        mydb.cursor.execute("CREATE TABLE IF NOT EXISTS TB_PROJECT ( Project_Id INT NOT NULL auto_increment primary key, Project_Name TEXT, Project_Desc TEXT, Project_Image TEXT, Created_Date DATETIME, Last_Updated DATETIME, Total_Executions INT, Recent_Pass_Perc FLOAT, Overall_Pass_Perc FLOAT);")
     except Exception as e:
         print(str(e))
 
-    commit_and_close_db(mydb)
-
-def connect_to_mysql(host, user, pwd):
-    try:
-        mydb = mysql.connector.connect(
-            host=host,
-            user=user,
-            passwd=pwd
-        )
-        return mydb
-    except Exception as e:
-        print(e)
-
-def connect_to_mysql_db(host, user, pwd, db):
-    try:
-        mydb = mysql.connector.connect(
-            host=host,
-            user=user,
-            passwd=pwd,
-            database=db
-        )
-        return mydb
-    except Exception as e:
-        print(e)
-
-def use_db(cursor, db_name):
-    cursor.execute("USE %s;" % db_name)
-
-def commit_and_close_db(db):
-    db.commit()
-    db.close()
+    mydb.commit_close()

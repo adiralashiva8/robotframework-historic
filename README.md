@@ -1,6 +1,6 @@
 # robotframework-historic
 
-> MYSQL + Flask + Robotframework
+> MYSQL + FastAPI + Robotframework
 
 ![PyPI version](https://badge.fury.io/py/robotframework-historic.svg)
 [![Downloads](https://pepy.tech/badge/robotframework-historic)](https://pepy.tech/project/robotframework-historic)
@@ -18,7 +18,7 @@
 
 - Get execution details by __parsing__ output.xml
 - Store execution results in local / remote hosted __MySQL__ database
-- Generate html report from database using __Flask__
+- Generate html report from database using __FastAPI__ :zap:
 
   > <img src="https://i.ibb.co/PzVNGfN/robotframework-historic-overview.png" alt="robotframework-historic-overview">
 
@@ -34,13 +34,25 @@
 ### Installation
   > Following steps are one time activity
 
- - __Step 1:__ Download and Install MySQL Server - [guide](https://bit.ly/2GrUUZ9)
-
+ - __Step 1:__ Download and Install MySQL Server (follow any one of below approaches) 
+    > Case 1: Installing MySql DB in local - [guide](https://bit.ly/2GrUUZ9)
+    
+    > Case 2: Use the `docker-compose.yml` file to spin up mysql db in docker container.
+    
+    ```bash
+    # spin up mysql db     
+    docker-compose up
+    ```
+    ```bash
+    # shutdown mysql db
+    docker-compose down
+    ```
+        
  - __Step 2:__ Install robotframework-historic
 
     > Case 1: Using pip
     ```
-    pip install robotframework-historic==0.2.8
+    pip install robotframework-historic==0.2.10
     ```
 
     > Case 2: Using setup.py (root)

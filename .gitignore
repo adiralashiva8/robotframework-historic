@@ -129,5 +129,8 @@ dmypy.json
 .pyre/
 
 # robot
-.xml
-.html
+*.xml
+*.html
+
+# Pycharm
+.idea
