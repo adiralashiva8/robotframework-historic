@@ -65,6 +65,15 @@
                         </div>
                     </nav>
 
+                    <div class="col-12">                             
+                        <form method="post" class="card">
+                            <input id="textField" name="search" type="search" class="form-control header-search" placeholder="Search by Project">
+                            <span class="input-icon-addon">
+                                <i class="fe fe-search"></i>
+                            </span>
+                        </form>                      
+                    </div>
+                    
                     <div class="row row-cards row-deck">
                         {% for item in data %}
                             <div class="col-sm-6 col-xl-3">

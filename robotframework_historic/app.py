@@ -22,13 +22,21 @@ def redirect_url():
 def updatedb_url():
     return render_template('updatedb.html')
 
-@app.route('/home', methods=['GET'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-    cursor = mysql.connection.cursor()
-    use_db(cursor, "robothistoric")
-    cursor.execute("SELECT * FROM TB_PROJECT;")
-    data = cursor.fetchall()
-    return render_template('home.html', data=data)
+    if request.method == "POST":
+        search = request.form['search']
+        cursor = mysql.connection.cursor()
+        use_db(cursor, "robothistoric")
+        cursor.execute("SELECT * FROM TB_PROJECT WHERE Project_Name LIKE '{name}%';".format(name=search))
+        data = cursor.fetchall()
+        return render_template('home.html', data=data)
+    else:
+        cursor = mysql.connection.cursor()
+        use_db(cursor, "robothistoric")
+        cursor.execute("SELECT * FROM TB_PROJECT;")
+        data = cursor.fetchall()
+        return render_template('home.html', data=data)
 
 @app.route('/<db>/deldbconf', methods=['GET'])
 def delete_db_conf(db):
