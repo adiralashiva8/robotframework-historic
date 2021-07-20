@@ -80,7 +80,10 @@
 
  - __Step 2:__ Push execution results to project - [guide](https://bit.ly/35sSY09)
      > Facing mysql issue? try 
-     ```pip install mysql-connector-python```
+     ```
+     pip install mysql-connector-python
+     pip install PyMySQL
+    ```
 
  - __Step 3:__ Open robotframework-historic to view historical results
 
