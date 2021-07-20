@@ -79,6 +79,8 @@
  - __Step 1:__ Create project in robotframework-historic - [guide](https://bit.ly/38JskhS)
 
  - __Step 2:__ Push execution results to project - [guide](https://bit.ly/35sSY09)
+     > Facing mysql issue? try 
+     ```pip install mysql-connector-python```
 
  - __Step 3:__ Open robotframework-historic to view historical results
 
