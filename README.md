@@ -48,7 +48,7 @@
     python setup.py install
     ```
 
-    > Case 3: Using git (latest changes)
+    > Case 3: Using git (latest changes - prefer this)
     ```
     pip install git+https://github.com/adiralashiva8/robotframework-historic
     ```
