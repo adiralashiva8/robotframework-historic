@@ -1,0 +1,6 @@
+robotframework~=4.1
+config
+Flask~=2.0.2
+bcrypt~=3.2.0
+flask-mysqldb
+pytz~=2021.3
