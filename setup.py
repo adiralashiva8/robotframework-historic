@@ -12,7 +12,8 @@ setup(
       name='robotframework-historic',
       version=version.VERSION,
       description='Custom report to display robotframework historical execution records',
-      long_description='Robotframework Historic is custom report to display historical execution records using MySQL + Flask',
+      long_description='Robotframework Historic is custom report to display historical execution '
+                       'records using MySQL + Flask',
       classifiers=[
           'Framework :: Robot Framework',
           'Programming Language :: Python',
