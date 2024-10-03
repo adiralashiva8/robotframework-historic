@@ -18,6 +18,9 @@
   <a href="https://github.com/adiralashiva8/robotframework-historic/stargazers">
     <img src="https://img.shields.io/github/stars/adiralashiva8/robotframework-historic" alt="stars" />
   </a>
+  <a href="https://pypi.org/project/robotframework-historic/">
+    <img src="https://img.shields.io/pypi/dm/robotframework-historic.svg?logo=pypi&logoColor=aaaaaa&labelColor=333333" alt="downloads" />
+  </a>
   <a href="https://github.com/adiralashiva8/robotframework-historic/issues/">
     <img src="https://img.shields.io/github/issues/adiralashiva8/robotframework-historic" alt="open issues" />
   </a>
