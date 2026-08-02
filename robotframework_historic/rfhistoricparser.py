@@ -58,17 +58,11 @@ def rfhistoric_parser(opts):
         sskip = 0
 
     stats = result.statistics
-    try:
-        stats_obj = stats.total.all
-    except:
-        stats_obj = stats.total
+    stats_obj = getattr(stats.total, 'all', stats.total)
     total = stats_obj.total
     passed = stats_obj.passed
     failed = stats_obj.failed
-    try:
-        skipped = stats_obj.skipped
-    except:
-        skipped = 0
+    skipped = getattr(stats_obj, 'skipped', 0)
 
     elapsedtime = datetime.datetime(1970, 1, 1) + datetime.timedelta(milliseconds=result.suite.elapsedtime)
     elapsedtime = get_time_in_min(elapsedtime.strftime("%X"))
